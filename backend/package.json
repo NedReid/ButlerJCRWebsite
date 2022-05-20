@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "watch": "nodemon --watch src --exec \"node src/index\" --ext ."
+  },
+  "dependencies": {
+    "@seald-io/nedb": "^3.0.0",
+    "argon2": "^0.28.5",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.3",
+    "nodemailer": "^6.7.3",
+    "nodemon": "^2.0.12"
+  },
+  "type": "module",
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}
