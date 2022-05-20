@@ -14,6 +14,7 @@ const upload = multer({dest:'files/'});
 const auth = new AuthService();
 db.users = new Datastore({ filename: 'database/users.db', autoload: true });
 db.members = new Datastore({ filename: 'database/members.db', autoload: true });
+db.admins = new Datastore({ filename: 'database/admins.db', autoload: true });
 
 const app = express()
 const port = 3001;

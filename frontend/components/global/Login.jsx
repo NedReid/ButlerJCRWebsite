@@ -5,6 +5,7 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {username: '', password: ''};
     }
