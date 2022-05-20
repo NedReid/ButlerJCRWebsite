@@ -26,7 +26,7 @@ export const isLoggedIn =  async () => {
         console.log("a");
         return response.data;
     }
-    return false
+    return {username: false, admin:false}
 }
 
 export const logout = async () => {

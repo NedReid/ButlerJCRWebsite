@@ -11,15 +11,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5da3cf86-eae7-45d9-9f93-7b5b59d83ca1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/database/users.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/routes/authRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/authRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/App.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/components/global/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/global/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/global/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/global/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/assets/index.04bdb504.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/assets/index.17b69ab3.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/global/menuItems.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/global/menuItems.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/helpers/loginHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/helpers/loginHelper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +42,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend/src/routes" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -59,6 +56,7 @@
       <recent name="C:\Users\ned-r\WebstormProjects\react_jcr\backend\src\helpers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ned-r\WebstormProjects\ButlerJCRWebsite\backend\src\routes" />
       <recent name="C:\Users\ned-r\WebstormProjects\react_jcr\frontend\components\global" />
       <recent name="C:\Users\ned-r\WebstormProjects\react_jcr\frontend" />
       <recent name="C:\Users\ned-r\WebstormProjects\react_jcr" />
@@ -102,7 +100,7 @@
       <workItem from="1653050149666" duration="1179000" />
       <workItem from="1653051352715" duration="42000" />
       <workItem from="1653051407309" duration="74000" />
-      <workItem from="1653051780085" duration="7701000" />
+      <workItem from="1653051780085" duration="16510000" />
     </task>
     <servers />
   </component>
@@ -186,5 +184,9 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="93" y="100" width="1093" height="1207" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1648723076075" />
+    <state x="93" y="100" width="1046" height="1207" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1653072269956">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="93" y="100" width="1046" height="1207" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1653072269956" />
   </component>
 </project>
