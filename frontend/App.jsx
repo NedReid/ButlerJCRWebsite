@@ -13,20 +13,22 @@ import {
 class App extends React.Component {
     state = {
         loggedIn: "waiting",
-        admin:
+        admin: "waiting",
     }
 
 
 
     async componentDidMount(){
-        this.setState({loggedIn: await isLoggedIn()})
+        const ns = await isLoggedIn()
+        this.setState({admin:ns.admin, loggedIn: ns.username});
+        console.log(ns)
     }
 
     render() {
          return <Router>
              <div className="md:container md:mx-auto">
                  <div className="object-center">
-                     <Header />
+                     <Header admin={this.state.admin} />
                      <Routes>
                          <Route path="/" element={<Login loggedIn={this.state.loggedIn}></Login>}/>
 

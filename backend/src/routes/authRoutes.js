@@ -55,14 +55,26 @@ export const authRoutes = (app, auth, db) => {
         }
     });
 
-    app.get("/api/isLoggedIn", function(req, res) {
+    app.get("/api/isLoggedIn", async function(req, res) {
         console.log("checking");
         try {
-
-
             res.status(201);
             const webToken = auth.checkToken(req.cookies['loginToken']);
-            res.send(webToken.username);
+            const user = await db.users.findOneAsync({username: webToken.username});
+            const admin = await db.admins.findOneAsync({username: webToken.username});
+            let resp = {
+                username: false,
+                admin: false
+            }
+            if (user !== null) {
+                resp.username = webToken.username;
+            }
+            if (admin !== null)
+            {
+                resp.admin = admin;
+            }
+            console.log(resp);
+            res.send(resp);
         }
         catch {
             res.status(204);

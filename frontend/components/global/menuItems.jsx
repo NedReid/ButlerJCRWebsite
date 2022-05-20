@@ -1,14 +1,22 @@
 export const menuItems = [
     {
         title: "Home",
-        page:"/"
+        page:"/",
+        access: "all"
     },
     {
         title: "Get Involved",
-        page: "/get-involved"
+        page: "/get-involved",
+        access: "all"
     },
     {
         title: "About",
-        page: "about"
+        page: "about",
+        access: "all",
+    },
+    {
+        title: "Admin",
+        page: "admin",
+        access: "admin"
     }
 ];
