@@ -4,3 +4,4 @@
 /frontend/build
 /frontend/package-lock.json
 /backend/package-lock.json
+/backend/src/database/users.db
