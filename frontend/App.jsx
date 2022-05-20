@@ -3,10 +3,17 @@ import React from 'react';
 import Header from './components/global/Header'
 import Login from './components/global/Login'
 import {isLoggedIn} from './helpers/loginHelper';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link
+} from "react-router-dom";
 
 class App extends React.Component {
     state = {
-        loggedIn: "waiting"
+        loggedIn: "waiting",
+        admin:
     }
 
 
@@ -16,15 +23,19 @@ class App extends React.Component {
     }
 
     render() {
-         return <div className="md:container md:mx-auto">
-            <div className="object-center">
-                <Header />
+         return <Router>
+             <div className="md:container md:mx-auto">
+                 <div className="object-center">
+                     <Header />
+                     <Routes>
+                         <Route path="/" element={<Login loggedIn={this.state.loggedIn}></Login>}/>
 
-                <Login loggedIn={this.state.loggedIn}></Login>
+                     </Routes>
 
-        </div>
+                 </div>
 
-         </div>
+             </div>
+         </Router>
     }
 }
 

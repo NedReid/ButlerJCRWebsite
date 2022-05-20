@@ -19,13 +19,13 @@ export const sendVerificationMail = async (username, verificationToken) => {
                     <a>http://localhost:3001/api/verifyLogin/${verificationToken}</a>
                     <br>
                     <p>Many Thanks,</p>
-                    <p>Ned Reid</p>`;
+                    <p>Butler JCR</p>`;
 
     var message = {
         from: process.env.EMAILER_ADDRESS,
         to: process.env.TEST_EMAIL,
         // to: username + "@durham.ac.uk",
-        subject: "Bad Message",
+        subject: "❤💛 Verify your Butler JCR Account 💛❤",
         text: "You need to be able to view HTML to view this message.",
         html: htmlContent
     };

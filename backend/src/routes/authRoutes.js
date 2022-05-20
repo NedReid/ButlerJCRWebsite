@@ -1,7 +1,7 @@
 import argon2 from "argon2";
 import express from "express";
 import { sendVerificationMail } from '../helpers/emailer.js';
-export const authRoots = (app, auth, db) => {
+export const authRoutes = (app, auth, db) => {
 
     app.post("/api/register", async function(req, res) {
         console.log("adding account");
@@ -31,7 +31,7 @@ export const authRoots = (app, auth, db) => {
     app.post("/api/login", async function(req, res) {
         console.log("logging in");
         try {
-                const foundUser = await db.users.findOne({username: req.body.username});
+                const foundUser = await db.users.findOneAsync({username: req.body.username});
                 let ps = await argon2.verify(foundUser.password, req.body.password);
                 if (ps) {
                     console.log("successful login")

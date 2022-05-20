@@ -29,6 +29,7 @@ EMAILER_PASSWORD="p@ssw0rd_for_dat_Em@il"           // Password for this email (
 TEST_EMAIL="your_personal_email@some_email.com"     // Emails will be sent here rather than uni one
 SIGNATURE="v_random_key"                            // A 64-letter random key
 ESIGNATURE="another_v_random_key"                   // A differerent 64-letter random key
+ADMIN_USER="abcd12"                                 // Username with full admin access
 ```
 You can generate a random alphanumeric key from a site like https://www.grc.com/passwords.htm.
 

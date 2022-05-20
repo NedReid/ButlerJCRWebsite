@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import path from "path";
 import { dirname } from 'path';
@@ -7,8 +8,8 @@ import multer from 'multer';
 import argon2 from 'argon2';
 import { AuthService } from './helpers/authHelper.js';
 import cookieParser from 'cookie-parser';
-import { authRoots } from "./routes/authRoutes.js";
-import "dotenv/config";
+import { authRoutes } from "./routes/authRoutes.js";
+import { adminRoutes } from "./routes/adminRoutes.js";
 const db = {}
 const upload = multer({dest:'files/'});
 const auth = new AuthService();
@@ -24,8 +25,8 @@ app.use(cookieParser());
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 app.use("/media", express.static(path.join(__dirname, '../media')));
-authRoots(app, auth, db);
-
+authRoutes(app, auth, db);
+await adminRoutes(app, auth, db);
 
 
 // app.get('/', (req, res) => {

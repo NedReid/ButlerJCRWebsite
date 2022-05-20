@@ -1,11 +1,14 @@
 export const menuItems = [
     {
-        title: "Home"
+        title: "Home",
+        page:"/"
     },
     {
-        title: "Services"
+        title: "Get Involved",
+        page: "/get-involved"
     },
     {
-        title: "About"
+        title: "About",
+        page: "about"
     }
 ];
