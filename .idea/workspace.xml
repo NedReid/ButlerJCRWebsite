@@ -11,9 +11,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5da3cf86-eae7-45d9-9f93-7b5b59d83ca1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/components/admin/Admin.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/admin/CreateEvent.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/admin/Events.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/global/TextEditor.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/helpers/adminHelper.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/models/eventModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/models/selectionModeEnum.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/routes/adminRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/adminRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/global/LoginBlock.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/global/Register.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/assets/index.382b5c41.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/assets/index.fdf48d33.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vite.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +57,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend/src/routes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/components/global" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -53,10 +71,11 @@
       <recent name="C:\Users\ned-r\WebstormProjects\react_jcr\backend\src\helpers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ned-r\WebstormProjects\ButlerJCRWebsite\frontend\components\global" />
+      <recent name="C:\Users\ned-r\WebstormProjects\ButlerJCRWebsite\frontend\models" />
+      <recent name="C:\Users\ned-r\WebstormProjects\ButlerJCRWebsite\frontend\components\admin" />
+      <recent name="C:\Users\ned-r\WebstormProjects\ButlerJCRWebsite\frontend\helpers" />
       <recent name="C:\Users\ned-r\WebstormProjects\ButlerJCRWebsite\backend\src\routes" />
-      <recent name="C:\Users\ned-r\WebstormProjects\react_jcr\frontend\components\global" />
-      <recent name="C:\Users\ned-r\WebstormProjects\react_jcr\frontend" />
-      <recent name="C:\Users\ned-r\WebstormProjects\react_jcr" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.emailer.js">
@@ -185,5 +204,9 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="93" y="100" width="1046" height="1207" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1653072269956" />
+    <state x="457" y="618" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1653138319459">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="457" y="618" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1653138319459" />
   </component>
 </project>

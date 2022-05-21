@@ -41,7 +41,7 @@ export const adminRoutes = async (app, auth, db) => {
     app.post("/api/admin/updateEvent", async function(req, res) {
         if(res.locals.adminUser.events === true) {
             await db.events.updateAsync(req.body);
-            res.status(201);
+            res.status(200);
             res.send();
         }
         else {

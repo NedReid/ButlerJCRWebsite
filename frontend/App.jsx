@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Header from './components/global/Header'
-import Login from './components/global/Login'
+import Header from './components/global/Header';
+import Login from './components/global/Login';
+import Admin from './components/admin/Admin';
 import {isLoggedIn} from './helpers/loginHelper';
 import {
     BrowserRouter as Router,
@@ -29,8 +30,9 @@ class App extends React.Component {
              <div className="md:container md:mx-auto">
                  <div className="object-center">
                      <Header admin={this.state.admin} />
+                     <Login loggedIn={this.state.loggedIn}/>
                      <Routes>
-                         <Route path="/" element={<Login loggedIn={this.state.loggedIn}></Login>}/>
+                         <Route path="/admin" element={<Admin admin={this.state.admin} />}/>
 
                      </Routes>
 

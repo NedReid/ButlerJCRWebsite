@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .small-btn {
+        @apply bg-amber-400 rounded p-1 transition hover:bg-amber-600
+    }
+}
