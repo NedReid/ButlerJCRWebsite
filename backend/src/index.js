@@ -29,6 +29,9 @@ app.use("/media", express.static(path.join(__dirname, '../media')));
 authRoutes(app, auth, db);
 await adminRoutes(app, auth, db);
 
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
+});
 
 // app.get('/', (req, res) => {
 //     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');

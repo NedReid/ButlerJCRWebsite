@@ -50,5 +50,17 @@ export const adminRoutes = async (app, auth, db) => {
         }
     });
 
+    app.get("/api/admin/getEvents", async function(req, res) {
+        if(res.locals.adminUser.events === true) {
+            const events = await db.events.getAllData();
+            res.status(200);
+            res.send(events);
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
 }
 
