@@ -16,6 +16,7 @@ const auth = new AuthService();
 db.users = new Datastore({ filename: 'database/users.db', autoload: true });
 db.members = new Datastore({ filename: 'database/members.db', autoload: true });
 db.admins = new Datastore({ filename: 'database/admins.db', autoload: true });
+db.events = new Datastore({ filename: 'database/events.db', autoload: true });
 
 const app = express()
 const port = 3001;
@@ -28,6 +29,9 @@ app.use("/media", express.static(path.join(__dirname, '../media')));
 authRoutes(app, auth, db);
 await adminRoutes(app, auth, db);
 
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
+});
 
 // app.get('/', (req, res) => {
 //     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
