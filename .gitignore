@@ -5,3 +5,5 @@
 /frontend/package-lock.json
 /backend/package-lock.json
 /backend/database/users.db
+/.idea
+/frontend/dist

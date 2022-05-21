@@ -11,12 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5da3cf86-eae7-45d9-9f93-7b5b59d83ca1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/routes/authRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/authRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/global/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/global/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/global/menuItems.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/global/menuItems.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/helpers/loginHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/helpers/loginHelper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +96,7 @@
       <workItem from="1653050149666" duration="1179000" />
       <workItem from="1653051352715" duration="42000" />
       <workItem from="1653051407309" duration="74000" />
-      <workItem from="1653051780085" duration="16510000" />
+      <workItem from="1653051780085" duration="17277000" />
     </task>
     <servers />
   </component>
