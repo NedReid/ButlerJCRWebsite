@@ -10,4 +10,6 @@ module.exports = {
             'raleway': ['raleway', 'sans-serif'],
         },
     },
+    plugins: [require("daisyui")],
+
 };

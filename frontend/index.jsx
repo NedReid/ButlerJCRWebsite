@@ -4,6 +4,7 @@ import App from './App';
 import './index.css';
 import 'alpinejs';
 
+
 const root = ReactDomClient.createRoot(
     document.getElementById('root')
 );
