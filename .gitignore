@@ -7,3 +7,5 @@
 /backend/database/users.db
 /frontend/dist/
 /.idea/
+
+backend/database/

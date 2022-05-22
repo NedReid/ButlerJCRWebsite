@@ -1,18 +1,21 @@
 import React from "react";
-import {createEvent} from '../../helpers/adminHelper';
+import {createEvent, updateEvent} from '../../helpers/adminHelper';
 import eventModel from '../../models/eventModel';
 import { selectionModeEnum } from "../../models/selectionModeEnum";
 import DateTimePicker from 'react-datetime-picker';
 import TextEditor from '../global/TextEditor';
 
-class Events extends React.Component {
+class CreateEditEvent extends React.Component {
     constructor(props) {
 
         super(props);
         this.state = {event: new eventModel()};
-
-
-
+        if (props.event !== undefined) {
+            console.log("notnull")
+            this.state = {event: new eventModel(props.event)}
+            console.log(this.state.event);
+        }
+        console.log(this.state.event.name)
     }
 
     handleChange = (event) => {
@@ -38,7 +41,12 @@ class Events extends React.Component {
         this.state.event.groupSizes[event.target.value] = !this.state.event.groupSizes[event.target.value];
     }
     submitButton = async (event) => {
-        await createEvent(this.state.event);
+        if (this.props.event !== undefined) {
+            await updateEvent(this.state.event);
+        }
+        else {
+            await createEvent(this.state.event);
+        }
         this.props.closeTab();
     }
 
@@ -128,4 +136,4 @@ class Events extends React.Component {
 
 }
 
-export default Events;
+export default CreateEditEvent;

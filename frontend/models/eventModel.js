@@ -9,9 +9,10 @@ export default class eventModel {
     groupSizes = {1:false,2:false,3:false,4:false,5:false,6:false,8:false,10:false,12:false};
     desc = "<p></p>";
     visible = false
+    _id = undefined
 
     constructor(init = undefined) {
-        if(!!init) {
+        if(init !== undefined) {
             this.name = init.name;
             this.ticketReleaseDate = init.ticketReleaseDate;
             this.ticketReleaseDeadline = init.ticketReleaseDeadline;
@@ -20,6 +21,7 @@ export default class eventModel {
             this.groupSizes = init.groupSizes;
             this.desc = init.desc;
             this.visible = init.visible;
+            this._id = init._id;
         }
 
     }

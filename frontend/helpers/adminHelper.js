@@ -17,7 +17,7 @@ export const createEvent =  async (event) => {
 }
 
 export const updateEvent =  async (event) => {
-    const response = await axios.post("/api/admin/updateEvents", event);
+    const response = await axios.post("/api/admin/updateEvent", event);
     if (response.status === 200)
     {
         return response.data;
