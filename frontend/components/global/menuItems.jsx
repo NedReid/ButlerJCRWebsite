@@ -15,6 +15,11 @@ export const menuItems = [
         access: "all",
     },
     {
+        title: "Members",
+        page: "events",
+        access: "members"
+    },
+    {
         title: "Admin",
         page: "admin",
         access: "admin"

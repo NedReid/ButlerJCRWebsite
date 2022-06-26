@@ -31,6 +31,13 @@ class Events extends React.Component {
         this.setState({events: events});
     }
 
+    onCreated = async () => {
+        this.setState({addingEvent: false});
+        this.setState({events: []})
+        const events = await getEvents()
+        this.setState({events: events});
+    }
+
     render() {
         return <div className="my-2 p-2 rounded border-2 border-amber-500">
             {this.state.addingEvent === false &&
@@ -38,7 +45,7 @@ class Events extends React.Component {
             }
             {this.state.addingEvent === true && <>
                 <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={() => {this.setState({addingEvent: false})}}>Cancel</button>
-                <CreateEditEvent closeTab={() => this.setState({addingEvent: false})}/>
+                <CreateEditEvent closeTab={this.onCreated}/>
             </>}
             <br/>
             {this.state.events.length > 0 && <>
@@ -55,7 +62,7 @@ class Events extends React.Component {
                 </select>
                 {this.state.events.map((event, index) =>{
                     if(event === this.state.currentEvent) {
-                        return <CreateEditEvent closeTab={this.onUpdated} id={index} event={this.state.currentEvent}/>
+                        return <CreateEditEvent closeTab={this.onUpdated} key={index} event={this.state.currentEvent}/>
                     }
                 })}
             </>

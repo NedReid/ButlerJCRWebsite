@@ -17,6 +17,8 @@ db.users = new Datastore({ filename: 'database/users.db', autoload: true });
 db.members = new Datastore({ filename: 'database/members.db', autoload: true });
 db.admins = new Datastore({ filename: 'database/admins.db', autoload: true });
 db.events = new Datastore({ filename: 'database/events.db', autoload: true });
+db.eventBooking = new Datastore({ filename: 'database/eventBooking.db', autoload: true });
+db.eventBookingPerson = new Datastore({ filename: 'database/events.db', autoload: true });
 
 const app = express()
 const port = 3001;

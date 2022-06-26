@@ -14,6 +14,7 @@ import {
 class App extends React.Component {
     state = {
         loggedIn: "waiting",
+        verified: "waiting",
         admin: "waiting",
     }
 
@@ -21,7 +22,7 @@ class App extends React.Component {
 
     async componentDidMount(){
         const ns = await isLoggedIn()
-        this.setState({admin:ns.admin, loggedIn: ns.username});
+        this.setState({admin:ns.admin, verified: ns.verified, loggedIn: ns.username});
         console.log(ns)
     }
 
@@ -33,6 +34,7 @@ class App extends React.Component {
                      <Login loggedIn={this.state.loggedIn}/>
                      <Routes>
                          <Route path="/admin" element={<Admin admin={this.state.admin} />}/>
+                         <Route path="/members" element={<Members admin={this.state.verified} />}/>
 
                      </Routes>
 

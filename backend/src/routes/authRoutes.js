@@ -64,10 +64,12 @@ export const authRoutes = (app, auth, db) => {
             const admin = await db.admins.findOneAsync({username: webToken.username});
             let resp = {
                 username: false,
+                verified: false,
                 admin: false
             }
             if (user !== null) {
                 resp.username = webToken.username;
+                resp.verified = (user.verified === true);
             }
             if (admin !== null)
             {
