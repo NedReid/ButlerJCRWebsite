@@ -69,7 +69,7 @@ export const authRoutes = (app, auth, db) => {
             }
             if (user !== null) {
                 resp.username = webToken.username;
-                resp.verified = (user.verified === true);
+                resp.verified = (user.registered === true);
             }
             if (admin !== null)
             {

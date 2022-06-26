@@ -22,7 +22,8 @@ class Header extends React.Component {
                                 {menuItems.map((menu, index) => {
                                     return (
                                         <li className="menu-items" key={index}>
-                                            { (menu.access === "all" || (menu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")) &&
+                                            { (menu.access === "all" || (menu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
+                                                                     || (menu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
                                                 <Link to={menu.page} className="p-3 bg-red-500 transition ease-out hover:scale-110 duration-300">{menu.title} </Link>
                                             }
                                         </li>

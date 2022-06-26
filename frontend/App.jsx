@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './components/global/Header';
 import Login from './components/global/Login';
 import Admin from './components/admin/Admin';
+import Students from './components/students/Students';
 import {isLoggedIn} from './helpers/loginHelper';
 import {
     BrowserRouter as Router,
@@ -30,11 +31,11 @@ class App extends React.Component {
          return <Router>
              <div className="md:container md:mx-auto">
                  <div className="object-center">
-                     <Header admin={this.state.admin} />
+                     <Header admin={this.state.admin} verified ={this.state.verified} />
                      <Login loggedIn={this.state.loggedIn}/>
                      <Routes>
                          <Route path="/admin" element={<Admin admin={this.state.admin} />}/>
-                         <Route path="/members" element={<Members admin={this.state.verified} />}/>
+                         <Route path="/students" element={<Students verified={this.state.verified} />}/>
 
                      </Routes>
 

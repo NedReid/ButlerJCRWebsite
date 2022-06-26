@@ -24,8 +24,9 @@ const app = express()
 const port = 3001;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+
 app.use(cookieParser());
-app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.json({limit: '150mb'}));       // to support JSON-encoded bodies
 app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 app.use("/media", express.static(path.join(__dirname, '../media')));
 authRoutes(app, auth, db);
