@@ -83,7 +83,7 @@ export default function TextEditor(props) {
     });
 
     return (
-        <>
+        <div>
             <StaticMenu
                 editor={editor}
                 // We have a render prop to allow for updating
@@ -120,6 +120,6 @@ export default function TextEditor(props) {
                 )}
             />
             <BangleEditor state={editorState} onReady={setEditor} />
-        </>
+        </div>
     );
 }

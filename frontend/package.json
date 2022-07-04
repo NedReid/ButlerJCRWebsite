@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev": "vite",
-    "watch": "vite build --watch",
+    "watch-dev": "vite build --watch --minify false --mode development",
+    "watch": "vite build --watch --minify false",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -27,10 +28,12 @@
     "axios": "^0.26.1",
     "browser-image-compression": "^2.0.0",
     "daisyui": "^2.15.0",
+    "html-react-parser": "^2.0.0",
     "react": "^18.1.0",
     "react-datetime-picker": "^3.5.0",
     "react-dom": "^18.1.0",
     "react-editor-js": "^2.0.6",
+    "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "react-trix": "^0.10.0",
     "slate": "^0.78.0",

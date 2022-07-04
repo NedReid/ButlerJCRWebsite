@@ -10,6 +10,7 @@ import { AuthService } from './helpers/authHelper.js';
 import cookieParser from 'cookie-parser';
 import { authRoutes } from "./routes/authRoutes.js";
 import { adminRoutes } from "./routes/adminRoutes.js";
+import { studentRoutes } from "./routes/studentRoutes.js";
 const db = {}
 const upload = multer({dest:'files/'});
 const auth = new AuthService();
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 app.use("/media", express.static(path.join(__dirname, '../media')));
 authRoutes(app, auth, db);
 await adminRoutes(app, auth, db);
+await studentRoutes(app, auth, db);
 
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));

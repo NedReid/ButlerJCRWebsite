@@ -8,6 +8,7 @@ import {Readable} from 'stream';
 
 export const parseRichText =  async (text, id, db) => {
     // console.log(text);
+
     let num_im = 0
     while(text.indexOf('<img src="data:image') >=  0) {
         let im_start = text.indexOf('<img src="data:image') + 10;

@@ -7,6 +7,7 @@ export class AuthService {
     }
 
 
+
     generateToken(user) {
 
         const data =  {

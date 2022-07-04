@@ -16,7 +16,7 @@ export const menuItems = [
     },
     {
         title: "Students",
-        page: "students",
+        page: "students/events",
         access: "verified"
     },
     {

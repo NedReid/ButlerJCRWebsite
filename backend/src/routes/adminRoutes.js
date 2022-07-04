@@ -63,9 +63,8 @@ export const adminRoutes = async (app, auth, db) => {
                 // console.log(ev.desc);
                 console.log("beans")
                 if (typeof ev.desc === 'string' || ev.desc instanceof String) {
-                    console.log("ontoast")
-                    const txxt = await retrieveRichText(ev.desc, "events");
-                    ev.desc = txxt
+                    console.log("ontoast");
+                    ev.desc = await retrieveRichText(ev.desc, "events");
 
                 }
                 // console.log(ev);

@@ -51,8 +51,8 @@ class Events extends React.Component {
             {this.state.events.length > 0 && <>
                 Edit Current Events:
                 <br/>
-                <select onChange={this.editEvent} className="select select-bordered w-full max-w-xs">
-                    <option value="" selected>Select Event</option>
+                <select defaultValue="" onChange={this.editEvent} className="select select-bordered w-full max-w-xs">
+                    <option value="">Select Event</option>
                     {this.state.events.map((event, index) => {
                         return (
                             <option value={event._id} key={index}>{event.name}</option>
@@ -67,6 +67,10 @@ class Events extends React.Component {
                 })}
             </>
             }
+
+            <div className="text-2xl text-semibold text-black text-xl text-lg list-disc list-decimal bg-slate-200 ml-1 px-2 py-1">
+
+            </div>
 
         </div>
 

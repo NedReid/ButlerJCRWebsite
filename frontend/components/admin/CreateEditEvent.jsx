@@ -87,14 +87,14 @@ class CreateEditEvent extends React.Component {
             </label>
 
             <label> Event Ticket Release Date:
-                <DateTimePicker disableCalendar="true" disableClock="true" className="ml-2 mb-2"
+                <DateTimePicker disableCalendar={true} disableClock={true} className="ml-2 mb-2"
                     minDate={new Date(2000,1)} maxDate={new Date(3000,1)}
                     name="ticketReleaseDate" value={this.state.event.ticketReleaseDate} onChange={this.handleDateStartChange}
                 />
             </label>
 
             <label> Event Ticket Release Deadline:
-                <DateTimePicker disableCalendar="true" disableClock="true" className="ml-2 mb-2"
+                <DateTimePicker disableCalendar={true} disableClock={true} className="ml-2 mb-2"
                     minDate={new Date(2000,1)} maxDate={new Date(3000,1)}
                     name="ticketReleaseDeadline" value={this.state.event.ticketReleaseDeadline} onChange={this.handleDateEndChange}
                 />
@@ -156,6 +156,7 @@ class CreateEditEvent extends React.Component {
             <label> Event Description:</label>
             <div className="p-1 rounded border-2 border-slate-500">
                 <TextEditor initialValue={this.state.event.desc} onUpdate={this.handleDesc} />
+
             </div>
 
             {this.state.event.questions.map((question, index) =>{
