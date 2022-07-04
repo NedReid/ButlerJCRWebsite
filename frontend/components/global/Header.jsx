@@ -18,13 +18,13 @@ class Header extends React.Component {
                     <div>
                         <div className="flex-grow text-4xl text-white font-raleway">Josephine Butler College JCR</div>
                         <div className="mt-4">
-                            <ul className="flex">
+                            <ul className="menu menu-horizontal">
                                 {menuItems.map((menu, index) => {
                                     return (
                                         <li className="menu-items" key={index}>
                                             { (menu.access === "all" || (menu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
                                                                      || (menu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
-                                                <Link to={menu.page} className="p-3 bg-red-500 transition ease-out hover:scale-110 duration-300">{menu.title} </Link>
+                                                <Link to={menu.page} className="p-3 bg-red-500 transition ease-out hover:scale-110 hover:z-50 hover:bg-red-600 duration-300">{menu.title} </Link>
                                             }
                                         </li>
                                     );

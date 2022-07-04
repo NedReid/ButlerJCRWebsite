@@ -55,7 +55,18 @@ class BookEvent extends React.Component {
     // }
     //
     handleGroupSize = (event) => {
-        this.state.eventBooking.groupSize = event.target.value;
+        const gs = parseInt(event.target.value);
+
+        this.state.eventBooking.groupSize = gs;
+        while (gs > this.state.eventBooking.individualAnswers.length) {
+            this.state.eventBooking.individualAnswers.push(new individualAnswerModel());
+        }
+        while (gs < this.state.eventBooking.individualAnswers.length) {
+            this.state.eventBooking.individualAnswers.pop();
+        }
+        console.log(this.state.eventBooking.individualAnswers);
+        this.forceUpdate()
+
     }
     //
     // addQuestion = (event) => {
@@ -92,7 +103,8 @@ class BookEvent extends React.Component {
         if (this.state.event !== undefined && this.state.event.groupSizes !== undefined) {
             console.log("RENDERING")
             return <>
-                <div className="my-2 p-2 rounded border-2 border-amber-500 flex flex-col">
+                <div className="my-2 rounded border-2 border-amber-500 flex flex-col">
+                    <div className=" collapse-title text-3xl font-semibold">Book: {this.state.event.name}</div>
                     <label>Number of people:</label>
                     <span>
                     {this.state.event.groupSizes["1"] && <label><input name="groupSize" onChange={this.handleGroupSize}
@@ -139,8 +151,8 @@ class BookEvent extends React.Component {
                                                        type="radio"
                                                        defaultChecked={this.state.eventBooking.groupSize === 12}
                                                        value={12}/>12</label>}
-                </span>
-
+                    </span>
+                    {}
                     Well, while you're here! Hope you like BEANS
                     {/*    <label> Event Name:*/}
                     {/*        <input className=" ml-2 mb-2 rounded border-2 border-slate-500"*/}
@@ -194,15 +206,14 @@ class BookEvent extends React.Component {
                     {/*        <TextEditor initialValue={this.state.event.desc} onUpdate={this.handleDesc} />*/}
                     {/*    </div>*/}
 
-                    {/*    {this.state.event.questions.map((question, index) =>{*/}
-                    {/*            return <div>*/}
-                    {/*                <CreateEditQuestion key={question.id} qu={question} _id={this.state.event._id}/>*/}
-                    {/*                <button className="bg-amber-300 rounded p-1 transition hover:bg-amber-600" onClick={(event) => this.removeQuestion(index, event)}>Remove Question</button>*/}
-                    {/*            </div>*/}
-                    {/*    })}*/}
-                    {/*    <div>*/}
-                    {/*        fdfs*/}
-                    {/*    </div>*/}
+                        {this.state.eventBooking.individualAnswers.map((individualAnswer, index) =>{
+                                return <div>
+                                    
+                                    gfgdfgd
+                                    Person {index + 1}
+                                </div>
+                        })}
+
 
                     {/*    <button className="bg-amber-300 rounded p-1 transition hover:bg-amber-600" onClick={this.addQuestion}>Add Question</button>*/}
 
