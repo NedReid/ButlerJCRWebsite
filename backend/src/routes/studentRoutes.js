@@ -38,5 +38,12 @@ export const studentRoutes = async (app, auth, db) => {
             res.send(events);
     });
 
+    app.post("/api/students/createEventBooking", async function(req, res) {
+        await db.eventBooking.insertAsync(req.body);
+        res.status(201);
+        res.send();
+    });
+
+
 }
 

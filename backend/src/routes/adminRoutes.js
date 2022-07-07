@@ -31,8 +31,11 @@ export const adminRoutes = async (app, auth, db) => {
 
     app.post("/api/admin/createEvent", async function(req, res) {
         if(res.locals.adminUser.events === true) {
-            req.body.desc = await parseRichText(req.body.desc, req.body._id, "events");
-            await db.events.insertAsync(req.body);
+            const desc = req.body.desc
+            req.body.desc = "placeholder"
+            let newEvent = await db.events.insertAsync(req.body);
+            newEvent.desc = await parseRichText(desc, newEvent._id, "events");
+            await db.events.updateAsync({_id: newEvent._id}, newEvent);
             res.status(201);
             res.send();
         }

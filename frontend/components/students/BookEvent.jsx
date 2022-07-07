@@ -9,7 +9,7 @@ import TextEditor from '../global/TextEditor';
 import questionModel from "../../models/questionModel";
 import individualAnswerModel from "../../models/individualAnswerModel";
 import eventBookingModel from "../../models/eventBookingModel";
-import {getEvents} from "../../helpers/studentHelper";
+import {getEvents, createEventBooking} from "../../helpers/studentHelper";
 import Loading from "../global/Loading";
 
 class BookEvent extends React.Component {
@@ -17,7 +17,7 @@ class BookEvent extends React.Component {
 
         super(props);
         let eventId = this.props.params["id"].substring(1);
-        this.state = {eventBooking: new eventBookingModel(), eventId: eventId};
+        this.state = {eventBooking: new eventBookingModel(), eventId: eventId, completed: false, loading:false};
         console.log(this.props.params)
         console.log(this.state.eventId);
         // console.log(this.state.event.name)
@@ -92,15 +92,15 @@ class BookEvent extends React.Component {
     // }
     //
     submitEventBooking = async (event) => {
-        await createEventBooking(this.state.event);
-        console.log(this.props.closeTab);
-        this.props.closeTab();
-        console.log("closedTab")
+        this.setState({loading:true})
+        await createEventBooking(this.state.eventBooking);
+        this.setState({completed:true})
+        this.setState({loading:false})
     }
 
 
     render() {
-        if (this.state.event !== undefined && this.state.event.groupSizes !== undefined) {
+        if (this.state.event !== undefined && this.state.event.groupSizes !== undefined && !this.state.completed && !this.state.loading) {
             console.log("RENDERING")
             return <>
                 <div className="px-4 my-2 rounded border-2 border-amber-500 flex flex-col">
@@ -203,6 +203,11 @@ class BookEvent extends React.Component {
                 </div>
                 <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitEventBooking}>Submit Booking</button>
             </>
+        }
+        else if (this.state.completed) {
+            return <div>
+                Your booking is confirmed
+            </div>
         }
         else {
             return <Loading></Loading>

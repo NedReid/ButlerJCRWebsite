@@ -18,18 +18,6 @@ export const userRoutes = async (app, auth, db) => {
         }
     });
 
-    app.post("/api/user/createEventBooking", async function(req, res) {
-        if(res.locals.adminUser.events === true) {
-            await db.events.insertAsync(req.body);
-            res.status(201);
-            res.send();
-        }
-        else {
-            res.status(401);
-            res.send();
-        }
-    });
-
 
 }
 
