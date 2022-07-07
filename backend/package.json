@@ -5,14 +5,22 @@
   "dependencies": {
     "@seald-io/nedb": "^3.0.0",
     "argon2": "^0.28.5",
+    "b64-to-blob": "^1.2.19",
+    "compress-base64": "^1.0.2",
+    "compress-images": "^2.0.5",
+    "compressorjs": "^1.1.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "image-conversion": "^2.1.1",
+    "imagemin": "^8.0.1",
+    "jimp": "^0.16.1",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.3",
     "nodemailer": "^6.7.3",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "pngjs": "^6.0.0"
   },
   "type": "module",
   "devDependencies": {

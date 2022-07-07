@@ -4,6 +4,8 @@ import eventModel from '../../models/eventModel';
 import { selectionModeEnum } from "../../models/selectionModeEnum";
 import DateTimePicker from 'react-datetime-picker';
 import TextEditor from '../global/TextEditor';
+import CreateEditQuestion from './CreateEditQuestion';
+import questionModel from "../../models/questionModel";
 
 class CreateEditEvent extends React.Component {
     constructor(props) {
@@ -12,18 +14,22 @@ class CreateEditEvent extends React.Component {
         this.state = {event: new eventModel()};
         if (props.event !== undefined) {
             console.log("notnull")
-            this.state = {event: new eventModel(props.event)}
+            this.state = {event: props.event}
             console.log(this.state.event);
         }
         console.log(this.state.event.name)
     }
 
-    handleChange = (event) => {
-        this.state.event[event.target.name] = event.target.value;
+    handleChange = (event, type) => {
+        this.state.event[type] = event.target.value;
         console.log(this.state.event)
     }
-    handleNumChange= (event) => {
-        this.state.event[event.target.name] = parseInt(event.target.value);
+    handleNumChange= (event, type) => {
+        this.state.event[type] = parseInt(event.target.value);
+        console.log(this.state.event)
+    }
+    handleBoolChange= (event, type) => {
+        this.state.event[type] = (event.target.value === 'true');
         console.log(this.state.event)
     }
     handleDateStartChange = (event) => {
@@ -40,6 +46,24 @@ class CreateEditEvent extends React.Component {
     handleGroupSize = (event) => {
         this.state.event.groupSizes[event.target.value] = !this.state.event.groupSizes[event.target.value];
     }
+
+    addQuestion = (event) => {
+        console.log("adding q")
+        this.state.event.questions.push(new questionModel());
+        let maxId = Math.max(...this.state.event.questions.map(r => r.id));
+        this.state.event.questions[this.state.event.questions.length - 1].id = maxId + 1;
+        // this.setState({event: new eventModel(this.state.event)});
+        this.forceUpdate()
+    }
+
+    removeQuestion = (id, event) => {
+        console.log("removing q")
+        this.state.event.questions.splice(id, 1);
+        // this.setState({event: new eventModel(this.state.event)});
+        this.forceUpdate()
+
+    }
+
     submitButton = async (event) => {
         if (this.props.event !== undefined) {
             await updateEvent(this.state.event);
@@ -47,27 +71,30 @@ class CreateEditEvent extends React.Component {
         else {
             await createEvent(this.state.event);
         }
+        console.log(this.props.closeTab);
         this.props.closeTab();
+        console.log("closedTab")
     }
 
 
     render() {
+        console.log("RENDERING")
         return <> <div className="my-2 p-2 rounded border-2 border-amber-500 flex flex-col">
 
             <label> Event Name:
                 <input className=" ml-2 mb-2 rounded border-2 border-slate-500"
-                    name="name" type="text" defaultValue={this.state.event.name} onChange={this.handleChange}/>
+                    name="name" type="text" defaultValue={this.state.event.name} onChange={(event) => this.handleChange(event, "name")}/>
             </label>
 
             <label> Event Ticket Release Date:
-                <DateTimePicker disableCalendar="true" disableClock="true" className="ml-2 mb-2"
+                <DateTimePicker disableCalendar={true} disableClock={true} className="ml-2 mb-2"
                     minDate={new Date(2000,1)} maxDate={new Date(3000,1)}
                     name="ticketReleaseDate" value={this.state.event.ticketReleaseDate} onChange={this.handleDateStartChange}
                 />
             </label>
 
             <label> Event Ticket Release Deadline:
-                <DateTimePicker disableCalendar="true" disableClock="true" className="ml-2 mb-2"
+                <DateTimePicker disableCalendar={true} disableClock={true} className="ml-2 mb-2"
                     minDate={new Date(2000,1)} maxDate={new Date(3000,1)}
                     name="ticketReleaseDeadline" value={this.state.event.ticketReleaseDeadline} onChange={this.handleDateEndChange}
                 />
@@ -75,15 +102,15 @@ class CreateEditEvent extends React.Component {
 
             <label> Ticket Selection Mode:</label>
             <span>
-                <label><input defaultChecked={this.state.event.selectionMode === selectionModeEnum.firstComeFirstServe}  onChange={this.handleChange} type="radio" id="ts1" name="selectionMode" value={selectionModeEnum.firstComeFirstServe}/>
+                <label><input defaultChecked={this.state.event.selectionMode === selectionModeEnum.firstComeFirstServe}  onChange={(event) => this.handleNumChange(event, "selectionMode")} type="radio" id="ts1" name={this.state.event._id + "selectionMode"} value={selectionModeEnum.firstComeFirstServe}/>
                 First Come First Serve</label>
-                <label className="ml-2"><input defaultChecked={this.state.event.selectionMode === selectionModeEnum.random} onChange={this.handleChange} type="radio" id="ts2" name="selectionMode" value={selectionModeEnum.random}/>
+                <label className="ml-2"><input defaultChecked={this.state.event.selectionMode === selectionModeEnum.random} onChange={(event) => this.handleNumChange(event, "selectionMode")} type="radio" id="ts2" name={this.state.event._id + "selectionMode"} value={selectionModeEnum.random}/>
                 Random</label>
             </span>
 
             <label> Number of tickets:
                 <input className=" ml-2 mb-2 rounded border-2 border-slate-500" name="noTickets"
-                       type="number" defaultValue={this.state.event.noTickets} onChange={this.handleNumChange}
+                       type="number" defaultValue={this.state.event.noTickets} onChange={(event) => this.handleNumChange(event, "noTickets")}
                     onKeyPress={(event) => {
                         if (!/[0-9]/.test(event.key)) {
                             event.preventDefault();
@@ -94,9 +121,9 @@ class CreateEditEvent extends React.Component {
 
             <label> Visible:</label>
             <span>
-                <label><input defaultChecked={this.state.event.visible === false}  onChange={this.handleChange} type="radio" name="visible" value={false}/>
+                <label><input defaultChecked={this.state.event.visible === false}  onChange={(event) => this.handleBoolChange(event, "visible")} type="radio" name={this.state.event._id + "visible"} value={false}/>
                 False</label>
-                <label className="ml-2"><input defaultChecked={this.state.event.visible === true} onChange={this.handleChange} type="radio" name="visible" value={true}/>
+                <label className="ml-2"><input defaultChecked={this.state.event.visible === true} onChange={(event) => this.handleBoolChange(event, "visible")} type="radio" name={this.state.event._id + "visible"} value={true}/>
                 True</label>
             </span>
 
@@ -125,10 +152,27 @@ class CreateEditEvent extends React.Component {
 
             </span>
 
+
             <label> Event Description:</label>
             <div className="p-1 rounded border-2 border-slate-500">
                 <TextEditor initialValue={this.state.event.desc} onUpdate={this.handleDesc} />
+
             </div>
+
+            {this.state.event.questions.map((question, index) =>{
+                    return <div>
+                        <CreateEditQuestion key={question.id} qu={question} _id={this.state.event._id}/>
+                        <button className="bg-amber-300 rounded p-1 transition hover:bg-amber-600" onClick={(event) => this.removeQuestion(index, event)}>Remove Question</button>
+                    </div>
+            })}
+            <div>
+                fdfs
+            </div>
+
+            <button className="bg-amber-300 rounded p-1 transition hover:bg-amber-600" onClick={this.addQuestion}>Add Question</button>
+
+
+
         </div>
         <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Submit Event</button>
         </>

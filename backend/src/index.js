@@ -10,6 +10,7 @@ import { AuthService } from './helpers/authHelper.js';
 import cookieParser from 'cookie-parser';
 import { authRoutes } from "./routes/authRoutes.js";
 import { adminRoutes } from "./routes/adminRoutes.js";
+import { studentRoutes } from "./routes/studentRoutes.js";
 const db = {}
 const upload = multer({dest:'files/'});
 const auth = new AuthService();
@@ -17,17 +18,20 @@ db.users = new Datastore({ filename: 'database/users.db', autoload: true });
 db.members = new Datastore({ filename: 'database/members.db', autoload: true });
 db.admins = new Datastore({ filename: 'database/admins.db', autoload: true });
 db.events = new Datastore({ filename: 'database/events.db', autoload: true });
+db.eventBooking = new Datastore({ filename: 'database/eventBooking.db', autoload: true });
 
 const app = express()
 const port = 3001;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+
 app.use(cookieParser());
-app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.json({limit: '150mb'}));       // to support JSON-encoded bodies
 app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 app.use("/media", express.static(path.join(__dirname, '../media')));
 authRoutes(app, auth, db);
 await adminRoutes(app, auth, db);
+await studentRoutes(app, auth, db);
 
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
