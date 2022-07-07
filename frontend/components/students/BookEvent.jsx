@@ -3,6 +3,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {createEvent, updateEvent} from '../../helpers/adminHelper';
 import eventModel from '../../models/eventModel';
 import { selectionModeEnum } from "../../models/selectionModeEnum";
+import { questionTypeEnum } from "../../models/questionTypeEnum";
 import DateTimePicker from 'react-datetime-picker';
 import TextEditor from '../global/TextEditor';
 import questionModel from "../../models/questionModel";
@@ -31,10 +32,10 @@ class BookEvent extends React.Component {
     }
 
     //
-    // handleChange = (event, type) => {
-    //     this.state.event[type] = event.target.value;
-    //     console.log(this.state.event)
-    // }
+    handleChange = (event, type, index) => {
+        this.state.eventBooking.individualAnswers[index][type] = event.target.value;
+        console.log(this.state.eventBooking)
+    }
     // handleNumChange= (event, type) => {
     //     this.state.event[type] = parseInt(event.target.value);
     //     console.log(this.state.event)
@@ -59,7 +60,7 @@ class BookEvent extends React.Component {
 
         this.state.eventBooking.groupSize = gs;
         while (gs > this.state.eventBooking.individualAnswers.length) {
-            this.state.eventBooking.individualAnswers.push(new individualAnswerModel());
+            this.state.eventBooking.individualAnswers.push(new individualAnswerModel(false, this.state.event.questions.length));
         }
         while (gs < this.state.eventBooking.individualAnswers.length) {
             this.state.eventBooking.individualAnswers.pop();
@@ -67,6 +68,10 @@ class BookEvent extends React.Component {
         console.log(this.state.eventBooking.individualAnswers);
         this.forceUpdate()
 
+    }
+
+    handleQuestion = (event, index, index2) => {
+        this.state.eventBooking.individualAnswers[index].questions[index2] = event.target.value;
     }
     //
     // addQuestion = (event) => {
@@ -86,140 +91,117 @@ class BookEvent extends React.Component {
     //
     // }
     //
-    // submitButton = async (event) => {
-    //     if (this.state.event !== undefined) {
-    //         await updateEvent(this.state.event);
-    //     }
-    //     else {
-    //         await createEvent(this.state.event);
-    //     }
-    //     console.log(this.props.closeTab);
-    //     this.props.closeTab();
-    //     console.log("closedTab")
-    // }
+    submitEventBooking = async (event) => {
+        await createEventBooking(this.state.event);
+        console.log(this.props.closeTab);
+        this.props.closeTab();
+        console.log("closedTab")
+    }
 
 
     render() {
         if (this.state.event !== undefined && this.state.event.groupSizes !== undefined) {
             console.log("RENDERING")
             return <>
-                <div className="my-2 rounded border-2 border-amber-500 flex flex-col">
-                    <div className=" collapse-title text-3xl font-semibold">Book: {this.state.event.name}</div>
+                <div className="px-4 my-2 rounded border-2 border-amber-500 flex flex-col">
+                    <div className="collapse-title text-3xl font-semibold">Book: {this.state.event.name}</div>
                     <label>Number of people:</label>
-                    <span>
-                    {this.state.event.groupSizes["1"] && <label><input name="groupSize" onChange={this.handleGroupSize}
-                                                                       type="radio"
-                                                                       defaultChecked={this.state.eventBooking.groupSize === 1}
-                                                                       value={1}/>1</label>}
+                    <span className="flex">
+                        {this.state.event.groupSizes["1"] &&
+                        <label className="label"><input className="radio-sm hover:scale-105 transition" name="groupSize" onChange={this.handleGroupSize}
+                                                        type="radio" defaultChecked={this.state.eventBooking.groupSize === 1}
+                                                        value={1}/><span className="label-text ml-1">1</span></label>}
                         {this.state.event.groupSizes["2"] &&
-                        <label className="ml-2"><input name="groupSize" onChange={this.handleGroupSize}
-                                                       type="radio"
+                        <label className="ml-2 label"><input name="groupSize" onChange={this.handleGroupSize}
+                                                       type="radio" className="radio-sm hover:scale-105 transition"
                                                        defaultChecked={this.state.eventBooking.groupSize === 2}
-                                                       value={2}/>2</label>}
+                                                       value={2}/><span className="label-text ml-1">2</span></label>}
                         {this.state.event.groupSizes["3"] &&
-                        <label className="ml-2"><input name="groupSize" onChange={this.handleGroupSize}
-                                                       type="radio"
+                        <label className="ml-2 label"><input name="groupSize" onChange={this.handleGroupSize}
+                                                       type="radio" className="radio-sm hover:scale-105 transition"
                                                        defaultChecked={this.state.eventBooking.groupSize === 3}
-                                                       value={3}/>3</label>}
+                                                       value={3}/><span className="label-text ml-1">3</span></label>}
                         {this.state.event.groupSizes["4"] &&
-                        <label className="ml-2"><input name="groupSize" onChange={this.handleGroupSize}
-                                                       type="radio"
+                        <label className="ml-2 label"><input name="groupSize" onChange={this.handleGroupSize}
+                                                       type="radio" className="radio-sm hover:scale-105 transition"
                                                        defaultChecked={this.state.eventBooking.groupSize === 4}
-                                                       value={4}/>4</label>}
+                                                       value={4}/><span className="label-text ml-1">4</span></label>}
                         {this.state.event.groupSizes["5"] &&
-                        <label className="ml-2"><input name="groupSize" onChange={this.handleGroupSize}
-                                                       type="radio"
+                        <label className="ml-2 label"><input name="groupSize" onChange={this.handleGroupSize}
+                                                       type="radio" className="radio-sm hover:scale-105 transition"
                                                        defaultChecked={this.state.eventBooking.groupSize === 5}
-                                                       value={5}/>5</label>}
+                                                       value={5}/><span className="label-text ml-1">5</span></label>}
                         {this.state.event.groupSizes["6"] &&
-                        <label className="ml-2"><input name="groupSize" onChange={this.handleGroupSize}
-                                                       type="radio"
+                        <label className="ml-2 label"><input name="groupSize" onChange={this.handleGroupSize}
+                                                       type="radio" className="radio-sm hover:scale-105 transition"
                                                        defaultChecked={this.state.eventBooking.groupSize === 6}
-                                                       value={6}/>7</label>}
+                                                       value={6}/><span className="label-text ml-1">6</span></label>}
                         {this.state.event.groupSizes["8"] &&
-                        <label className="ml-2"><input name="groupSize" onChange={this.handleGroupSize}
-                                                       type="radio"
+                        <label className="ml-2 label"><input name="groupSize" onChange={this.handleGroupSize}
+                                                       type="radio" className="radio-sm hover:scale-105 transition"
                                                        defaultChecked={this.state.eventBooking.groupSize === 8}
-                                                       value={8}/>8</label>}
+                                                       value={8}/><span className="label-text ml-1">8</span></label>}
                         {this.state.event.groupSizes["10"] &&
-                        <label className="ml-2"><input name="groupSize" onChange={this.handleGroupSize}
-                                                       type="radio"
+                        <label className="ml-2 label"><input name="groupSize" onChange={this.handleGroupSize}
+                                                       type="radio" className="radio-sm hover:scale-105 transition"
                                                        defaultChecked={this.state.eventBooking.groupSize === 10}
-                                                       value={10}/>10</label>}
+                                                       value={10}/><span className="label-text ml-1">10</span></label>}
                         {this.state.event.groupSizes["12"] &&
-                        <label className="ml-2"><input name="groupSize" onChange={this.handleGroupSize}
-                                                       type="radio"
+                        <label className="ml-2 label"><input name="groupSize" onChange={this.handleGroupSize}
+                                                       type="radio" className="radio-sm hover:scale-105 transition"
                                                        defaultChecked={this.state.eventBooking.groupSize === 12}
-                                                       value={12}/>12</label>}
+                                                       value={12}/><span className="label-text ml-1">12</span></label>}
                     </span>
-                    {}
-                    Well, while you're here! Hope you like BEANS
-                    {/*    <label> Event Name:*/}
-                    {/*        <input className=" ml-2 mb-2 rounded border-2 border-slate-500"*/}
-                    {/*            name="name" type="text" defaultValue={this.state.event.name} onChange={(event) => this.handleChange(event, "name")}/>*/}
-                    {/*    </label>*/}
-
-                    {/*    <label> Event Ticket Release Date:*/}
-                    {/*        <DateTimePicker disableCalendar="true" disableClock="true" className="ml-2 mb-2"*/}
-                    {/*            minDate={new Date(2000,1)} maxDate={new Date(3000,1)}*/}
-                    {/*            name="ticketReleaseDate" value={this.state.event.ticketReleaseDate} onChange={this.handleDateStartChange}*/}
-                    {/*        />*/}
-                    {/*    </label>*/}
-
-                    {/*    <label> Event Ticket Release Deadline:*/}
-                    {/*        <DateTimePicker disableCalendar="true" disableClock="true" className="ml-2 mb-2"*/}
-                    {/*            minDate={new Date(2000,1)} maxDate={new Date(3000,1)}*/}
-                    {/*            name="ticketReleaseDeadline" value={this.state.event.ticketReleaseDeadline} onChange={this.handleDateEndChange}*/}
-                    {/*        />*/}
-                    {/*    </label>*/}
-
-                    {/*    <label> Ticket Selection Mode:</label>*/}
-                    {/*    <span>*/}
-                    {/*        <label><input defaultChecked={this.state.event.selectionMode === selectionModeEnum.firstComeFirstServe}  onChange={(event) => this.handleNumChange(event, "selectionMode")} type="radio" id="ts1" name={this.state.event._id + "selectionMode"} value={selectionModeEnum.firstComeFirstServe}/>*/}
-                    {/*        First Come First Serve</label>*/}
-                    {/*        <label className="ml-2"><input defaultChecked={this.state.event.selectionMode === selectionModeEnum.random} onChange={(event) => this.handleNumChange(event, "selectionMode")} type="radio" id="ts2" name={this.state.event._id + "selectionMode"} value={selectionModeEnum.random}/>*/}
-                    {/*        Random</label>*/}
-                    {/*    </span>*/}
-
-                    {/*    <label> Number of tickets:*/}
-                    {/*        <input className=" ml-2 mb-2 rounded border-2 border-slate-500" name="noTickets"*/}
-                    {/*               type="number" defaultValue={this.state.event.noTickets} onChange={(event) => this.handleNumChange(event, "noTickets")}*/}
-                    {/*            onKeyPress={(event) => {*/}
-                    {/*                if (!/[0-9]/.test(event.key)) {*/}
-                    {/*                    event.preventDefault();*/}
-                    {/*                }*/}
-                    {/*            }}*/}
-                    {/*        /></label>*/}
-
-
-                    {/*    <label> Visible:</label>*/}
-                    {/*    <span>*/}
-                    {/*        <label><input defaultChecked={this.state.event.visible === false}  onChange={(event) => this.handleBoolChange(event, "visible")} type="radio" name={this.state.event._id + "visible"} value={false}/>*/}
-                    {/*        False</label>*/}
-                    {/*        <label className="ml-2"><input defaultChecked={this.state.event.visible === true} onChange={(event) => this.handleBoolChange(event, "visible")} type="radio" name={this.state.event._id + "visible"} value={true}/>*/}
-                    {/*        True</label>*/}
-                    {/*    </span>*/}
-
-
-                    {/*    <label> Event Description:</label>*/}
-                    {/*    <div className="p-1 rounded border-2 border-slate-500">*/}
-                    {/*        <TextEditor initialValue={this.state.event.desc} onUpdate={this.handleDesc} />*/}
-                    {/*    </div>*/}
 
                         {this.state.eventBooking.individualAnswers.map((individualAnswer, index) =>{
-                                return <div>
-                                    
-                                    gfgdfgd
-                                    Person {index + 1}
-                                </div>
-                        })}
+                                return <div className="flex flex-col">
+                                    <div className="font-bold">Person {index + 1}</div>
+                                        <label> Person Name:
+                                            <input className=" ml-2 mb-2 rounded border-2 border-slate-500"
+                                                name="name" type="text" defaultValue={individualAnswer.name} onChange={(event) => this.handleChange(event, "name", index)}/>
+                                        </label>
+                                        <label> CIS Code <i>(use personal email if guest):</i>
+                                        <input className=" ml-2 mb-2 rounded border-2 border-slate-500"
+                                               name="name" type="text" defaultValue={individualAnswer.cis} onChange={(event) => this.handleChange(event, "cis", index)}/>
+                                        </label>
+                                    {this.state.event.questions.map((question, index2) =>{
+                                        return <div className="flex flex-col">
+                                            <div>{question.questionText}</div>
+                                            {(question.questionType === questionTypeEnum.multipleChoice) && <div>
+                                                {question.data.map((option, index3) =>{
+                                                    return <div className="">
+                                                        <label><input name={"mt_" + index2 + "_" + index} onChange={(event => this.handleQuestion(event, index, index2))}
+                                                                      type="radio"
+                                                                      defaultChecked={this.state.eventBooking.groupSize === 1}
+                                                                      value={index3}/>{option}</label>
 
+                                                    </div>})}
+
+                                                </div>}
+                                                {(question.questionType === questionTypeEnum.number) && <div>
+                                                    <textarea className="w-96 textarea mb-2 rounded border-2 border-slate-500" placeholder="" onChange={(event => this.handleQuestion(event, index, index2))}/>
+                                                </div>}
+                                            {(question.questionType === questionTypeEnum.text) && <div>
+                                                <label>
+                                                    <input className="mb-2 rounded border-2 border-slate-500" name="noTickets"
+                                                           type="number" onChange={(event => this.handleQuestion(event, index, index2))}
+                                                           onKeyPress={(event) => {
+                                                               if (!/[0-9]/.test(event.key)) {
+                                                                   event.preventDefault();
+                                                               }
+                                                           }}
+                                                    /></label>
+                                            </div>}
+
+                                    </div>})}
+
+                                </div>})}
 
                     {/*    <button className="bg-amber-300 rounded p-1 transition hover:bg-amber-600" onClick={this.addQuestion}>Add Question</button>*/}
 
 
                 </div>
-                {/*<button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Submit Event</button>*/}
+                <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitEventBooking}>Submit Booking</button>
             </>
         }
         else {
