@@ -1,27 +1,44 @@
 export const menuItems = [
     {
-        title: "Home",
-        page:"/",
-        access: "all"
+        title: "Admin",
+        page: "admin",
+        access: "admin",
+        items: []
     },
     {
-        title: "Get Involved",
+        title: "Students",
+        page: "students",
+        access: "verified",
+        items: [
+            {title: "Events",
+                page: "students/events",
+                access: "verified",
+                items: []}
+        ]
+    },
+    {
+        title: "Facilities",
+        page: "/faclilities",
+        access: "all",
+        items: []
+    },
+    {
+        title: "#GetInvolved",
         page: "/get-involved",
-        access: "all"
+        access: "all",
+        items: []
     },
     {
         title: "About",
         page: "about",
         access: "all",
+        items: []
     },
+
     {
-        title: "Students",
-        page: "students/events",
-        access: "verified"
+        title: "Home",
+        page:"/",
+        access: "all",
+        items: []
     },
-    {
-        title: "Admin",
-        page: "admin",
-        access: "admin"
-    }
 ];
