@@ -1,5 +1,5 @@
 import React from "react";
-import {createSSC, updateSSC} from '../../helpers/adminHelper';
+import {createSSC, updateSSC, deleteSSC} from '../../helpers/adminHelper';
 import SSCModel from '../../models/SSCModel';
 import {SSCEnum} from "../../models/SSCEnum";
 
@@ -27,11 +27,19 @@ class CreateEditSSC extends React.Component {
 
     submitButton = async (event) => {
         if (this.props.SSC !== undefined) {
+            console.log(this.state.SSC)
             await updateSSC(this.state.SSC);
         }
         else {
             await createSSC(this.state.SSC);
         }
+        console.log(this.props.closeTab);
+        this.props.closeTab();
+        console.log("closedTab")
+    }
+
+    deleteButton = async (event) => {
+        await deleteSSC(this.state.SSC);
         console.log(this.props.closeTab);
         this.props.closeTab();
         console.log("closedTab")
@@ -90,10 +98,22 @@ class CreateEditSSC extends React.Component {
                 Committee</label>
             </span>
 
-
+            <input type="checkbox" id="my-modal" className="modal-toggle"/>
+            <div className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg text-red-700">Remove SSC?!</h3>
+                    <p className="py-4">Are you sure you want to remove this SSC?</p>
+                    <div className="modal-action">
+                        <label onClick={this.deleteButton} htmlFor="my-modal" className="btn">Yes</label>
+                        <label htmlFor="my-modal" className="btn">No</label>
+                    </div>
+                </div>
+            </div>
 
         </div>
         <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Submit SSC</button>
+        {this.props.SSC !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete SSC</label>}
+
         </>
     }
 

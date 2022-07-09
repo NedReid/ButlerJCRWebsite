@@ -47,3 +47,11 @@ export const updateSSC =  async (event) => {
         return response.data;
     }
 }
+
+export const deleteSSC =  async (event) => {
+    const response = await axios.post("/api/admin/deleteSSC", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
