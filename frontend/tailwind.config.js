@@ -9,6 +9,17 @@ module.exports = {
         fontFamily: {
             'raleway': ['raleway', 'sans-serif'],
         },
+        extend: {
+            keyframes: {
+                pingOnce:  {
+                    '25%': {transform: 'scale(1.05)', opacity:'0.8'},
+                    '100%': {transform: 'scale(1)', opacity:'1'}
+                }
+            },
+            animation: {
+                pingOnce: 'pingOnce 0.5s cubic-bezier(0, 0, 0.2, 1)',
+            }
+        }
     },
     plugins: [require("daisyui")],
 
