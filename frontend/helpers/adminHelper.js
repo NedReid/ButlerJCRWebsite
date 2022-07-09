@@ -31,3 +31,27 @@ export const updateEvent =  async (event) => {
         return response.data;
     }
 }
+
+export const createSSC =  async (event) => {
+    const response = await axios.post("/api/admin/createSSC", event);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateSSC =  async (event) => {
+    const response = await axios.post("/api/admin/updateSSC", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deleteSSC =  async (event) => {
+    const response = await axios.post("/api/admin/deleteSSC", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
