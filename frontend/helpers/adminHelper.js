@@ -8,6 +8,14 @@ export const getEvents =  async () => {
     }
 }
 
+export const getSSCs =  async () => {
+    const response = await axios.get("/api/admin/getSSCs");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
 export const createEvent =  async (event) => {
     const response = await axios.post("/api/admin/createEvent", event);
     if (response.status === 201)

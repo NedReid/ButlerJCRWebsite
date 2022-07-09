@@ -6,7 +6,7 @@ import {parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
 export const adminRoutes = async (app, auth, db) => {
 
     if(await db.admins.findOneAsync({username: process.env.ADMIN_USER}) === null) {
-        await db.admins.insertAsync({username: process.env.ADMIN_USER, events: true, finance: true});
+        await db.admins.insertAsync({username: process.env.ADMIN_USER, events: true, finance: true, SSCs: true});
     }
 
     app.use("/api/admin", async function(req, res, next) {
@@ -76,6 +76,18 @@ export const adminRoutes = async (app, auth, db) => {
             // console.log(events)
             res.status(200);
             res.send(events);
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.get("/api/admin/getSSCs", async function(req, res) {
+        if(res.locals.adminUser.SSCs === true) {
+            let SSCs = await db.SSCs.getAllData();
+            res.status(200);
+            res.send(SSCs);
         }
         else {
             res.status(401);
