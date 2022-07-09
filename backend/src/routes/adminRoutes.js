@@ -95,5 +95,29 @@ export const adminRoutes = async (app, auth, db) => {
         }
     });
 
+    app.post("/api/admin/createSSC", async function(req, res) {
+        if(res.locals.adminUser.SSCs === true) {
+            await db.SSCs.insertAsync(req.body);
+            res.status(201);
+            res.send();
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/updateSSC", async function(req, res) {
+        if(res.locals.adminUser.SSCs === true) {
+            await db.events.updateAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
 }
 

@@ -1,14 +1,7 @@
 import React from "react";
-import {createEvent, updateEvent} from '../../helpers/adminHelper';
-import eventModel from '../../models/eventModel';
+import {createSSC, updateSSC} from '../../helpers/adminHelper';
 import SSCModel from '../../models/SSCModel';
 import {SSCEnum} from "../../models/SSCEnum";
-import { selectionModeEnum } from "../../models/selectionModeEnum";
-import DateTimePicker from 'react-datetime-picker';
-import TextEditor from '../global/TextEditor';
-import CreateEditQuestion from './CreateEditQuestion';
-import questionModel from "../../models/questionModel";
-import {questionTypeEnum} from "../../models/questionTypeEnum";
 
 class CreateEditSSC extends React.Component {
     constructor(props) {
@@ -37,7 +30,7 @@ class CreateEditSSC extends React.Component {
             await updateSSC(this.state.SSC);
         }
         else {
-            await CreateSSC(this.state.SSC);
+            await createSSC(this.state.SSC);
         }
         console.log(this.props.closeTab);
         this.props.closeTab();
