@@ -11,7 +11,7 @@ import cookieParser from 'cookie-parser';
 import { authRoutes } from "./routes/authRoutes.js";
 import { adminRoutes } from "./routes/adminRoutes.js";
 import { studentRoutes } from "./routes/studentRoutes.js";
-import { getInvolvedRoutes } from "./routes/getInvolvedRoutes";
+import { getInvolvedRoutes } from "./routes/getInvolvedRoutes.js";
 const db = {}
 const upload = multer({dest:'files/'});
 const auth = new AuthService();

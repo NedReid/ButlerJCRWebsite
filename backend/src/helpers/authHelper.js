@@ -14,7 +14,7 @@ export class AuthService {
             _id: user._id,
             username: user.username,
         };
-        const expiration = '6h';
+        const expiration = '6d';
 
         return jwt.sign(data, this.signature, { expiresIn: expiration });
     }
