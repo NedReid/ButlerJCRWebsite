@@ -63,7 +63,7 @@ Note that these programs will automatically update when any changes are made.
 | 🔴 | _Admin area for uploading debts_
 | 🟡 | **Events Sign-up system**
 | 🟢 | _Admin create signup page_
-| 🔴 | _User signup page_
+| 🟢 | _User signup page_
 | 🔴 | _Different event signup selection settings_
 | 🔴 | _Export of data, automatic debt system_
 
