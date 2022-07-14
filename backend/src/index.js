@@ -54,26 +54,6 @@ app.get('*', (req,res) =>{
 //     }
 // });
 
-// app.get("/api/admin/getMusicData" , function(req, res) {
-//     if(isNed(req)) {
-//         try {
-//             db.find( {}, function(err, docs)
-//             {
-//                 res.status(200);
-//                 res.send(docs);
-//             });
-//         }
-//         catch {
-//             res.status(204);
-//             res.send({ message: "Access Dennied"});
-//         }
-//     }
-//     else {
-//         res.status(204);
-//         res.send({ message: "Access Dennnnied"});
-//     }
-// });
-
 // app.post("/api/admin/saveSongDetails", function(req, res) {
 //     console.log("saving song details");
 //     if(isNed(req))
