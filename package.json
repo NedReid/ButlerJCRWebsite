@@ -1,6 +1,13 @@
 {
   "scripts": {
     "build": "cd frontend && npm install && npm run build && cd ../backend && npm install",
-    "start": "cd backend && npm run watch"
+    "watch": "nodemon --exec \"cd backend && npm run watch\" --ext ."
+  },
+  "dependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "nodemonConfig": {
+    "ignore": ["backend/database", "backend/files"],
+    "delay": 2500
   }
 }
