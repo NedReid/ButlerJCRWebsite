@@ -13,6 +13,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import Societies from "./components/getInvolved/Societies";
 
 class App extends React.Component {
     state = {
@@ -37,10 +38,12 @@ class App extends React.Component {
                      <Login loggedIn={this.state.loggedIn}/>
                      <Routes>
                          <Route path="/admin" element={<Admin admin={this.state.admin} />}/>
-                         <Route path="/students" element={<Students verified={this.state.verified} />}>
+                         <Route path="/students" element={<Students verified={this.state.verified}/>}>
                              <Route path="events" element={<UserEvents/>}/>
                              <Route path="events/book:id" element={<BookEvent/>}/>
                          </Route>
+                         <Route path="get-involved/societies" element={<Societies username={this.state.loggedIn}/>}/>
+
 
 
                      </Routes>

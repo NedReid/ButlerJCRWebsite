@@ -26,7 +26,10 @@ export const menuItems = [
         title: "#GetInvolved",
         page: "/get-involved",
         access: "all",
-        items: []
+        items: [{title: "Societies",
+            page: "get-involved/societies",
+            access: "all",
+            items: []}]
     },
     {
         title: "About",
