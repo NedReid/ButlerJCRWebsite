@@ -14,6 +14,8 @@ import {
     Link
 } from "react-router-dom";
 import Societies from "./components/getInvolved/Societies";
+import Sports from "./components/getInvolved/Sports";
+import Committees from "./components/getInvolved/Committees";
 import EditSSC from "./components/getInvolved/EditSSC";
 import SSC from "./components/getInvolved/SSC";
 
@@ -47,8 +49,13 @@ class App extends React.Component {
                          <Route path="get-involved/societies" element={<Societies username={this.state.loggedIn}/>}/>
                          <Route path="get-involved/societies/edit:id" element={<EditSSC/>}/>
                          <Route path="get-involved/societies/:id" element={<SSC/>}/>
-
-
+                         <Route path="get-involved/sports" element={<Sports username={this.state.loggedIn}/>}/>
+                         <Route path="get-involved/sports/edit:id" element={<EditSSC/>}/>
+                         <Route path="get-involved/sports/:id" element={<SSC/>}/>
+                         <Route path="get-involved/committees" element={<Committees username={this.state.loggedIn}/>}/>
+                         <Route path="get-involved/committees/edit:id" element={<EditSSC/>}/>
+                         <Route path="get-involved/committees/:id" element={<SSC/>}/>
+                         <Route path="get-involved/ssc/:id" element={<SSC/>}/>
 
                      </Routes>
 

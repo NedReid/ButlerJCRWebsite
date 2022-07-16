@@ -39,6 +39,9 @@ export const getInvolvedRoutes = async (app, auth, db) => {
             let SSC = await db.SSCs.findOneAsync({_id: req.body._id});
             if(SSC.editors.includes(webToken.username)) {
                 req.body.page = await parseRichText(req.body.page, req.body._id, "SSCs");
+                if (req.body.slug === undefined || req.body.slug === "") {
+                    req.body.slug = req.body._id;
+                }
                 await db.SSCs.updateAsync({_id: req.body._id}, req.body);
                 res.status(200);
                 res.send();

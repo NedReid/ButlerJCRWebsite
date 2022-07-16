@@ -27,6 +27,9 @@ export const getSSCBySlug = async (slug) => {
 }
 
 export const updateSSC =  async (SSC) => {
+    if (SSC.slug === undefined || SSC.slug === "") {
+        SSC.slug = SSC._id;
+    }
     const response = await axios.post("/api/get-involved/updateSSC", SSC);
     if (response.status === 200)
     {
