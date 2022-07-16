@@ -61,7 +61,7 @@ export const adminRoutes = async (app, auth, db) => {
 
     app.get("/api/admin/getEvents", async function(req, res) {
         if(res.locals.adminUser.events === true) {
-            let events = await db.events.getAllData();
+            let events = await db.events.findAsync({});
             events = await Promise.all(await events.map(async (ev) => {
                 // console.log(ev.desc);
                 console.log("beans")
@@ -85,7 +85,7 @@ export const adminRoutes = async (app, auth, db) => {
 
     app.get("/api/admin/getSSCs", async function(req, res) {
         if(res.locals.adminUser.SSCs === true) {
-            let SSCs = await db.SSCs.getAllData();
+            let SSCs = await db.SSCs.findAsync({});
             res.status(200);
             res.send(SSCs);
         }

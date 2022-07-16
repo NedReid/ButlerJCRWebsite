@@ -6,7 +6,7 @@ import {tailwindParse} from "../../helpers/tailwindParse";
 import {SSCEnum} from "../../models/SSCEnum";
 import SSCHeader from "./SSCHeader";
 
-class Societies extends React.Component {
+class Committees extends React.Component {
     constructor(props) {
         super(props);
         this.state = {SSCs: []};
@@ -30,10 +30,10 @@ class Societies extends React.Component {
 
     render() {
         return <div className="my-2 p-8">
-            <div className="text-4xl font-bold">Societies</div>
-            Societies are good. Please join one if you want.
+            <div className="text-4xl font-bold">Committees</div>
+            Committees are good. Please join one if you want.
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {this.state.SSCs.filter((ssc) => {return ssc.type === SSCEnum.society}).map((ssc, index) => {
+                {this.state.SSCs.filter((ssc) => {return ssc.type === SSCEnum.committee}).map((ssc, index) => {
                     return (
                         <SSCHeader editPage={this.editPage} goToPage={this.goToPage} ssc={ssc} username={this.props.username}></SSCHeader>
                     );
@@ -48,5 +48,5 @@ class Societies extends React.Component {
 export default function(props) {
     const navigate = useNavigate();
 
-    return <Societies {...props} navigate={navigate} />;
+    return <Committees {...props} navigate={navigate} />;
 }

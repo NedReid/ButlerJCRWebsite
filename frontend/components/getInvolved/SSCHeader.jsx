@@ -53,21 +53,16 @@ class SSCHeader extends React.Component {
         this.setState({miniHover: false});
     };
 
-    navigate = (id) =>
-    {
-        this.props.navigate('book:' + id, {replace: false})
-    }
-
     mainClick = () => {
         if (!this.state.miniHover) {
-            console.log("clicked!")
+            this.props.goToPage(this.props.ssc.slug);
         }
     }
 
     render() {
         return <div onClick={this.mainClick}  className="hover:cursor-pointer hover:bg-slate-50 active:bg-slate-200 hover:shadow hover:animate-pingOnce relative border-2 p-2 w-11/12 h-36 sm:h-48 my-2" onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
             {this.state.editor && this.state.showPencil && <>
-                <button onClick={() => console.log("clicked bit")}  className="btn btn-circle absolute top-0 right-0 m-2" onMouseOver={this.handleMouseMiniOver} onMouseOut={this.handleMouseMiniOut}>
+                <button onClick={() => this.props.editPage(this.props.ssc._id)}  className="btn btn-circle absolute top-0 right-0 m-2" onMouseOver={this.handleMouseMiniOver} onMouseOut={this.handleMouseMiniOut}>
                     <AiOutlineEdit className="text-2xl"/>
                 </button>
             </>
