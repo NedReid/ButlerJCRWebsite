@@ -68,7 +68,7 @@ class Events extends React.Component {
             </>
             }
 
-            <div className="text-2xl text-semibold text-black text-xl text-lg list-disc list-decimal bg-slate-200 ml-1 px-2 py-1">
+            <div className="text-2xl text-semibold text-black text-xl text-lg list-disc list-decimal bg-slate-200 ml-1 px-2 py-1 text-blue-700 underline pb-2">
 
             </div>
 

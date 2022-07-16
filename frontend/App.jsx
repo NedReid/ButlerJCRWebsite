@@ -14,6 +14,8 @@ import {
     Link
 } from "react-router-dom";
 import Societies from "./components/getInvolved/Societies";
+import EditSSC from "./components/getInvolved/EditSSC";
+import SSC from "./components/getInvolved/SSC";
 
 class App extends React.Component {
     state = {
@@ -43,6 +45,8 @@ class App extends React.Component {
                              <Route path="events/book:id" element={<BookEvent/>}/>
                          </Route>
                          <Route path="get-involved/societies" element={<Societies username={this.state.loggedIn}/>}/>
+                         <Route path="get-involved/societies/edit:id" element={<EditSSC/>}/>
+                         <Route path="get-involved/societies/:id" element={<SSC/>}/>
 
 
 

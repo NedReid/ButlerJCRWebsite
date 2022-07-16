@@ -18,9 +18,14 @@ class Societies extends React.Component {
         console.log(SSCs)
     }
 
-    navigate = (id) =>
+    editPage = (id) =>
     {
-        this.props.navigate('book:' + id, {replace: false})
+        this.props.navigate('edit:' + id, {replace: false})
+    }
+
+    goToPage = (slug) =>
+    {
+        this.props.navigate(slug, {replace: false})
     }
 
     render() {
@@ -30,8 +35,7 @@ class Societies extends React.Component {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {this.state.SSCs.filter((ssc) => {return ssc.type === SSCEnum.society}).map((ssc, index) => {
                     return (
-                        <SSCHeader ssc={ssc} username={this.props.username}></SSCHeader>
-
+                        <SSCHeader editPage={this.editPage} goToPage={this.goToPage} ssc={ssc} username={this.props.username}></SSCHeader>
                     );
                 })}
             </div>
