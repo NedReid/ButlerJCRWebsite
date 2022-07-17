@@ -7,7 +7,7 @@ module.exports = {
     theme: {
         // Some useful comment
         fontFamily: {
-            'raleway': ['raleway', 'sans-serif'],
+            'raleway': ['raleway', 'serif'],
         },
         extend: {
             keyframes: {
