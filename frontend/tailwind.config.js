@@ -2,7 +2,7 @@
 module.exports = {
     mode: 'jit',
     // purge: ['./public/**/*.html', './src/**/*.{js,jsx,ts,tsx,vue}'],
-    content: ["./**/*.{html,jsx}"],
+    content: ["./**/*.{html,jsx}", "node_modules/daisyui/dist/**/*.js"],
     // specify other options here
     theme: {
         // Some useful comment

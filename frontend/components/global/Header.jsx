@@ -12,7 +12,7 @@ class Header extends React.Component {
         super(props);
     }
     render() {
-        return <div className="sticky top-0 md:container md:mx-auto">
+        return <div className="sticky top-0 md:container md:mx-auto z-40">
                 <div className=" bg-red-700 flex items-center">
                     <div className="flex items-center p-4 flex-grow">
                         <button className="w-28 transition ease-out hover:scale-110 duration-300 flex-initial pr-4"><img src="../../media/global/JCRLogo.png"/></button>

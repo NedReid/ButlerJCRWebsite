@@ -12,6 +12,7 @@ import { authRoutes } from "./routes/authRoutes.js";
 import { adminRoutes } from "./routes/adminRoutes.js";
 import { studentRoutes } from "./routes/studentRoutes.js";
 import { getInvolvedRoutes } from "./routes/getInvolvedRoutes.js";
+import { staticRoutes } from "./routes/staticRoutes.js";
 const db = {}
 const upload = multer({dest:'files/'});
 const auth = new AuthService();
@@ -35,7 +36,7 @@ authRoutes(app, auth, db);
 await adminRoutes(app, auth, db);
 await studentRoutes(app, auth, db);
 await getInvolvedRoutes(app, auth, db);
-
+await staticRoutes(app, auth, db);
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
 });

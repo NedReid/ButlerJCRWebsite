@@ -18,7 +18,7 @@ import Sports from "./components/getInvolved/Sports";
 import Committees from "./components/getInvolved/Committees";
 import EditSSC from "./components/getInvolved/EditSSC";
 import SSC from "./components/getInvolved/SSC";
-
+import Homepage from "./components/static/Homepage";
 class App extends React.Component {
     state = {
         loggedIn: "waiting",
@@ -56,6 +56,7 @@ class App extends React.Component {
                          <Route path="get-involved/committees/edit:id" element={<EditSSC/>}/>
                          <Route path="get-involved/committees/:id" element={<SSC/>}/>
                          <Route path="get-involved/ssc/:id" element={<SSC/>}/>
+                         <Route path="/" element={<Homepage/>} />
 
                      </Routes>
 
