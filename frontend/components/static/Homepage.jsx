@@ -43,13 +43,13 @@ class Homepage extends React.Component {
             </div>
             </div>
             }
-            <div className="mt-8 flex">
-                <div className="w-1/3 mr-4 mb-2">
+            <div className="mt-8 sm:flex p-1">
+                <div className="w-1/2 sm:w-1/3 translate-x-1/2 sm:translate-x-0 sm:mr-4 mb-2">
                     <img className="" src="/media/home/president.jpg"/>
                     <div className="w-full text-center mt-1 font-semibold text-grey-800">Urwah Mirza</div>
                     <div className="w-full text-center text-grey-800 italic">JCR President</div>
                 </div>
-                <div className="text-sm text-grey-900 w-2/3">
+                <div className="text-sm text-grey-900 w-full sm:w-2/3">
                                     Hello everyone! <br/><br/>
                 I am Urwah Mirza, JCR President of Josephine Butler College, Durham University, and I would like to take this opportunity to welcome you all to our college. <br/><br/>
                     Our college is named after an incredible woman who was a social reformer and a powerful advocate for women's rights. She was truly ahead of her time.
@@ -67,9 +67,9 @@ class Homepage extends React.Component {
             <Divider/>
 
 
-            <div className="mt-8 flex">
+            <div className="mt-8 sm:flex p-1">
 
-                <div className="text-sm text-grey-900 w-2/3">
+                <div className="text-sm text-grey-900 w-full sm:w-2/3">
                     Hello everyone, my name is Joseph Chesters and I am the Financial and Community Support Officer for Josephine Butler College JCR, Durham University.
                     I would like to take this opportunity to introduce you to our wonderful college and all of the amazing societies, sports, and committees that we have to offer. <br/><br/>
                     The college is situated in the heart of Durham City, just a short walk from the historic Durham Cathedral and the picturesque River Wear. We have around 500 students living in college, and our JCR is a vibrant and friendly community.<br/><br/>
@@ -77,7 +77,7 @@ class Homepage extends React.Component {
                     We also have a thriving music scene, and our college choir is always in demand.<br/><br/>
                     We are confident that you will enjoy your time at Josephine Butler College, and we very much look forward to welcoming you into our community.<br/><br/> Thank you.
                 </div>
-                <div className="w-1/3 ml-4 mb-2">
+                <div className="w-1/2 sm:w-1/3 translate-x-1/2 sm:translate-x-0 sm:ml-4 mb-2">
                     <img className="" src="/media/home/facso.jpg"/>
                     <div className="w-full text-center mt-1 font-semibold text-grey-800">Joseph Chesters</div>
                     <div className="w-full text-center text-grey-800 italic">JCR FACSO</div>
@@ -87,13 +87,13 @@ class Homepage extends React.Component {
 
             <Divider/>
 
-            <div className="mt-8 flex">
-                <div className="w-1/3 mr-4 mb-2">
+            <div className="mt-8 sm:flex p-1">
+                <div className="w-1/2 sm:w-1/3 translate-x-1/2 sm:translate-x-0 sm:mr-4 mb-2">
                     <img className="" src="/media/home/mole.jpg"/>
                     <div className="w-full text-center mt-1 font-semibold text-grey-800">Butler Mole</div>
                     <div className="w-full text-center text-grey-800 italic">JCR Mascot</div>
                 </div>
-                <div className="text-sm text-grey-900 w-2/3">
+                <div className="text-sm text-grey-900 w-full sm:w-2/3">
                     Hello everyone! <br/><br/>
                     My name is Butler Mole and I am the Mascot of Josephine Butler College. I am a friendly, lovable mole who loves to have fun and make new friends. <br/><br/>
                     As the College Mascot, my job is to represent the students of Josephine Butler College and to promote college spirit. I attend all of the college's social events and help out with any college fundraisers. I also make appearances at Durham University's sporting events to support the team.<br/><br/>
