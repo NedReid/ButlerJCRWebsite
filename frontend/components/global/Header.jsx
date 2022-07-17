@@ -6,48 +6,92 @@ import {
     Route,
     Link
 } from "react-router-dom";
-
+import { Swap } from "react-daisyui";
+import { MdOutlineClear, MdOutlineMenu } from "react-icons/md"
 class Header extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {open: false, subOpen: new Array(menuItems.length).fill(false)}
     }
     render() {
         return <div className="sticky top-0 md:container md:mx-auto z-40">
-                <div className=" bg-red-700 flex items-center">
-                    <div className="flex items-center p-4 flex-grow">
-                        <button className="w-28 transition ease-out hover:scale-110 duration-300 flex-initial pr-4"><img src="../../media/global/JCRLogo.png"/></button>
-                        <div className="flex-grow text-4xl text-white font-raleway">Butler<br/>JCR</div>
+                <div className=" bg-red-700 flex md:block">
+                    <div className="flex items-center py-1 md:pb-0 md:pt-4 px-4 flex-grow">
+                        <button className="w-16 transition ease-out hover:scale-110 duration-300 flex-initial pr-4"><img src="../../media/global/JCRLogo.png"/></button>
+                        <div className="flex-grow text-3xl text-white font-raleway font-medium">Butler JCR</div>
                     </div>
-                        <div className="mt-4 self-end align-">
-                            <ul className="menu sm-vertical sm:menu-horizontal self-end">
-                                {menuItems.map((menu, index) => {
-                                    return (
-                                        <li className="menu-items" key={index}>
-                                            { (menu.access === "all" || (menu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
-                                                                     || (menu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
-                                                <Link to={menu.page} className="text-center self-end hover:animate-pingOnce p-2 bg-red-900 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300">{menu.title} </Link>
-                                            }
-                                            <ul>
-                                            {menu.items.map((subMenu, index) => {
-                                                console.log("BRNS")
-                                                return (
-                                                    <li className="menu-items" key={index}>
-                                                        { (subMenu.access === "all" || (subMenu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
-                                                            || (subMenu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
-                                                        <Link to={subMenu.page} className="text-center  p-2 hover:animate-pingOnce bg-red-900 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300">{subMenu.title} </Link>
-                                                        }
-                                                    </li>
-                                                );
-                                            })}
-                                            </ul>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </div>
+                    <div className="self-end justify-end hidden md:flex">
+                        <ul className="menu sm-vertical sm:menu-horizontal self-end">
+                            {menuItems.map((menu, index) => {
+                                return (
+                                    <li className="menu-items" key={index}>
+                                        { (menu.access === "all" || (menu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
+                                                                 || (menu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
+                                            <Link to={menu.items.length > 0? "./" : menu.page} className="text-center self-end hover:animate-pingOnce px-3 py-1 bg-red-900 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300">{menu.title} </Link>
+                                        }
+                                        <ul className="w-full">
+                                        {menu.items.map((subMenu, index) => {
+                                            return (
+                                                <li className="menu-items w-full" key={index}>
+                                                    { (subMenu.access === "all" || (subMenu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
+                                                        || (subMenu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
+                                                    <Link to={subMenu.page} className="w-full text-center  px-3 py-1 hover:animate-pingOnce bg-red-900 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300">{subMenu.title} </Link>
+                                                    }
+
+                                                </li>
+                                            );
+                                        })}
+                                        </ul>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                    <div className="pr-9 flex md:hidden">
+
+                            <button className={"aspect-square swap swap-rotate " + (this.state.open? "swap-active bg-orange-700 hover:bg-orange-800": "hover:bg-red-800 ")} onClick={() => this.setState({open: !this.state.open})}>
+                                <MdOutlineClear className="swap-on text-white text-3xl"></MdOutlineClear>
+                                <MdOutlineMenu className="swap-off text-white text-3xl"></MdOutlineMenu>
+                            </button>
+
+
+
+
+                    </div>
 
                 </div>
-            <div className="w-full h-4 align bg-red-800"></div>
+            <div className="flex md:hidden w-full">
+                {this.state.open && <div className="w-full">
+                    <ul className="menu sm-vertical self-end w-full">
+                        {menuItems.map((menu, index) => {
+                            return (<>
+                                    { (menu.access === "all" || (menu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
+                                        || (menu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
+                                    <li className="menu-items w-full flex" key={index}>
+                                        {menu.items.length > 0?
+                                             <button onClick={() => this.setState({subOpen: this.state.subOpen.map((item, index2) => {return (index === index2?  !item :  false)})})} className="w-full text-center self-end hover:animate-pingOnce px-3 py-1 bg-red-900 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300"><p className="text-center w-full">{menu.title}</p></button>
+                                         :
+                                             <Link onClick={() => this.setState({open:false})} to={menu.page} className="w-full text-center self-end hover:animate-pingOnce px-3 py-1 bg-red-900 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300"><p className="text-center w-full">{menu.title}</p></Link>
+                                        }
+                                    </li>
+                                    }
+
+                            {this.state.subOpen[index] && menu.items.map((subMenu, index) => {
+                                return (
+                                    <li className="menu-items w-full sm-vertical" key={index}>
+                                        { (subMenu.access === "all" || (subMenu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
+                                            || (subMenu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
+                                        <Link onClick={() => this.setState({open:false})} to={subMenu.page} className="w-full text-center  px-3 py-1 hover:animate-pingOnce bg-orange-800 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300"><p className="text-center w-full">{subMenu.title}</p></Link>
+                                        }
+                                    </li>
+                                );
+                            })}
+                            </>);
+                        })}
+                    </ul>
+                </div>}
+            </div>
+            <div className="w-full h-4 align bg-red-800"/>
 
             </div>
 
