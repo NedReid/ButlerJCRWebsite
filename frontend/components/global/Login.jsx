@@ -1,5 +1,5 @@
 import React from 'react';
-import {login, register, isLoggedIn, logout} from '../../helpers/loginHelper';
+import {login, register, isLoggedIn, logout, resendVerificationEmail} from '../../helpers/loginHelper';
 import Loading from "./Loading";
 
 const loginStateEnum = {
@@ -55,9 +55,29 @@ class Login extends React.Component {
     }
 
     async handleRegister(event) {
-        const resp = await register(this.state.username, this.state.password);
-        console.log('A namee was submitted: ' + this.state.username);
-        console.log(resp.username)
+        if (!(/^[A-Z]{4}[0-9]{2}$/i).test(this.state.username)) {
+            this.setState({tagText: "Your username should be your CIS code (eg: abcd12)"});
+        }
+        else if (this.state.password.length < 8) {
+            this.setState({tagText: "Password should be at least 8 characters"});
+        }
+        else if (this.state.password !== this.state.repeatPassword) {
+            this.setState({tagText: "Passwords do not match"});
+        }
+        else {
+            const resp = await register(this.state.username, this.state.password);
+            console.log(resp)
+            if (resp.status === 201) {
+                window.location.reload(false);
+                console.log('A namee was submitted: ' + this.state.username);
+                console.log(resp.data)
+            }
+            else if (resp.status === 200) {
+                this.setState({tagText: resp.data});
+            }
+
+        }
+
     }
 
 
@@ -65,6 +85,13 @@ class Login extends React.Component {
         const resp = await isLoggedIn();
         console.log('Welcome ');
         console.log(resp)
+    }
+
+    resendVerificationEmail = async () => {
+        let success = await resendVerificationEmail();
+        if (success) {
+            this.setState({tagText: "Your verification email has been sent."})
+        }
     }
 
     async logOut(event) {
@@ -78,6 +105,20 @@ class Login extends React.Component {
     }
 
     render() {
+        let tag = false
+        if (this.state.tagText !== "") {
+            tag = <span className="pl-2 flex flex-grow items-center font-normal"><i>{this.state.tagText}</i></span>
+        }
+        else if (this.state.loginState === loginStateEnum.loggedInNotVerified) {
+            tag =<>
+                    <span className="pl-2 flex flex-grow items-center font-normal"><i>Your account has not been verified. Please check your university email.</i></span>
+                    <button className="bg-amber-400 rounded my-1 mx-2 px-2 transition hover:bg-amber-600 text-gray-900"
+                            onClick={this.resendVerificationEmail}>Resend
+                    </button>
+                </>
+
+        }
+
             return <><div className="bg-slate-200 h-8 text-sm hidden md:block text-grey-900">
                 {this.state.loginState === loginStateEnum.waiting && <div className="w-full -translate-y-6"><Loading/></div>}
                 {this.state.loginState === loginStateEnum.login &&
@@ -111,7 +152,7 @@ class Login extends React.Component {
                                 <input className="w-24 ml-2 mr-4 rounded border border-black" name="password" type="password" onChange={this.handleChange}/>
                             </label>
                             <label> Confirm Password:
-                                <input className="w-24 ml-2 mr-4 rounded border border-black" name="password" type="password" onChange={this.handleChange}/>
+                                <input className="w-24 ml-2 mr-4 rounded border border-black" name="repeatPassword" type="password" onChange={this.handleChange}/>
                             </label>
                             <div className="flex-grow"/>
                         </span>
@@ -149,16 +190,10 @@ class Login extends React.Component {
                     </button>
                 </div>}
             </div>
-        {(this.state.tagText === "" || this.state.loginState === loginStateEnum.loggedInNotVerified)
+        {tag !== false
         && <div className="bg-gray-600 h-8 text-sm hidden md:block text-white">
             <div className="flex h-full w-full">
-                {this.state.loginState === loginStateEnum.loggedInNotVerified && <><span className="pl-2 flex flex-grow items-center font-normal">
-                    <i>Your account has not been verified. Please check your university email.</i>
-                </span>
-                <button className="bg-amber-400 rounded my-1 mx-2 px-2 transition hover:bg-amber-600"
-                        onClick={this.resendEmail}>Resend
-                </button>
-                </>}
+                { tag }
             </div>
         </div>}
         </>}
