@@ -45,6 +45,12 @@ export const authRoutes = (app, auth, db) => {
         console.log("logging in");
         try {
                 const foundUser = await db.users.findOneAsync({username: req.body.username});
+                if (foundUser === null) {
+                    console.log("Account not found")
+                    res.status(200);
+                    res.send("Account not found.");
+                    return
+                }
                 let ps = await argon2.verify(foundUser.password, req.body.password);
                 if (ps) {
                     console.log("successful login")
@@ -56,15 +62,15 @@ export const authRoutes = (app, auth, db) => {
                 }
                 else {
                     console.log("wrong password")
-                    res.status(204);
-                    res.send();
+                    res.status(200);
+                    res.send("Password is incorrect");
                 }
         }
         catch {
             console.log("failed login")
 
-            res.status(204);
-            res.send();
+            res.status(200);
+            res.send("Unexpected error. Try again, or contact a webmaster.");
         }
     });
 

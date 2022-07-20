@@ -53,8 +53,14 @@ class Login extends React.Component {
 
     async handleLogin(event) {
         const resp = await login(this.state.username, this.state.password);
-        console.log('A namee was submitted: ' + this.state.username);
-        console.log(resp.username)
+        if (resp.status === 201) {
+            window.location.reload(false);
+            console.log('A namee was submitted: ');
+            console.log(resp.data)
+        }
+        else if (resp.status === 200) {
+            this.setState({tagText: resp.data});
+        }
     }
 
     async handleRegister(event) {
