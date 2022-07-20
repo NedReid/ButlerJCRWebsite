@@ -48,17 +48,11 @@ class Header extends React.Component {
                         </ul>
                     </div>
                     <div className="pr-9 flex md:hidden">
-
                             <button className={"aspect-square swap swap-rotate " + (this.state.open? "swap-active bg-orange-700 hover:bg-orange-800": "hover:bg-red-800 ")} onClick={() => this.setState({open: !this.state.open})}>
                                 <MdOutlineClear className="swap-on text-white text-3xl"></MdOutlineClear>
                                 <MdOutlineMenu className="swap-off text-white text-3xl"></MdOutlineMenu>
                             </button>
-
-
-
-
                     </div>
-
                 </div>
             <div className="flex md:hidden w-full">
                 {this.state.open && <div className="w-full">

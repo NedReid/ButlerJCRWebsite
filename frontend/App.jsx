@@ -39,7 +39,7 @@ class App extends React.Component {
              <div className="md:container md:mx-auto">
                  <div className="object-center">
                      <Header admin={this.state.admin} verified ={this.state.verified} />
-                     <Login loggedIn={this.state.loggedIn}/>
+                     <Login loggedIn={this.state.loggedIn} verified ={this.state.verified}/>
                      <Routes>
                          <Route path="/admin" element={<Admin admin={this.state.admin} />}/>
                          <Route path="/students" element={<Students verified={this.state.verified}/>}>

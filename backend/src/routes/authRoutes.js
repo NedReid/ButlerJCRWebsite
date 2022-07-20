@@ -5,6 +5,18 @@ export const authRoutes = (app, auth, db) => {
 
     app.post("/api/register", async function(req, res) {
         console.log("adding account");
+        req.body.username = req.body.username.toLowerCase();
+        if (!(/^[A-Z]{4}[0-9]{2}$/i).test(req.body.username)) {
+            res.status(200);
+            res.send("Your username should be your CIS code (eg: abcd12)");
+            return;
+        }
+        else if (req.body.password.length < 8) {
+            res.status(200);
+            res.send("Password should be at least 8 characters");
+            return;
+        }
+
         const hash = await argon2.hash(req.body.password, {hashLength: 64});
         try {
             const count = await db.users.countAsync({ username:req.body.username});
@@ -18,20 +30,27 @@ export const authRoutes = (app, auth, db) => {
                 res.send(newUser.username);
             }
             else {
-                res.status(202);
-                res.send();
+                res.status(200);
+                res.send("This user already has an account");
             }
         }
         catch {
-            res.status(204);
-            res.send();
+            res.status(200);
+            res.send("Unexpected error. Try again, or contact a webmaster.");
         }
     });
 
     app.post("/api/login", async function(req, res) {
+        req.body.username = req.body.username.toLowerCase();
         console.log("logging in");
         try {
                 const foundUser = await db.users.findOneAsync({username: req.body.username});
+                if (foundUser === null) {
+                    console.log("Account not found")
+                    res.status(200);
+                    res.send("Account not found.");
+                    return
+                }
                 let ps = await argon2.verify(foundUser.password, req.body.password);
                 if (ps) {
                     console.log("successful login")
@@ -43,15 +62,15 @@ export const authRoutes = (app, auth, db) => {
                 }
                 else {
                     console.log("wrong password")
-                    res.status(204);
-                    res.send();
+                    res.status(200);
+                    res.send("Password is incorrect");
                 }
         }
         catch {
             console.log("failed login")
 
-            res.status(204);
-            res.send();
+            res.status(200);
+            res.send("Unexpected error. Try again, or contact a webmaster.");
         }
     });
 
@@ -93,6 +112,30 @@ export const authRoutes = (app, auth, db) => {
 
         }
         catch {
+            res.status(204);
+            res.send();
+        }
+    });
+
+    app.get("/api/resendVerificationEmail", async function(req, res) {
+        try {
+            res.status(201);
+            const webToken = auth.checkToken(req.cookies['loginToken']);
+            const user = await db.users.findOneAsync({username: webToken.username});
+            let resp = {
+                username: false,
+                verified: false,
+            }
+            if (user === null) { throw "no user"; }
+            resp.username = webToken.username;
+            resp.verified = user.registered;
+            if (resp.verified === true) { throw "already verified lol" }
+            await sendVerificationMail(resp.username, resp.verified);
+            console.log(resp);
+            res.send(resp);
+        }
+        catch (e) {
+            console.log(e)
             res.status(204);
             res.send();
         }
