@@ -57,7 +57,8 @@ class SSC extends React.Component {
         if (this.state.SSC !== undefined) {
             return <div className="p-4">
                 <div className="my-4 text-3xl font-semibold">{this.state.SSC.name}</div>
-                <div>
+                <div className="bangle-editor prose max-w-2xl">
+                    {/*{parse(this.state.SSC.page)}*/}
                     {parse(tailwindParse(this.state.SSC.page))}
                 </div>
             </div>

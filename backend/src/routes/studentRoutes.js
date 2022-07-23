@@ -21,7 +21,7 @@ export const studentRoutes = async (app, auth, db) => {
     });
 
     app.get("/api/students/getEvents", async function(req, res) {
-            let events = await db.events.getAllData();
+            let events = await db.events.findAsync({});
             events = events.filter(ev => ev.visible);
             events = await Promise.all(await events.map(async (ev) => {
                 // console.log(ev.desc);

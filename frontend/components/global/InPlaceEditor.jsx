@@ -20,6 +20,7 @@ import {
 } from '@bangle.dev/base-components';
 import {
     floatingMenu,
+    FloatingMenu,
     StaticMenu,
     Menu,
     HeadingButton,
@@ -42,6 +43,7 @@ export default function TextEditor(props) {
         props.onUpdate(toHTMLString(state));
     }
     const [editor, setEditor] = useState();
+
     const editorState = useEditorState({
         specs: [
             bold.spec(),
@@ -83,43 +85,46 @@ export default function TextEditor(props) {
     });
 
     return (
-        <div className="prose max-w-2xl">
-            <StaticMenu
-                editor={editor}
-                // We have a render prop to allow for updating
-                // menu whenever editors state changes
-                renderMenu={() => (
-                    <Menu
-                        style={{
-                            backgroundColor: 'transparent',
-                            color:
-                                document.documentElement.getAttribute('data-theme') === 'dark'
-                                    ? 'white'
-                                    : 'black',
-                        }}
-                    >
-                        <MenuGroup>
-                            <UndoButton />
-                            <RedoButton />
-                        </MenuGroup>
-                        <MenuGroup>
-                            <BoldButton />
-                            <ItalicButton />
-                        </MenuGroup>
-                        <MenuGroup>
-                            <ParagraphButton />
-                            <BlockquoteButton />
-                            <HeadingButton level={2} />
-                            <HeadingButton level={3} />
-                        </MenuGroup>
-                        <BulletListButton />
-                        <OrderedListButton />
-                        <TodoListButton />
-
-                    </Menu>
-                )}
-            />
-            <BangleEditor state={editorState} onReady={setEditor} />
+        <div className="prose w-full w-full">
+            <BangleEditor state={editorState} onReady={setEditor} >
+                <FloatingMenu menuKey={menuKey}/>
+            </BangleEditor>
         </div>
     );
 }
+
+// <FloatingMenu
+//     editor={editor}
+//     // We have a render prop to allow for updating
+//     // menu whenever editors state changes
+//     renderMenu={() => (
+//         <Menu
+//             style={{
+//                 backgroundColor: 'transparent',
+//                 color:
+//                     document.documentElement.getAttribute('data-theme') === 'dark'
+//                         ? 'white'
+//                         : 'black',
+//             }}
+//         >
+//             <MenuGroup>
+//                 <UndoButton />
+//                 <RedoButton />
+//             </MenuGroup>
+//             <MenuGroup>
+//                 <BoldButton />
+//                 <ItalicButton />
+//             </MenuGroup>
+//             <MenuGroup>
+//                 <ParagraphButton />
+//                 <BlockquoteButton />
+//                 <HeadingButton level={2} />
+//                 <HeadingButton level={3} />
+//             </MenuGroup>
+//             <BulletListButton />
+//             <OrderedListButton />
+//             <TodoListButton />
+//
+//         </Menu>
+//     )}
+// />
