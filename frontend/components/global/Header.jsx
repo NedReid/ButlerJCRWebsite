@@ -17,7 +17,7 @@ class Header extends React.Component {
         return <div className="sticky top-0 md:container md:mx-auto z-40">
                 <div className=" bg-red-700 flex md:block">
                     <div className="flex items-center py-1 md:pb-0 md:pt-4 px-4 flex-grow">
-                        <button className="w-16 transition ease-out hover:scale-110 duration-300 flex-initial pr-4"><img src="../../media/global/JCRLogo.png"/></button>
+                        <Link onClick={() => this.setState({open:false})} to="/" className="w-16 transition ease-out hover:scale-110 duration-300 flex-initial pr-4"><img src="../../media/global/JCRLogo.png"/></Link>
                         <div className="flex-grow text-3xl text-white font-raleway font-medium">Butler JCR</div>
                     </div>
                     <div className="self-end justify-end hidden md:flex">
