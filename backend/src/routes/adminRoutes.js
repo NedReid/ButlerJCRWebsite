@@ -6,7 +6,7 @@ import {parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
 export const adminRoutes = async (app, auth, db) => {
 
     if(await db.admins.findOneAsync({username: process.env.ADMIN_USER}) === null) {
-        await db.admins.insertAsync({username: process.env.ADMIN_USER, events: true, finance: true, SSCs: true, pagePerms: true});
+        await db.admins.insertAsync({username: process.env.ADMIN_USER, events: true, finance: true, SSCs: true, adminPerms: true, pagePerms: true});
     }
 
     app.use("/api/admin", async function(req, res, next) {
@@ -157,9 +157,57 @@ export const adminRoutes = async (app, auth, db) => {
 
     app.get("/api/admin/getPagePerms", async function(req, res) {
         if(res.locals.adminUser.pagePerms === true) {
-            let SSCs = await db.pagePerms.findAsync({});
+            let pagePerms = await db.pagePerms.findAsync({});
             res.status(200);
-            res.send(SSCs);
+            res.send(pagePerms);
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/deleteAdminPerms", async function(req, res) {
+        if(res.locals.adminUser.adminPerms === true) {
+            await db.admins.removeAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/createAdminPerms", async function(req, res) {
+        if(res.locals.adminUser.adminPerms === true) {
+            await db.admins.insertAsync(req.body);
+            res.status(201);
+            res.send();
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/updateAdminPerms", async function(req, res) {
+        if(res.locals.adminUser.adminPerms === true) {
+            await db.admins.updateAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.get("/api/admin/getAdminPerms", async function(req, res) {
+        if(res.locals.adminUser.adminPerms === true) {
+            let admins = await db.admins.findAsync({});
+            res.status(200);
+            res.send(admins);
         }
         else {
             res.status(401);
