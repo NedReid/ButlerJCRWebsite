@@ -88,6 +88,8 @@ class CreateEditAdminPerm extends React.Component {
                 <label className="ml-2"><input defaultChecked={this.state.adminPerm.adminPerms === true} onChange={(event) => this.handleBoolChange(event, "adminPerms")} type="radio" name={this.state.adminPerm._id + "adminPerms"} value={true}/>
                 True</label>
             </span>
+
+            <input type="checkbox" id="my-modal" className="modal-toggle"/>
             <div className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg text-red-700">Remove Admin?!</h3>
