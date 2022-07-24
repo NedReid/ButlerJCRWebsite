@@ -55,3 +55,27 @@ export const deleteSSC =  async (event) => {
         return response.data;
     }
 }
+
+export const getPagePerms =  async () => {
+    const response = await axios.get("/api/admin/getPagePerms");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createPagePerms =  async (pagePerms) => {
+    const response = await axios.post("/api/admin/createPagePerms", pagePerms);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updatePagePerms =  async (pagePerms) => {
+    const response = await axios.post("/api/admin/updatePagePerms", pagePerms);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}

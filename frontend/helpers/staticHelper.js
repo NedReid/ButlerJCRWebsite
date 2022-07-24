@@ -35,8 +35,6 @@ export const updatePageEditables = async (page, editables) => {
     const response = await axios.post("/api/static/updatePageEditables", {page: page, editables: editables});
     if (response.status === 200)
     {
-        window.location.reload(false);
         return response.data;
     }
 }
-

@@ -2,6 +2,7 @@ import React from 'react';
 import {getPageEditables, updatePageEditables} from "../../helpers/staticHelper";
 import Loading from "../global/Loading";
 import Editable from "../global/Editable";
+import {AiFillEdit, AiFillSave} from "react-icons/ai";
 
 class Homepage extends React.Component {
     constructor(props) {
@@ -39,13 +40,16 @@ class Homepage extends React.Component {
 
     render() {
         if (this.state.editables !== "waiting") {
-            return <div>
+            return <div className="p-4 relative">
+                {this.state.editor && <button className={"btn btn-circle absolute top-0 right-0 m-2 swap swap-rotate " + (this.state.editing? "swap-active": "")} onClick={this.onChange}>
+                    <AiFillSave className="swap-on text-white text-3xl"></AiFillSave>
+                    <AiFillEdit className="swap-off text-white text-3xl"></AiFillEdit>
+                </button>}
+                <div className="text-4xl font-bold">JCR Finance</div>
                 <Editable updateEditable={this.updateEditable} className="w-28 h-16" page={this.state.page} editables={this.state.editables} name="desc" editing={this.state.editing}/>
-                <div>
-                    This is where the magic happens
-                </div>
+                <div className="text-3xl font-semibold">Who to contact?</div>
                 <Editable updateEditable={this.updateEditable}  className="w-32 h-8" page={this.state.page} editables={this.state.editables} name="contact" editing={this.state.editing}/>
-                <button onClick={this.onChange}>lol</button>
+
             </div>
         }
         else {

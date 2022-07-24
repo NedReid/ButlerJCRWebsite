@@ -21,9 +21,17 @@ export const staticRoutes = async (app, auth, db) => {
 
     app.get("/api/static/getPageEditables", async function(req, res) {
         let editables = await db.editables.findAsync({page: req.query.page});
-        const webToken = auth.checkToken(req.cookies['loginToken']);
-        let pagePerms = await db.pagePerms.findOneAsync({page: req.query.page});
-        let editor = pagePerms.editors.includes(webToken.username)
+        let editor = false;
+        try {
+            const webToken = auth.checkToken(req.cookies['loginToken']);
+            let pagePerms = await db.pagePerms.findOneAsync({page: req.query.page});
+            editor = pagePerms.editors.includes(webToken.username)
+        }
+        catch {
+            console.log("not signed in?")
+        }
+
+
 
         editables = await Promise.all(await editables.map(async (ed) => {
             if (typeof ed.content === 'string' || ed.content instanceof String) {
@@ -37,31 +45,35 @@ export const staticRoutes = async (app, auth, db) => {
     });
 
     app.post("/api/static/updatePageEditables", async function(req, res) {
-        const webToken = auth.checkToken(req.cookies['loginToken']);
-        let pagePerms = await db.pagePerms.findOneAsync({page: req.body.page});
-        if(pagePerms.editors.includes(webToken.username)) {
-            await req.body.editables.map(async (ed) => {
-               if (ed.page === req.body.page) {
-                   let edEnt = await db.editables.findOneAsync({page: req.body.page, name: ed.name, _id: ed._id})
-                    if (edEnt !== null) {
-                        ed.content = await parseRichText(ed.content, ed._id, "editables");
-                        await db.editables.updateAsync({_id: ed._id}, ed)
-                    }
-                    else {
-                        const content = ed.content;
-                        ed.content = ""
-                        let newEnt = await db.editables.insertAsync(ed);
-                        ed.content = await parseRichText(content, newEnt._id, "editables");
-                        await db.editables.updateAsync({_id: newEnt._id}, ed)
+        try {
+            const webToken = auth.checkToken(req.cookies['loginToken']);
+            let pagePerms = await db.pagePerms.findOneAsync({page: req.body.page});
+            if (pagePerms.editors.includes(webToken.username)) {
+                await req.body.editables.map(async (ed) => {
+                    if (ed.page === req.body.page) {
+                        let edEnt = await db.editables.findOneAsync({page: req.body.page, name: ed.name, _id: ed._id})
+                        if (edEnt !== null) {
+                            ed.content = await parseRichText(ed.content, ed._id, "editables");
+                            await db.editables.updateAsync({_id: ed._id}, ed)
+                        } else {
+                            const content = ed.content;
+                            ed.content = ""
+                            let newEnt = await db.editables.insertAsync(ed);
+                            ed.content = await parseRichText(content, newEnt._id, "editables");
+                            await db.editables.updateAsync({_id: newEnt._id}, ed)
 
 
+                        }
                     }
-               }
-            });
-            res.status(200);
-            res.send();
+                });
+                res.status(200);
+                res.send();
+            } else {
+                res.status(401);
+                res.send();
+            }
         }
-        else {
+        catch {
             res.status(401);
             res.send();
         }
