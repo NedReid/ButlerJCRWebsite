@@ -16,9 +16,25 @@ function shuffleArray(array) {
 }
 
 export const getFolderAddresses = async (folder) => {
-    const response = await axios.get("/api/home/getFolderAddresses", {params: {folder:folder}});
+    const response = await axios.get("/api/static/getFolderAddresses", {params: {folder:folder}});
     if (response.status === 200)
     {
         return shuffleArray(response.data);
+    }
+}
+
+export const getPageEditables = async (page) => {
+    const response = await axios.get("/api/static/getPageEditables", {params: {page: page}});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const updatePageEditables = async (page, editables) => {
+    const response = await axios.post("/api/static/updatePageEditables", {page: page, editables: editables});
+    if (response.status === 200)
+    {
+        return response.data;
     }
 }

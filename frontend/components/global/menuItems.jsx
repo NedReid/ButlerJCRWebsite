@@ -45,7 +45,12 @@ export const menuItems = [
         title: "About",
         page: "about",
         access: "all",
-        items: []
+        items: [
+            {title: "Finance",
+            page: "finance",
+            access: "all",
+            items: []}
+            ]
     },
 
     {

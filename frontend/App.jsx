@@ -19,12 +19,17 @@ import Committees from "./components/getInvolved/Committees";
 import EditSSC from "./components/getInvolved/EditSSC";
 import SSC from "./components/getInvolved/SSC";
 import Homepage from "./components/static/Homepage";
+// import PageEditor from "./components/global/PageEditor";
+import Finance from "./components/static/Finance"
+
 class App extends React.Component {
     state = {
         loggedIn: "waiting",
         verified: "waiting",
         admin: "waiting",
     }
+
+
 
 
 
@@ -57,6 +62,7 @@ class App extends React.Component {
                          <Route path="get-involved/committees/:id" element={<SSC/>}/>
                          <Route path="get-involved/ssc/:id" element={<SSC/>}/>
                          <Route path="/" element={<Homepage/>} />
+                         <Route path="finance" element={<Finance/>}/>
 
                      </Routes>
 
