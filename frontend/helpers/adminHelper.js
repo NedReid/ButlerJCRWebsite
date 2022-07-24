@@ -79,3 +79,35 @@ export const updatePagePerms =  async (pagePerms) => {
         return response.data;
     }
 }
+
+export const deleteAdminPerms =  async (event) => {
+    const response = await axios.post("/api/admin/deleteAdminPerms", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createAdminPerms =  async (adminPerms) => {
+    const response = await axios.post("/api/admin/createAdminPerms", adminPerms);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateAdminPerms =  async (adminPerms) => {
+    const response = await axios.post("/api/admin/updateAdminPerms", adminPerms);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getAdminPerms =  async () => {
+    const response = await axios.get("/api/admin/getAdminPerms");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
