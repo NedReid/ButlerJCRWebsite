@@ -80,6 +80,7 @@ class Role extends React.Component {
                                 <p><i>Contact Current Officer:</i></p>
                                 <p className="font-semibold">{officer.name}</p>
                                 <p className="font-semibold">{officer.username}@durham.ac.uk</p>
+                                <br/>
                             </div>)
                         :
                         <div>
@@ -122,7 +123,6 @@ class Role extends React.Component {
                     </span>
                 </div>}
                 <div className="px-4 py-6 flex bg-slate-100">
-                    <img></img>
                     <div className="text-6xl font-semibold">{this.state.role.name}</div>
                 </div>
                 <div className="md:pl-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 justify-between">

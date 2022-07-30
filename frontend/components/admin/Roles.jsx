@@ -80,41 +80,6 @@ class Events extends React.Component {
                 }
             })}
         </div>
-
-
-
-
-        // {this.state.addingEvent === false &&
-        // <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={() => {this.setState({addingEvent: true})}}>Create Event</button>
-        // }
-        // {this.state.addingEvent === true && <>
-        //     <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={() => {this.setState({addingEvent: false})}}>Cancel</button>
-        //     <CreateEditEvent closeTab={this.onCreated}/>
-        // </>}
-        // <br/>
-        // {this.state.events.length > 0 && <>
-        //     Edit Current Events:
-        //     <br/>
-        //     <select defaultValue="" onChange={this.editEvent} className="select select-bordered w-full max-w-xs">
-        //         <option value="">Select Event</option>
-        //         {this.state.events.map((event, index) => {
-        //             return (
-        //                 <option value={event._id} key={index}>{event.name}</option>
-        //             );
-        //         })}
-        //
-        //     </select>
-        //     {this.state.events.map((event, index) =>{
-        //         if(event === this.state.currentEvent) {
-        //             return <CreateEditEvent closeTab={this.onUpdated} key={index} event={this.state.currentEvent}/>
-        //         }
-        //     })}
-        // </>
-        // }
-        //
-        // <div className="text-2xl text-semibold text-black text-xl text-lg list-disc list-decimal bg-slate-200 ml-1 px-2 py-1">
-        //
-        // </div>
     }
 
 }
