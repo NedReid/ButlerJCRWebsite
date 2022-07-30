@@ -6,7 +6,7 @@ import {parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
 export const adminRoutes = async (app, auth, db) => {
 
     if(await db.admins.findOneAsync({username: process.env.ADMIN_USER}) === null) {
-        await db.admins.insertAsync({username: process.env.ADMIN_USER, events: true, finance: true, SSCs: true, adminPerms: true, pagePerms: true});
+        await db.admins.insertAsync({username: process.env.ADMIN_USER, events: true, finance: true, SSCs: true, adminPerms: true, pagePerms: true, democracy: true});
     }
 
     app.use("/api/admin", async function(req, res, next) {
@@ -208,6 +208,54 @@ export const adminRoutes = async (app, auth, db) => {
             let admins = await db.admins.findAsync({});
             res.status(200);
             res.send(admins);
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.get("/api/admin/getRoles", async function(req, res) {
+        if(res.locals.adminUser.democracy === true) {
+            let roles = await db.roles.findAsync({});
+            res.status(200);
+            res.send(roles);
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/createRole", async function(req, res) {
+        if(res.locals.adminUser.democracy === true) {
+            await db.roles.insertAsync(req.body);
+            res.status(201);
+            res.send();
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/updateRole", async function(req, res) {
+        if(res.locals.adminUser.democracy === true) {
+            await db.roles.updateAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/deleteRole", async function(req, res) {
+        if(res.locals.adminUser.democracy === true) {
+            await db.roles.removeAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
         }
         else {
             res.status(401);

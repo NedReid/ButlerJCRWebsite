@@ -7,6 +7,7 @@ export default class officerModel {
     election_year = 2022;
     page = "<p></p>";
     visible = false;
+    current = false;
     _id = undefined;
 
     constructor(init = undefined) {
@@ -17,6 +18,7 @@ export default class officerModel {
             this.election_year = init.election_year;
             this.page = init.page;
             this.visible = init.visible;
+            this.current = init.current;
             this._id = init._id;
         }
 

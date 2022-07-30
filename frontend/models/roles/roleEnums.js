@@ -22,10 +22,14 @@ export const meetingToName = (meeting) => {
             return "Epiphany 1"
         case meetingEnum.epi2:
             return "Epiphany 2"
+        case meetingEnum.epi3:
+            return "Epiphany 3"
         case meetingEnum.eas1:
             return "Easter 1"
         case meetingEnum.eas2:
             return "Easter 2"
+        case meetingEnum.none:
+            return "None"
     }
 }
 
