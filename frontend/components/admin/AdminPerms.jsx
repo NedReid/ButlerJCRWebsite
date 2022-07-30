@@ -44,7 +44,7 @@ class AdminPerms extends React.Component {
             <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={() => {this.setState({addingPerm: true})}}>Add Admin</button>
             }
             {this.state.addingPerm === true && <>
-                <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={() => {this.setState({addingPerm: true})}}>Cancel</button>
+                <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={() => {this.setState({addingPerm: false})}}>Cancel</button>
                 <CreateEditAdminPerms closeTab={this.onCreated}/>
             </>}
             <br/>

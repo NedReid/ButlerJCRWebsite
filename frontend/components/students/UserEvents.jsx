@@ -36,7 +36,9 @@ class UserEvents extends React.Component {
                         <input type="checkbox" className="peer"/>
                         <div className=" collapse-title text-3xl font-semibold">{event.name}</div>
                         <div className="collapse-content text-black">
-                            {parse(tailwindParse(event.desc))}
+                            <div className="bangle-editor prose">
+                                {parse(tailwindParse(event.desc))}
+                            </div>
                             <hr/>
                             <div>Ticket release: {event.ticketReleaseDate.toString()}</div>
                             <div>Ticket deadline: {event.ticketReleaseDeadline.toString()}</div>
