@@ -13,6 +13,7 @@ import { adminRoutes } from "./routes/adminRoutes.js";
 import { studentRoutes } from "./routes/studentRoutes.js";
 import { getInvolvedRoutes } from "./routes/getInvolvedRoutes.js";
 import { staticRoutes } from "./routes/staticRoutes.js";
+import { democracyRoutes } from "./routes/democracyRoutes.js";
 const db = {}
 const upload = multer({dest:'files/'});
 const auth = new AuthService();
@@ -24,6 +25,11 @@ db.eventBooking = new Datastore({ filename: 'database/eventBooking.db', autoload
 db.SSCs = new Datastore({ filename: 'database/SSCs.db', autoload: true });
 db.editables = new Datastore({ filename: 'database/editables.db', autoload: true });
 db.pagePerms = new Datastore({ filename: 'database/pagePerms.db', autoload: true });
+db.roles = new Datastore({ filename: 'database/roles.db', autoload: true });
+db.officers = new Datastore({ filename: 'database/officers.db', autoload: true });
+db.meetings = new Datastore({ filename: 'database/meetings.db', autoload: true });
+db.motions = new Datastore({ filename: 'database/motions.db', autoload: true });
+db.candidates = new Datastore({ filename: 'database/candidates.db', autoload: true });
 
 const app = express()
 const port = 3001;
@@ -39,6 +45,8 @@ await adminRoutes(app, auth, db);
 await studentRoutes(app, auth, db);
 await getInvolvedRoutes(app, auth, db);
 await staticRoutes(app, auth, db);
+await democracyRoutes(app, auth, db);
+
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
 });

@@ -8,14 +8,6 @@ export const getEvents =  async () => {
     }
 }
 
-export const getSSCs =  async () => {
-    const response = await axios.get("/api/admin/getSSCs");
-    if (response.status === 200)
-    {
-        return response.data;
-    }
-}
-
 export const createEvent =  async (event) => {
     const response = await axios.post("/api/admin/createEvent", event);
     if (response.status === 201)
@@ -26,6 +18,14 @@ export const createEvent =  async (event) => {
 
 export const updateEvent =  async (event) => {
     const response = await axios.post("/api/admin/updateEvent", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getSSCs =  async () => {
+    const response = await axios.get("/api/admin/getSSCs");
     if (response.status === 200)
     {
         return response.data;
@@ -106,6 +106,78 @@ export const updateAdminPerms =  async (adminPerms) => {
 
 export const getAdminPerms =  async () => {
     const response = await axios.get("/api/admin/getAdminPerms");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getRoles =  async () => {
+    const response = await axios.get("/api/admin/getRoles");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getRoleHeaders =  async () => {
+    const response = await axios.get("/api/admin/getRoleHeaders");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createRole =  async (event) => {
+    const response = await axios.post("/api/admin/createRole", event);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateRole =  async (event) => {
+    const response = await axios.post("/api/admin/updateRole", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deleteRole =  async (event) => {
+    const response = await axios.post("/api/admin/deleteRole", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getOfficers =  async () => {
+    const response = await axios.get("/api/admin/getOfficers");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createOfficer =  async (event) => {
+    const response = await axios.post("/api/admin/createOfficer", event);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateOfficer =  async (event) => {
+    const response = await axios.post("/api/admin/updateOfficer", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deleteOfficer =  async (event) => {
+    const response = await axios.post("/api/admin/deleteOfficer", event);
     if (response.status === 200)
     {
         return response.data;

@@ -42,14 +42,18 @@ export const menuItems = [
         ]
     },
     {
-        title: "About",
-        page: "about",
+        title: "The JCR",
+        page: "jcr",
         access: "all",
         items: [
             {title: "Finance",
             page: "finance",
             access: "all",
-            items: []}
+            items: []},
+            {title: "Roles",
+                page: "roles",
+                access: "all",
+                items: []}
             ]
     },
 

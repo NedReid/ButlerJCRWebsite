@@ -21,6 +21,8 @@ import SSC from "./components/getInvolved/SSC";
 import Homepage from "./components/static/Homepage";
 // import PageEditor from "./components/global/PageEditor";
 import Finance from "./components/static/Finance"
+import RolesPage from "./components/democracy/RolesPage";
+import Role from "./components/democracy/Role";
 
 class App extends React.Component {
     state = {
@@ -63,7 +65,8 @@ class App extends React.Component {
                          <Route path="get-involved/ssc/:id" element={<SSC/>}/>
                          <Route path="/" element={<Homepage/>} />
                          <Route path="finance" element={<Finance/>}/>
-
+                         <Route path="roles" element={<RolesPage/>}/>
+                         <Route path="roles/:id" element={<Role/>}/>
                      </Routes>
 
                  </div>

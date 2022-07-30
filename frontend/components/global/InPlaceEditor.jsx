@@ -85,8 +85,8 @@ export default function TextEditor(props) {
     });
 
     return (
-        <div className="prose w-full w-full">
-            <BangleEditor state={editorState} onReady={setEditor} >
+        <div className="prose w-full w-full max-w-none">
+            <BangleEditor state={editorState} onReady={setEditor}  className="max-w-none w-full w-full">
                 <FloatingMenu menuKey={menuKey}/>
             </BangleEditor>
         </div>
