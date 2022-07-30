@@ -58,7 +58,7 @@ class Role extends React.Component {
         console.log("RENDERING")
         if (this.state.role !== undefined) {
             const sideBar = <div className="relative w-full h-full bg-red-800 text-white p-4">
-                <div className="sticky top-36 grid grid-cols-2 justify-items-center md:block text-center md:text-start">
+                <div className="sticky top-36 grid grid-cols-2 justify-items-center md:block text-center md:text-left">
                     <div>
                         <p><i>Election Type:</i></p>
                         <p className="font-semibold">{this.state.role.e_type}</p>
