@@ -5,6 +5,7 @@ import Events from './Events';
 import PagePerms from "./PagePerms";
 import AdminPerms from "./AdminPerms";
 import Roles from "./Roles";
+import Officers from "./Officers";
 class Admin extends React.Component {
     constructor(props) {
         super(props);
@@ -17,6 +18,7 @@ class Admin extends React.Component {
             {this.props.admin.pagePerms && <PagePerms/>}
             {this.props.admin.adminPerms && <AdminPerms/>}
             {this.props.admin.democracy && <Roles/>}
+            {this.props.admin.democracy && <Officers/>}
 
         </>
 

@@ -120,6 +120,14 @@ export const getRoles =  async () => {
     }
 }
 
+export const getRoleHeaders =  async () => {
+    const response = await axios.get("/api/admin/getRoleHeaders");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
 export const createRole =  async (event) => {
     const response = await axios.post("/api/admin/createRole", event);
     if (response.status === 201)
@@ -138,6 +146,38 @@ export const updateRole =  async (event) => {
 
 export const deleteRole =  async (event) => {
     const response = await axios.post("/api/admin/deleteRole", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getOfficers =  async () => {
+    const response = await axios.get("/api/admin/getOfficers");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createOfficer =  async (event) => {
+    const response = await axios.post("/api/admin/createOfficer", event);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateOfficer =  async (event) => {
+    const response = await axios.post("/api/admin/updateOfficer", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deleteOfficer =  async (event) => {
+    const response = await axios.post("/api/admin/deleteOfficer", event);
     if (response.status === 200)
     {
         return response.data;
