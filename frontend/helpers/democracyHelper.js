@@ -38,3 +38,53 @@ export const updateRole =  async (role) => {
     }
 }
 
+export const getMeetingHeaders = async () => {
+    const response = await axios.get("/api/democracy/getMeetingHeaders");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getMeeting = async (_id) => {
+    console.log(_id)
+    const response = await axios.get("/api/democracy/getMeeting", {params: {_id: _id}});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getMotionHeaders = async () => {
+    const response = await axios.get("/api/democracy/getMotionHeaders");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getMotion = async (_id) => {
+    console.log(_id)
+    const response = await axios.get("/api/democracy/getMotion", {params: {_id: _id}});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getCandidateHeaders = async () => {
+    const response = await axios.get("/api/democracy/getCandidateHeaders");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getCandidate = async (_id) => {
+    console.log(_id)
+    const response = await axios.get("/api/democracy/getCandidate", {params: {_id: _id}});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}

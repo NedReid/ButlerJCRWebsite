@@ -167,5 +167,103 @@ export const democracyRoutes = async (app, auth, db) => {
         }
     });
 
+    app.get("/api/democracy/getMeetingHeaders", async function(req, res) {
+        const webToken = getToken(req);
+        let meetings = await db.meetings.findAsync({});
+        if (!(await checkAdmin(req, webToken))) {
+            meetings = meetings.filter(meeting => (meeting.visible === true))
+        }
+        meetings = await Promise.all(await meetings.map(async (meeting) => {
+            meeting.page = "beans";
+            return meeting
+        }));
+        res.status(200);
+        res.send(meetings);
+    });
+
+    app.get("/api/democracy/getMeeting", async function(req, res) {
+        const webToken = getToken(req);
+        let meeting = await db.meetings.findOneAsync({_id: req.query._id});
+        let admin = await checkAdmin(req, webToken)
+        if (meeting.visible || admin) {
+            meeting.page = await retrieveRichText(meeting.page, "meetings");
+            res.status(200);
+            res.send(meeting);
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.get("/api/democracy/getMotionHeaders", async function(req, res) {
+        const webToken = getToken(req);
+        let motions = await db.motions.findAsync({});
+        if (!(await checkAdmin(req, webToken))) {
+            motions = await Promise.all(await motions.filter(async (motion) => {
+                let meeting = await db.meetings.findOneAsync({_id: motion.meeting})
+                return meeting.visible === true
+            }));
+        }
+        motions = await Promise.all(await motions.map(async (motion) => {
+            motion.notes = "beans";
+            motion.believes = "beans";
+            motion.resolves = "beans";
+            return motion
+        }));
+        res.status(200);
+        res.send(motions);
+    });
+
+    app.get("/api/democracy/getMotion", async function(req, res) {
+        const webToken = getToken(req);
+        let motion = await db.motions.findOneAsync({_id: req.query._id});
+        let meeting = await db.meetings.findOneAsync({_id: motion.meeting})
+        let admin = await checkAdmin(req, webToken)
+        if (meeting.visible || admin) {
+            motion.notes = await retrieveRichText(motion.notes, "motions_notes");
+            motion.believes = await retrieveRichText(motion.believes, "motions_believes");
+            motion.resolves = await retrieveRichText(motion.resolves, "motions_resolves");
+            res.status(200);
+            res.send(motion);
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.get("/api/democracy/getCandidateHeaders", async function(req, res) {
+        const webToken = getToken(req);
+        let candidates = await db.candidates.findAsync({});
+        if (!(await checkAdmin(req, webToken))) {
+            candidates = await Promise.all(await candidates.filter(async (candidate) => {
+                let meeting = await db.meetings.findOneAsync({_id: candidate.meeting})
+                return meeting.visible === true
+            }));
+        }
+        candidates = await Promise.all(await candidates.map(async (candidate) => {
+            candidate.page = "beans";
+            return candidate
+        }));
+        res.status(200);
+        res.send(candidates);
+    });
+
+    app.get("/api/democracy/getCandidate", async function(req, res) {
+        const webToken = getToken(req);
+        let candidate = await db.candidates.findOneAsync({_id: req.query._id});
+        let meeting = await db.meetings.findOneAsync({_id: candidate.meeting})
+        let admin = await checkAdmin(req, webToken)
+        if (candidate.visible || admin) {
+            candidate.manifesto = await retrieveRichText(candidate.manifesto, "candidates_notes");
+            res.status(200);
+            res.send(candidate);
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
 }
 
