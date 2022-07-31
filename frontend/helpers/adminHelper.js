@@ -183,3 +183,107 @@ export const deleteOfficer =  async (event) => {
         return response.data;
     }
 }
+
+export const getMeetings =  async () => {
+    const response = await axios.get("/api/admin/getMeetings");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getMeetingHeaders =  async () => {
+    const response = await axios.get("/api/admin/getMeetingHeaders");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createMeeting =  async (event) => {
+    const response = await axios.post("/api/admin/createMeeting", event);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateMeeting =  async (event) => {
+    const response = await axios.post("/api/admin/updateMeeting", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deleteMeeting =  async (event) => {
+    const response = await axios.post("/api/admin/deleteMeeting", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getMotions =  async () => {
+    const response = await axios.get("/api/admin/getMotions");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createMotion =  async (event) => {
+    const response = await axios.post("/api/admin/createMotion", event);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateMotion =  async (event) => {
+    const response = await axios.post("/api/admin/updateMotion", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deleteMotion =  async (event) => {
+    const response = await axios.post("/api/admin/deleteMotion", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getCandidates =  async () => {
+    const response = await axios.get("/api/admin/getCandidates");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createCandidate =  async (event) => {
+    const response = await axios.post("/api/admin/createCandidate", event);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateCandidate =  async (event) => {
+    const response = await axios.post("/api/admin/updateCandidate", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deleteCandidate =  async (event) => {
+    const response = await axios.post("/api/admin/deleteCandidate", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}

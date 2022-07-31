@@ -3,6 +3,7 @@ import {meetingEnum} from './roleEnums'
 export default class meetingModel {
     date = new Date();
     m_type = meetingEnum.none
+    meeting = ""
     page = "<p></p>";
     visible = false;
     _id = undefined;
@@ -13,6 +14,7 @@ export default class meetingModel {
             this.m_type = init.m_type;
             this.page = init.page;
             this.visible = init.visible;
+            this.meeting = init.meeting;
             this._id = init._id;
         }
 
