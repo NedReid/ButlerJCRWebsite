@@ -10,6 +10,5 @@
     "ignore": ["backend/database", "backend/files"],
     "delay": 2500
   },
-  "type": "module",
-  
+  "type": "module"
 }
