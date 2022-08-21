@@ -9,5 +9,6 @@
   "nodemonConfig": {
     "ignore": ["backend/database", "backend/files"],
     "delay": 2500
-  }
+  },
+  "type": "module"
 }
