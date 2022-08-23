@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import path from "path";
+import exceptionHandler from 'express-exception-handler';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import Datastore from '@seald-io/nedb';
@@ -31,7 +32,8 @@ db.meetings = new Datastore({ filename: 'database/meetings.db', autoload: true }
 db.motions = new Datastore({ filename: 'database/motions.db', autoload: true });
 db.candidates = new Datastore({ filename: 'database/candidates.db', autoload: true });
 
-const app = express()
+exceptionHandler.handle();
+const app = express();
 const port = 3001;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -50,6 +52,13 @@ await democracyRoutes(app, auth, db);
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
 });
+
+function errorHandler (err, req, res, next) {
+    res.status(500)
+    console.log("error:", err)
+}
+
+app.use(errorHandler);
 
 // app.get('/', (req, res) => {
 //     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');

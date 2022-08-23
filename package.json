@@ -7,7 +7,10 @@
     "nodemon": "^2.0.19"
   },
   "nodemonConfig": {
-    "ignore": ["backend/database", "backend/files"],
+    "ignore": [
+      "backend/database",
+      "backend/files"
+    ],
     "delay": 2500
   }
 }

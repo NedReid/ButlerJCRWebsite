@@ -20,8 +20,15 @@ export class AuthService {
     }
 
     checkToken(token) {
-        const check = jwt.verify(token, this.signature);
-        return check;
+        try {
+            const check = jwt.verify(token, this.signature);
+            return check;
+
+        }
+        catch {
+            console.log("FAILED JWT")
+            return undefined;
+        }
     }
 
 

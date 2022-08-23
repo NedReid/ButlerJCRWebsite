@@ -1,6 +1,7 @@
 import argon2 from "argon2";
 import express from "express";
 import { sendVerificationMail } from '../helpers/emailer.js';
+
 import {parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
 
 export const adminRoutes = async (app, auth, db) => {
@@ -326,6 +327,10 @@ export const adminRoutes = async (app, auth, db) => {
             res.status(401);
             res.send();
         }
+    });
+
+    app.get("/api/admin/break", async function(req, res) {
+        throw "We live in a society"
     });
 
 }
