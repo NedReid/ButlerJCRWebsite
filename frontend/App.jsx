@@ -19,7 +19,7 @@ import Committees from "./components/getInvolved/Committees";
 import EditSSC from "./components/getInvolved/EditSSC";
 import SSC from "./components/getInvolved/SSC";
 import Homepage from "./components/static/Homepage";
-// import PageEditor from "./components/global/PageEditor";
+import Error from "./components/static/Error";
 import Finance from "./components/static/Finance"
 import RolesPage from "./components/democracy/RolesPage";
 import Role from "./components/democracy/Role";
@@ -67,6 +67,7 @@ class App extends React.Component {
                          <Route path="finance" element={<Finance/>}/>
                          <Route path="roles" element={<RolesPage/>}/>
                          <Route path="roles/:id" element={<Role/>}/>
+                         <Route path="oh-no" element={<Error/>}/>
                      </Routes>
 
                  </div>

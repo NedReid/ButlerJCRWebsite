@@ -148,9 +148,9 @@ export const authRoutes = (app, auth, db) => {
         user.registered = true;
         await db.users.updateAsync({_id:user._id}, user);
         res.status(201);
+        res.redirect("/")
         res.send();
         try {
-
 
         }
         catch {

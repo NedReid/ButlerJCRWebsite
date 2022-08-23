@@ -55,6 +55,7 @@ app.get('*', (req,res) =>{
 
 function errorHandler (err, req, res, next) {
     res.status(500)
+    res.redirect("/oh-no")
     console.log("error:", err)
 }
 
