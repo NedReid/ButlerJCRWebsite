@@ -1,4 +1,5 @@
 export default class candidateModel {
+    name = "";
     manifesto = "<p></p>";
     video = "";
     poster = "";
@@ -11,6 +12,7 @@ export default class candidateModel {
 
     constructor(init = undefined) {
         if(init !== undefined) {
+            this.name = init.name
             this.manifesto = init.manifesto;
             this.video = init.video;
             this.poster = init.poster;

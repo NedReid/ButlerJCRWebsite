@@ -197,6 +197,7 @@ export const getMeetingHeaders =  async () => {
     const response = await axios.get("/api/admin/getMeetingHeaders");
     if (response.status === 200)
     {
+        response.data.forEach(meeting => meeting.date = new Date(meeting.date))
         return response.data;
     }
 }

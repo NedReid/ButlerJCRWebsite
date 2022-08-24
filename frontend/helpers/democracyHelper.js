@@ -46,6 +46,14 @@ export const getMeetingHeaders = async () => {
     }
 }
 
+export const getMeetingDetails = async (slug) => {
+    const response = await axios.get("/api/democracy/getMeetingDetails", {params: {slug: slug}});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
 export const getMeeting = async (_id) => {
     console.log(_id)
     const response = await axios.get("/api/democracy/getMeeting", {params: {_id: _id}});

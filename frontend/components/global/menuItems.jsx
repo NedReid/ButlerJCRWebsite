@@ -53,6 +53,10 @@ export const menuItems = [
             {title: "Roles",
                 page: "roles",
                 access: "all",
+                items: []},
+            {title: "Elections",
+                page: "elections",
+                access: "all",
                 items: []}
             ]
     },

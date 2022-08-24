@@ -1,8 +1,7 @@
 import argon2 from "argon2";
 import express from "express";
 import { sendVerificationMail } from '../helpers/emailer.js';
-
-import {parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
+import {parseRichText, retrieveRichText, retrieveImageFile, exportImageFile} from "../helpers/mediaHelper.js";
 
 export const adminRoutes = async (app, auth, db) => {
 
@@ -351,8 +350,11 @@ export const adminRoutes = async (app, auth, db) => {
     
     app.post("/api/admin/createMeeting", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
-            req.body.page = await parseRichText(req.body.page, req.body._id, "meeting");
-            await db.meetings.insertAsync(req.body);
+            const page = req.body.page
+            req.body.page = ""
+            const newDb = await db.meetings.insertAsync(req.body);
+            newDb.page = await parseRichText(page, newDb._id, "meeting");
+            await db.meetings.updateAsync({_id: newDb._id}, newDb);
             res.status(201);
             res.send();
         } else {
@@ -383,6 +385,7 @@ export const adminRoutes = async (app, auth, db) => {
             res.send();
         }
     });
+
     app.get("/api/admin/getMotions", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
             let motions = await db.motions.findAsync({});
@@ -396,7 +399,7 @@ export const adminRoutes = async (app, auth, db) => {
                 if (typeof motion.resolves === 'string' || motion.resolves instanceof String) {
                     motion.resolves = await retrieveRichText(motion.resolves, "motions_resolves");
                 }
-                return meeting
+                return motion
             }));
             res.status(200);
             res.send(motions);
@@ -408,10 +411,14 @@ export const adminRoutes = async (app, auth, db) => {
 
     app.post("/api/admin/createMotion", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
-            req.body.notes = await parseRichText(req.body.page, req.body._id, "motion_notes");
-            req.body.believes = await parseRichText(req.body.page, req.body._id, "motion_believes");
-            req.body.resolves = await parseRichText(req.body.page, req.body._id, "motion_resolves");
-            await db.motions.insertAsync(req.body);
+            const notes =req.body.notes;
+            const believes =req.body.believes;
+            const resolves =req.body.resolves
+            const newDb = await db.motions.insertAsync(req.body);
+            newDb.notes = await parseRichText(notes, newDb._id, "motion_notes");;
+            newDb.believes = await parseRichText(believes, newDb._id, "motion_believes");
+            newDb.resolves = await parseRichText(resolves, newDb._id, "motion_resolves");
+            await db.motions.updateAsync({_id: newDb}, newDb);
             res.status(201);
             res.send();
         } else {
@@ -422,9 +429,9 @@ export const adminRoutes = async (app, auth, db) => {
 
     app.post("/api/admin/updateMotion", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
-            req.body.notes = await parseRichText(req.body.page, req.body._id, "motion_notes");
-            req.body.believes = await parseRichText(req.body.page, req.body._id, "motion_believes");
-            req.body.resolves = await parseRichText(req.body.page, req.body._id, "motion_resolves");
+            req.body.notes = await parseRichText(req.body.notes, req.body._id, "motion_notes");
+            req.body.believes = await parseRichText(req.body.believes, req.body._id, "motion_believes");
+            req.body.resolves = await parseRichText(req.body.resolves, req.body._id, "motion_resolves");
             await db.motions.updateAsync({_id: req.body._id}, req.body);
             res.status(200);
             res.send();
@@ -452,6 +459,8 @@ export const adminRoutes = async (app, auth, db) => {
                 if (typeof candidate.manifesto === 'string' || candidate.manifesto instanceof String) {
                     candidate.manifesto = await retrieveRichText(candidate.manifesto, "candidates");
                 }
+                candidate.poster = await retrieveImageFile(candidate.poster);
+                candidate.promotionalImage = await retrieveImageFile(candidate.promotionalImage);
                 return candidate
             }));
             res.status(200);
@@ -464,8 +473,18 @@ export const adminRoutes = async (app, auth, db) => {
 
     app.post("/api/admin/createCandidate", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
-            req.body.manifesto = await parseRichText(req.body.manifesto, req.body._id, "candidates");
-            await db.candidates.insertAsync(req.body);
+            const manifesto = req.body.manifesto
+            const poster = req.body.poster
+            const promotionalImage = req.body.promotionalImage;
+            req.body.poster = "";
+            req.body.promotionalImage = "";
+            req.body.manifesto = "";
+            const newDb = await db.candidates.insertAsync(req.body);
+            newDb.poster = await exportImageFile(poster,true,  "poster", newDb._id);
+            newDb.promotionalImage =  await exportImageFile(promotionalImage,true,  "promotionalImage", newDb._id);
+            newDb.manifesto = await parseRichText(manifesto, newDb._id, "candidates");
+            await db.candidates.updateAsync({_id: newDb._id}, newDb);
+
             res.status(201);
             res.send();
         } else {
@@ -477,6 +496,9 @@ export const adminRoutes = async (app, auth, db) => {
     app.post("/api/admin/updateCandidate", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
             req.body.manifesto = await parseRichText(req.body.manifesto, req.body._id, "candidates");
+            req.body.poster = await exportImageFile(req.body.poster,true,  "poster", req.body._id);
+            req.body.promotionalImage =  await exportImageFile(req.body.promotionalImage,true,  "promotionalImage", req.body._id);
+
             await db.candidates.updateAsync({_id: req.body._id}, req.body);
             res.status(200);
             res.send();

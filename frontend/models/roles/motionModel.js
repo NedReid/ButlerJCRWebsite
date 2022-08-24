@@ -1,4 +1,5 @@
 export default class motionModel {
+    name = "";
     notes = "<p></p>";
     believes = "<p></p>";
     resolves = "<p></p>";
@@ -11,6 +12,7 @@ export default class motionModel {
 
     constructor(init = undefined) {
         if(init !== undefined) {
+            this.name = init.name;
             this.notes = init.notes;
             this.believes = init.believes;
             this.resolves = init.resolves;

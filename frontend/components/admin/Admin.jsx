@@ -7,6 +7,8 @@ import AdminPerms from "./AdminPerms";
 import Roles from "./Roles";
 import Officers from "./Officers";
 import Meetings from "./Meetings";
+import Motions from "./Motions";
+import Candidates from "./Candidates";
 class Admin extends React.Component {
     constructor(props) {
         super(props);
@@ -21,6 +23,9 @@ class Admin extends React.Component {
             {this.props.admin.democracy && <Roles/>}
             {this.props.admin.democracy && <Officers/>}
             {this.props.admin.democracy && <Meetings/>}
+            {this.props.admin.democracy && <Motions/>}
+            {this.props.admin.democracy && <Candidates/>}
+
         </>
 
     }

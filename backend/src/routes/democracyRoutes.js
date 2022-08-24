@@ -8,6 +8,76 @@ import {parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const democracyRoutes = async (app, auth, db) => {
+    const meetingEnum = {
+        mic1: 0,
+        mic2: 1,
+        mic3: 2,
+        epi1: 3,
+        epi2: 4,
+        epi3: 5,
+        eas1: 6,
+        eas2: 7,
+        emergency: 8,
+        none: -1,
+    }
+    const slugToEnum = {
+        "michaelmas-1": meetingEnum.mic1,
+        "michaelmas-2": meetingEnum.mic2,
+        "michaelmas-3": meetingEnum.mic3,
+        "epiphany-1": meetingEnum.epi1,
+        "epiphany-2": meetingEnum.epi2,
+        "epiphany-3": meetingEnum.epi3,
+        "easter-1": meetingEnum.eas1,
+        "easter-2": meetingEnum.eas2,
+        "emergency": meetingEnum.emergency,
+        "meeting": meetingEnum.none,
+    }
+
+    const slugToMeeting = async (slug) => {
+        const meetings = await db.meetings.findAsync({visible: true});
+        if (slug === undefined || slug === "") {
+            return meetings.sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0];
+        }
+        for (const [key, value] of Object.entries(slugToEnum)) {
+            if (slug.startsWith(key)) {
+                if (value === meetingEnum.none || value === meetingEnum.emergency) {
+                    const sl = slug.split("-")
+                    if (sl.length === 4) {
+                        return meetings.find(meeting => {
+                            const date = new Date(meeting.date);
+                            return meeting.m_type === value && date.getDate().toString() === sl[1]
+                                && date.getMonth().toString() === sl[2] && date.getFullYear().toString() === sl[3]
+                        });
+                    }
+                }
+                else {
+                    const sl = slug.split("-")
+                    if (sl.length === 3) {
+                        return meetings.find(meeting => {
+                            const date = new Date(meeting.date);
+                            return meeting.m_type === value && date.getFullYear().toString() === sl[2]
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    const getApplicableRoles = async (meeting) => {
+        const roles = await db.roles.findAsync({});
+        const currentOfficers = await db.officers.findAsync({current: true});
+
+        let filteredRoles = roles.filter(role => {
+            return (role.e_meeting === meeting.meeting) ||
+                (currentOfficers.filter(officer => officer.role === role._id).length < role.e_seats);
+        });
+        return filteredRoles.map(role => {
+            if (role.e_meeting === meeting.meeting) {return role}
+            // shitty hack. turning from num seats to seats filled.
+            role.e_seats = (currentOfficers.filter(officer => officer.role === role._id));
+            return role;
+        });
+    }
 
     const getToken = (req) => {
         if (req.cookies['loginToken'] === undefined) {
@@ -180,6 +250,40 @@ export const democracyRoutes = async (app, auth, db) => {
         res.status(200);
         res.send(meetings);
     });
+
+    app.get("/api/democracy/getMeetingDetails", async function(req, res) {
+        const webToken = getToken(req);
+        let meeting = await slugToMeeting(req.query.slug)
+        let admin = await checkAdmin(req, webToken)
+        if (meeting.visible || admin) {
+            let candidates = await db.candidates.findAsync({meeting: meeting._id});
+            let motions = await db.motions.findAsync({meeting: meeting._id});
+            let roles = await getApplicableRoles(meeting)
+            candidates = await Promise.all(await candidates.map(async (candidate) => {
+                candidate.manifesto = await retrieveRichText(candidate.manifesto, "candidates");
+                return candidate
+            }));
+            console.log(motions)
+            motions = await Promise.all(await motions.map(async (motion) => {
+                motion.notes = await retrieveRichText(motion.notes, "motions");
+                motion.believes = await retrieveRichText(motion.believes, "motions");
+                motion.resolves = await retrieveRichText(motion.resolves, "motions");
+                return motion
+            }));
+            roles = await Promise.all(await roles.map(async (role) => {
+                role.page = await retrieveRichText(role.page, "roles");
+                return roles
+            }));
+            meeting.page = await retrieveRichText(meeting.page, "meetings");
+            res.status(200);
+            res.send({meeting: meeting, candidates: candidates, motions: motions, roles: roles});
+        }
+        else {
+            res.status(401);
+            res.send();
+        }
+    });
+
 
     app.get("/api/democracy/getMeeting", async function(req, res) {
         const webToken = getToken(req);
