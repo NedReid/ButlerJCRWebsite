@@ -14,10 +14,16 @@ module.exports = {
                 pingOnce:  {
                     '25%': {transform: 'scale(1.05)', opacity:'0.8'},
                     '100%': {transform: 'scale(1)', opacity:'1'}
+                },
+                fadein:  {
+                    '0%': {transform: 'scale(1)', opacity:'0'},
+                    '100%': {transform: 'scale(1)', opacity:'1'}
                 }
             },
             animation: {
                 pingOnce: 'pingOnce 0.5s cubic-bezier(0, 0, 0.2, 1)',
+                fadein: 'fadein 0.5s cubic-bezier(0, 0, 0.2, 1)',
+
             }
         }
     },

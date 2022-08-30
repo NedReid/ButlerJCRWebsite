@@ -480,8 +480,8 @@ export const adminRoutes = async (app, auth, db) => {
             req.body.promotionalImage = "";
             req.body.manifesto = "";
             const newDb = await db.candidates.insertAsync(req.body);
-            newDb.poster = await exportImageFile(poster,true,  "poster", newDb._id);
-            newDb.promotionalImage =  await exportImageFile(promotionalImage,true,  "promotionalImage", newDb._id);
+            newDb.poster = await exportImageFile(poster,true,  "poster", newDb._id,"candidates");
+            newDb.promotionalImage =  await exportImageFile(promotionalImage,true,  "promotionalImage", newDb._id,"candidates");
             newDb.manifesto = await parseRichText(manifesto, newDb._id, "candidates");
             await db.candidates.updateAsync({_id: newDb._id}, newDb);
 
@@ -496,8 +496,8 @@ export const adminRoutes = async (app, auth, db) => {
     app.post("/api/admin/updateCandidate", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
             req.body.manifesto = await parseRichText(req.body.manifesto, req.body._id, "candidates");
-            req.body.poster = await exportImageFile(req.body.poster,true,  "poster", req.body._id);
-            req.body.promotionalImage =  await exportImageFile(req.body.promotionalImage,true,  "promotionalImage", req.body._id);
+            req.body.poster = await exportImageFile(req.body.poster,true,  "poster", req.body._id,"candidates");
+            req.body.promotionalImage =  await exportImageFile(req.body.promotionalImage,true,  "promotionalImage", req.body._id, "candidates");
 
             await db.candidates.updateAsync({_id: req.body._id}, req.body);
             res.status(200);

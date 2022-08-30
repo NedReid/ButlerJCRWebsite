@@ -36,7 +36,7 @@ export const democracyRoutes = async (app, auth, db) => {
     const slugToMeeting = async (slug) => {
         const meetings = await db.meetings.findAsync({visible: true});
         if (slug === undefined || slug === "") {
-            return meetings.sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0];
+            return meetings.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
         }
         for (const [key, value] of Object.entries(slugToEnum)) {
             if (slug.startsWith(key)) {
@@ -68,11 +68,14 @@ export const democracyRoutes = async (app, auth, db) => {
         const currentOfficers = await db.officers.findAsync({current: true});
 
         let filteredRoles = roles.filter(role => {
-            return (role.e_meeting === meeting.meeting) ||
+            return (role.e_meeting === meeting.m_type) ||
                 (currentOfficers.filter(officer => officer.role === role._id).length < role.e_seats);
         });
         return filteredRoles.map(role => {
-            if (role.e_meeting === meeting.meeting) {return role}
+            if (role.e_meeting === meeting.m_type) {
+                role.e_seats = 0;
+                return role
+            }
             // shitty hack. turning from num seats to seats filled.
             role.e_seats = (currentOfficers.filter(officer => officer.role === role._id));
             return role;
@@ -263,7 +266,7 @@ export const democracyRoutes = async (app, auth, db) => {
                 candidate.manifesto = await retrieveRichText(candidate.manifesto, "candidates");
                 return candidate
             }));
-            console.log(motions)
+            console.log(candidates)
             motions = await Promise.all(await motions.map(async (motion) => {
                 motion.notes = await retrieveRichText(motion.notes, "motions");
                 motion.believes = await retrieveRichText(motion.believes, "motions");

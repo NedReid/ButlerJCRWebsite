@@ -70,8 +70,8 @@ class CreateEditCandidate extends React.Component {
         this.state.candidate.date = event;
     }
 
-    handleNotes = (page) => {
-        this.state.candidate.notes = page;
+    handleManifesto = (page) => {
+        this.state.candidate.manifesto = page;
     }
 
     handleBelieves = (page) => {
@@ -113,7 +113,7 @@ class CreateEditCandidate extends React.Component {
 
             <label>Candidate Manifesto: (leave blank to omit)</label>
             <div className="p-1 rounded border-2 border-slate-500">
-                <TextEditor initialValue={this.state.candidate.notes} onUpdate={this.handleNotes} />
+                <TextEditor initialValue={this.state.candidate.manifesto} onUpdate={this.handleManifesto} />
             </div>
 
             <label>Candidate Video (Leave Blank to omit. Youtube videos pls!):
