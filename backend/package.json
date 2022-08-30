@@ -20,5 +20,7 @@
     "pngjs": "^6.0.0"
   },
   "type": "module",
-  "devDependencies": {}
+  "devDependencies": {
+    "pdf-to-png-converter": "^2.2.2"
+  }
 }

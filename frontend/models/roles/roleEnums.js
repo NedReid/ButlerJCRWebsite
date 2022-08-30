@@ -7,6 +7,7 @@ export const meetingEnum = {
     epi3: 5,
     eas1: 6,
     eas2: 7,
+    emergency: 8,
     none: -1,
 }
 
@@ -28,8 +29,35 @@ export const meetingToName = (meeting) => {
             return "Easter 1"
         case meetingEnum.eas2:
             return "Easter 2"
+        case meetingEnum.emergency:
+            return "Emergency Meeting"
         case meetingEnum.none:
-            return "None"
+            return "Meeting"
+    }
+}
+
+export const meetingToSlug = (meeting) => {
+    switch (meeting) {
+        case meetingEnum.mic1:
+            return "michaelmas-1"
+        case meetingEnum.mic2:
+            return "michaelmas-2"
+        case meetingEnum.mic3:
+            return "michaelmas-3"
+        case meetingEnum.epi1:
+            return "epiphany-1"
+        case meetingEnum.epi2:
+            return "epiphany-2"
+        case meetingEnum.epi3:
+            return "epiphany-3"
+        case meetingEnum.eas1:
+            return "easter-1"
+        case meetingEnum.eas2:
+            return "easter-2"
+        case meetingEnum.emergency:
+            return "emergency"
+        case meetingEnum.none:
+            return "meeting"
     }
 }
 

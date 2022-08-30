@@ -23,6 +23,7 @@ import Error from "./components/static/Error";
 import Finance from "./components/static/Finance"
 import RolesPage from "./components/democracy/RolesPage";
 import Role from "./components/democracy/Role";
+import Elections from './components/democracy/Elections';
 
 class App extends React.Component {
     state = {
@@ -67,6 +68,8 @@ class App extends React.Component {
                          <Route path="finance" element={<Finance/>}/>
                          <Route path="roles" element={<RolesPage/>}/>
                          <Route path="roles/:id" element={<Role/>}/>
+                         <Route path="elections/:id" element={<Elections/>}/>
+                         <Route path="elections/" element={<Elections/>}/>
                          <Route path="oh-no" element={<Error/>}/>
                      </Routes>
 

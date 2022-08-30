@@ -42,6 +42,7 @@ app.use(cookieParser());
 app.use(express.json({limit: '150mb'}));       // to support JSON-encoded bodies
 app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 app.use("/media", express.static(path.join(__dirname, '../media')));
+app.use("/files", express.static(path.join(__dirname, '../files')));
 authRoutes(app, auth, db);
 await adminRoutes(app, auth, db);
 await studentRoutes(app, auth, db);
