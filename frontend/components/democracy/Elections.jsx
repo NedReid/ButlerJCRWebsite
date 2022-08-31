@@ -80,6 +80,9 @@ class Elections extends React.Component {
 
     }
 
+    goToRolePage = (slug) => {
+        this.props.navigate("/roles/" + slug);
+    }
     onChange = async () => {
         if (this.state.editing) {
             await updateRole(this.state.role);
@@ -111,33 +114,57 @@ class Elections extends React.Component {
                                 <div className="text-lg">Next up...</div>
                             }
                             <div className="text-4xl font-semibold">{meetingToName(this.state.currentMeeting.m_type)}</div>
+                            <div className="text-left mt-8 bangle-editor prose max-w-none">
+                                {parse(tailwindParse(this.state.currentMeeting.page))}
+                            </div>
                             <Divider/>
-                            <div className="text-lg font-semibold">Roles up for grabs:</div>
-                            <div className="md:max-w-lg w-full justify-self-center text-left border">
-                                {this.state.currentRoles[0].map( (role, index) => {
-                                    console.log(role);
+                            {this.state.currentRoles.length > 0 && this.state.currentRoles[0].slug !== undefined && <>
+                                <div className="text-lg font-semibold">Roles up for grabs:</div>
+                                    <div className="md:max-w-lg w-full justify-self-center text-left border">
+                                    {this.state.currentRoles.map( (role, index) => {
+                                        console.log(role);
+                                        return <Collapse className={"group " + (index % 2 === 0? "bg-slate-200" : "bg-slate-100")} checkbox={true} icon="arrow">
+                                            <Collapse.Title className="group-hover:bg-slate-300 text-xl font-semibold">{role.name}</Collapse.Title>
+                                            <Collapse.Content className="bg-slate-50">
+                                                <div><b>Description: </b><i>{role.desc}</i></div>
+                                                <div><b>Election Type: </b>{role.e_type} {role.e_seats > 0 ?
+                                                    ("- " + role.e_seats + " seat" + (role.e_seats === 1 ? "" : "s") + " already filled.") : ""}</div>
+                                                <div><b>Election Method: </b><ElectionMethodModal text={methodName(role.e_method)} method={role.e_method}/></div>
+                                                <Divider className="my-0"/>
+                                                <button className="text-blue-700" onClick={() => this.goToRolePage(role.slug)}>{role.name} Webpage!</button>
+                                            </Collapse.Content>
+                                        </Collapse>
+                                    })}
+                                </div>
+                            </>}
+                            {this.state.currentRoles.length > 0 && this.state.currentRoles[0].slug === undefined && <>
+                            <div className="text-lg font-semibold">Elected Officers:</div>
+                                <div className="md:max-w-lg w-full justify-self-center text-left border">
+                                {this.state.currentRoles.map( (officer, index) => {
                                     return <Collapse className={"group " + (index % 2 === 0? "bg-slate-200" : "bg-slate-100")} checkbox={true} icon="arrow">
-                                        <Collapse.Title className="group-hover:bg-slate-300 text-xl font-semibold">{role.name}</Collapse.Title>
+                                        <Collapse.Title className="group-hover:bg-slate-300 text-xl font-semibold">{officer.name}: {officer.role.name}</Collapse.Title>
                                         <Collapse.Content className="bg-slate-50">
-                                            <div><b>Description: </b><i>{role.desc}</i></div>
-                                            <div><b>Election Type: </b>{role.e_type} {role.e_seats > 0 ?
-                                                ("- " + role.e_seats + " seat" + (role.e_seats === 1 ? "" : "s") + " already filled.") : ""}</div>
-                                            <div><b>Election Method: </b><ElectionMethodModal text={methodName(role.e_method)} method={role.e_method}/></div>
+                                            <div><b>Description: </b><i>{officer.role.desc}</i></div>
+                                            <div><b>Election Method: </b><ElectionMethodModal text={methodName(officer.role.e_method)} method={officer.role.e_method}/></div>
+                                            <Divider className="my-0"/>
+                                            <button className="text-blue-700" onClick={() => this.goToRolePage(officer.role.slug)}>{officer.role.name} Webpage!</button>
                                         </Collapse.Content>
                                     </Collapse>
                                 })}
-                            </div>
-                            <Divider/>
-                            <div className="text-lg font-semibold">Election Material:</div>
-                            <div className={"grid grid-cols-1 justify-evenly place-items-center" + (this.state.currentCandidates.length > 1? (" md:grid-cols-2" + this.state.currentCandidates.length > 2? " lg:grid-cols-3" : "") : "")}>
-                                {this.state.currentCandidates.map( (candidate, index) => {
-                                    console.log(candidate);
-                                    let rName = this.state.currentRoles[0].find(role => candidate.role = role._id);
-                                    if (rName === undefined) {return}
-                                    rName = rName.name;
-                                    return <CandidateMaterialsModal candidate={candidate} rName={rName}></CandidateMaterialsModal>
-                                })}
-                            </div>
+                                </div>
+                            </>}
+                            { this.state.currentCandidates.length > 0 && <>
+                                <Divider/>
+                                <div className="text-lg font-semibold">Election Material:</div>
+                                <div className={"grid grid-cols-1 justify-evenly place-items-center" + (this.state.currentCandidates.length > 1? (" md:grid-cols-2" + this.state.currentCandidates.length > 2? " lg:grid-cols-3" : "") : "")}>
+                                    {this.state.currentCandidates.map( (candidate, index) => {
+                                        console.log(candidate);
+                                        let rName = candidate.role.name;
+                                        return <CandidateMaterialsModal candidate={candidate} rName={rName}></CandidateMaterialsModal>
+                                    })}
+                                </div>
+                            </>}
+
                             {this.state.currentMotions.length > 0 && <>
                                 <Divider/>
                                 <div className="text-lg font-semibold">Motions:</div>

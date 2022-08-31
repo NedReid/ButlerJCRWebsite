@@ -33,6 +33,13 @@ export const democracyRoutes = async (app, auth, db) => {
         "meeting": meetingEnum.none,
     }
 
+    const methodEnum = {
+        m1: 0,
+        m2: 1,
+        m2a: 2,
+        m3: 3,
+    }
+
     const slugToMeeting = async (slug) => {
         const meetings = await db.meetings.findAsync({visible: true});
         if (slug === undefined || slug === "") {
@@ -65,21 +72,41 @@ export const democracyRoutes = async (app, auth, db) => {
 
     const getApplicableRoles = async (meeting) => {
         const roles = await db.roles.findAsync({});
-        const currentOfficers = await db.officers.findAsync({current: true});
+        const d = new Date(meeting.date)
+        const dayAfter = new Date(d.getFullYear(), d.getMonth(), d.getDate())
+        console.log(new Date().getTime())
+        console.log(dayAfter.getTime())
+        if ((new Date().getTime()) > dayAfter.getTime())
+        {
+             // another shitty hack. returning officers rather than roles lol
+            const currentOfficers = await db.officers.findAsync();
+            let electedOfficers = currentOfficers.filter(officer => {
+                return officer.election_meeting === meeting.m_type && officer.election_year === (new Date(meeting.date)).getFullYear();
+            });
+            return electedOfficers.map(officer =>{
+                officer.role = roles.find(role => role._id === officer.role)
+                return officer
+            });
+        }
+        else {
+            const currentOfficers = await db.officers.findAsync({current: true});
+            let filteredRoles = roles.filter(role => {
+                return  ((role.e_meeting === meeting.m_type) ||
+                        (currentOfficers.filter(officer => officer.role === role._id).length < role.e_seats))
+                        && role.e_method !== methodEnum.m3;
 
-        let filteredRoles = roles.filter(role => {
-            return (role.e_meeting === meeting.m_type) ||
-                (currentOfficers.filter(officer => officer.role === role._id).length < role.e_seats);
-        });
-        return filteredRoles.map(role => {
-            if (role.e_meeting === meeting.m_type) {
-                role.e_seats = 0;
-                return role
-            }
-            // shitty hack. turning from num seats to seats filled.
-            role.e_seats = (currentOfficers.filter(officer => officer.role === role._id));
-            return role;
-        });
+            });
+            return filteredRoles.map(role => {
+                if (role.e_meeting === meeting.m_type) {
+                    role.e_seats = 0;
+                    return role
+                }
+                // shitty hack. turning from num seats to seats filled.
+                role.e_seats = (currentOfficers.filter(officer => officer.role === role._id));
+                return role;
+            });
+        }
+
     }
 
     const getToken = (req) => {
@@ -262,7 +289,9 @@ export const democracyRoutes = async (app, auth, db) => {
             let candidates = await db.candidates.findAsync({meeting: meeting._id});
             let motions = await db.motions.findAsync({meeting: meeting._id});
             let roles = await getApplicableRoles(meeting)
+            let allRoles = await db.roles.findAsync({});
             candidates = await Promise.all(await candidates.map(async (candidate) => {
+                candidate.role = allRoles.find(role => role._id === candidate.role);
                 candidate.manifesto = await retrieveRichText(candidate.manifesto, "candidates");
                 return candidate
             }));
@@ -273,10 +302,7 @@ export const democracyRoutes = async (app, auth, db) => {
                 motion.resolves = await retrieveRichText(motion.resolves, "motions");
                 return motion
             }));
-            roles = await Promise.all(await roles.map(async (role) => {
-                role.page = await retrieveRichText(role.page, "roles");
-                return roles
-            }));
+            console.log(roles)
             meeting.page = await retrieveRichText(meeting.page, "meetings");
             res.status(200);
             res.send({meeting: meeting, candidates: candidates, motions: motions, roles: roles});
