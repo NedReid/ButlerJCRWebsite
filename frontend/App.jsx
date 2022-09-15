@@ -24,6 +24,7 @@ import Finance from "./components/static/Finance"
 import RolesPage from "./components/democracy/RolesPage";
 import Role from "./components/democracy/Role";
 import Elections from './components/democracy/Elections';
+import Footer from "./components/global/Footer";
 
 class App extends React.Component {
     state = {
@@ -48,30 +49,33 @@ class App extends React.Component {
                  <div className="object-center">
                      <Header admin={this.state.admin} verified ={this.state.verified} />
                      <Login loggedIn={this.state.loggedIn} verified ={this.state.verified}/>
-                     <Routes>
-                         <Route path="/admin" element={<Admin admin={this.state.admin} />}/>
-                         <Route path="/students" element={<Students verified={this.state.verified}/>}>
-                             <Route path="events" element={<UserEvents/>}/>
-                             <Route path="events/book:id" element={<BookEvent/>}/>
-                         </Route>
-                         <Route path="get-involved/societies" element={<Societies username={this.state.loggedIn}/>}/>
-                         <Route path="get-involved/societies/edit:id" element={<EditSSC/>}/>
-                         <Route path="get-involved/societies/:id" element={<SSC/>}/>
-                         <Route path="get-involved/sports" element={<Sports username={this.state.loggedIn}/>}/>
-                         <Route path="get-involved/sports/edit:id" element={<EditSSC/>}/>
-                         <Route path="get-involved/sports/:id" element={<SSC/>}/>
-                         <Route path="get-involved/committees" element={<Committees username={this.state.loggedIn}/>}/>
-                         <Route path="get-involved/committees/edit:id" element={<EditSSC/>}/>
-                         <Route path="get-involved/committees/:id" element={<SSC/>}/>
-                         <Route path="get-involved/ssc/:id" element={<SSC/>}/>
-                         <Route path="/" element={<Homepage/>} />
-                         <Route path="finance" element={<Finance/>}/>
-                         <Route path="roles" element={<RolesPage/>}/>
-                         <Route path="roles/:id" element={<Role/>}/>
-                         <Route path="elections/:id" element={<Elections/>}/>
-                         <Route path="elections/" element={<Elections/>}/>
-                         <Route path="oh-no" element={<Error/>}/>
-                     </Routes>
+                     <div className="min-h-screen">
+                         <Routes>
+                             <Route path="/admin" element={<Admin admin={this.state.admin} />}/>
+                             <Route path="/students" element={<Students verified={this.state.verified}/>}>
+                                 <Route path="events" element={<UserEvents/>}/>
+                                 <Route path="events/book:id" element={<BookEvent/>}/>
+                             </Route>
+                             <Route path="get-involved/societies" element={<Societies username={this.state.loggedIn}/>}/>
+                             <Route path="get-involved/societies/edit:id" element={<EditSSC/>}/>
+                             <Route path="get-involved/societies/:id" element={<SSC/>}/>
+                             <Route path="get-involved/sports" element={<Sports username={this.state.loggedIn}/>}/>
+                             <Route path="get-involved/sports/edit:id" element={<EditSSC/>}/>
+                             <Route path="get-involved/sports/:id" element={<SSC/>}/>
+                             <Route path="get-involved/committees" element={<Committees username={this.state.loggedIn}/>}/>
+                             <Route path="get-involved/committees/edit:id" element={<EditSSC/>}/>
+                             <Route path="get-involved/committees/:id" element={<SSC/>}/>
+                             <Route path="get-involved/ssc/:id" element={<SSC/>}/>
+                             <Route path="/" element={<Homepage/>} />
+                             <Route path="finance" element={<Finance/>}/>
+                             <Route path="roles" element={<RolesPage/>}/>
+                             <Route path="roles/:id" element={<Role/>}/>
+                             <Route path="elections/:id" element={<Elections/>}/>
+                             <Route path="elections/" element={<Elections/>}/>
+                             <Route path="oh-no" element={<Error/>}/>
+                         </Routes>
+                     </div>
+                     <Footer/>
 
                  </div>
 
