@@ -16,7 +16,7 @@ class Footer extends React.Component {
     render() {
         return <>
                 <div className="w-full h-4 align bg-red-800"/>
-                <div className="text-white z-16 p-4 bg-red-700 flex md:block">
+                <div className="text-white z-16 p-4 bg-red-700">
                     © Josephine Butler JCR, 2022
                     <br/>
                     <a className="hover:underline" href="https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5192013">Registered Charity No. 1197721</a>
