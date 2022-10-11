@@ -42,7 +42,7 @@ export const menuItems = [
         ]
     },
     {
-        title: "The JCR",
+        title: "\u00A0\u00A0The JCR\u00A0\u00A0",
         page: "jcr",
         access: "all",
         items: [
@@ -57,7 +57,11 @@ export const menuItems = [
             {title: "Elections",
                 page: "elections",
                 access: "all",
-                items: []}
+                items: []},
+            {title: "Who's Who",
+            page: "whos-who",
+            access: "all",
+            items: []}
             ]
     },
 

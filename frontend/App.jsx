@@ -24,6 +24,7 @@ import Finance from "./components/static/Finance"
 import RolesPage from "./components/democracy/RolesPage";
 import Role from "./components/democracy/Role";
 import Elections from './components/democracy/Elections';
+import WhosWho from "./components/static/WhosWho";
 import Footer from "./components/global/Footer";
 
 class App extends React.Component {
@@ -49,6 +50,7 @@ class App extends React.Component {
                  <div className="object-center">
                      <Header admin={this.state.admin} verified ={this.state.verified} />
                      <Login loggedIn={this.state.loggedIn} verified ={this.state.verified}/>
+
                      <div className="min-h-screen">
                          <Routes>
                              <Route path="/admin" element={<Admin admin={this.state.admin} />}/>
@@ -73,6 +75,7 @@ class App extends React.Component {
                              <Route path="elections/:id" element={<Elections/>}/>
                              <Route path="elections/" element={<Elections/>}/>
                              <Route path="oh-no" element={<Error/>}/>
+                             <Route path="whos-who" element={<WhosWho/>}/>
                          </Routes>
                      </div>
                      <Footer/>

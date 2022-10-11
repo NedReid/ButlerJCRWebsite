@@ -61,8 +61,6 @@ export const staticRoutes = async (app, auth, db) => {
                             let newEnt = await db.editables.insertAsync(ed);
                             ed.content = await parseRichText(content, newEnt._id, "editables");
                             await db.editables.updateAsync({_id: newEnt._id}, ed)
-
-
                         }
                     }
                 });
