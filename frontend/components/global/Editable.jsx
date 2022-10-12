@@ -39,7 +39,7 @@ class PageEditor extends React.Component {
             </div>
         }
         else {
-            return <div className="w-full h-full bangle-editor prose">
+            return <div className="w-full h-full bangle-editor prose max-w-none">
                 {parse(tailwindParse(this.state.editable.content))}
             </div>
         }

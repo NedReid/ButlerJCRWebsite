@@ -26,6 +26,8 @@ import Role from "./components/democracy/Role";
 import Elections from './components/democracy/Elections';
 import WhosWho from "./components/static/WhosWho";
 import Footer from "./components/global/Footer";
+import JBs from "./components/static/JBs";
+import Contact from "./components/static/Contact";
 
 class App extends React.Component {
     state = {
@@ -76,6 +78,8 @@ class App extends React.Component {
                              <Route path="elections/" element={<Elections/>}/>
                              <Route path="oh-no" element={<Error/>}/>
                              <Route path="whos-who" element={<WhosWho/>}/>
+                             <Route path="jbs" element={<JBs/>}/>
+                             <Route path="contact" element={<Contact/>}/>
                          </Routes>
                      </div>
                      <Footer/>

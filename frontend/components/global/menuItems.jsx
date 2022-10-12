@@ -20,7 +20,12 @@ export const menuItems = [
         title: "Facilities",
         page: "/faclilities",
         access: "all",
-        items: []
+        items: [
+            {title: "JB's",
+            page: "jbs",
+            access: "all",
+            items: []}
+        ]
     },
     {
         title: "#GetInvolved",
@@ -61,7 +66,11 @@ export const menuItems = [
             {title: "Who's Who",
             page: "whos-who",
             access: "all",
-            items: []}
+            items: []},
+            {title: "Contact",
+                page: "contact",
+                access: "all",
+                items: []}
             ]
     },
 
