@@ -17,6 +17,7 @@ import {
     blockquote,
     paragraph,
     image,
+    hardBreak
 } from '@bangle.dev/base-components';
 import {
     floatingMenu,
@@ -56,6 +57,7 @@ export default function TextEditor(props) {
             paragraph.spec(),
             heading.spec(),
             image.spec(),
+            hardBreak.spec(),
         ],
         plugins: () => [
             image.plugins(),
@@ -68,6 +70,7 @@ export default function TextEditor(props) {
             listItem.plugins(),
             paragraph.plugins(),
             heading.plugins(),
+            hardBreak.plugins(),
             floatingMenu.plugins({
                 key: menuKey,
             }),

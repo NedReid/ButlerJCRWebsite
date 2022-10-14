@@ -28,6 +28,7 @@ import WhosWho from "./components/static/WhosWho";
 import Footer from "./components/global/Footer";
 import JBs from "./components/static/JBs";
 import Contact from "./components/static/Contact";
+import Photos from "./components/static/Photos";
 
 class App extends React.Component {
     state = {
@@ -80,6 +81,9 @@ class App extends React.Component {
                              <Route path="whos-who" element={<WhosWho/>}/>
                              <Route path="jbs" element={<JBs/>}/>
                              <Route path="contact" element={<Contact/>}/>
+                             <Route path="photos" element={<div><Photos/></div>}/>
+                             <Route path="photos/:id" element={<Photos/>}/>
+
                          </Routes>
                      </div>
                      <Footer/>

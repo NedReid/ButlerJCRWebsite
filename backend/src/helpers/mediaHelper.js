@@ -166,3 +166,33 @@ export const retrieveImageFile =  async (filename) => {
     return filename
 }
 
+export const makePreviewImage = async (inputPath, outputPath) => {
+    if (inputPath.endsWith("jpg") || inputPath.endsWith("jpeg")) {
+        let buffer = fs.readFileSync(inputPath)
+        let image = await Jimp.read(buffer);
+        if(image.getWidth() > 400 || image.getHeight() > 400) {
+            image.scaleToFit(400,400);
+        }
+        if(image.getWidth() > 200 || image.getHeight() > 200) {
+            image.quality(70);
+        }
+        image.write(outputPath);
+    }
+    else if (inputPath.endsWith("png")) {
+        let buffer = fs.readFileSync(inputPath);
+        let png = PNG.sync.read(buffer);
+        let alpha = png.alpha;
+        let image = await Jimp.read(buffer);
+        if(image.getWidth() > 300 || image.getHeight() > 300) {
+            image.scaleToFit(300,300);
+        }
+        image.write(outputPath);
+    }
+    else {
+        let buffer = fs.readFileSync(inputPath);
+
+        fs.writeFileSync(outputPath, buffer);
+    }
+
+
+}
