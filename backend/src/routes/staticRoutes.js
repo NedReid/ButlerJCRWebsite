@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import {parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
+import {makePreviewImage, parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const staticRoutes = async (app, auth, db) => {
@@ -76,6 +76,56 @@ export const staticRoutes = async (app, auth, db) => {
             res.send();
         }
     });
+
+    app.get("/api/static/getAlbums", async function(req, res) {
+        console.log("A")
+        let albums = fs.readdirSync(path.join(__dirname, "../../files/albums"))
+        let returnedPreview = []
+        albums.forEach(album => {
+            fs.mkdirSync(path.join(__dirname, "../../files/albumsPreview/" + album), { recursive: true })
+            let photos = fs.readdirSync(path.join(__dirname, "../../files/albums/" + album))
+            photos.forEach(photo => {
+                const inputPath = path.join(__dirname, "../../files/albums/" + album + "/" + photo);
+                const outputPath = path.join(__dirname, "../../files/albumsPreview/" + album + "/" + photo);
+                if(!fs.existsSync(outputPath)) {
+                    makePreviewImage(inputPath, outputPath)
+                }
+            });
+            const random = Math.floor(Math.random() * photos.length);
+            returnedPreview.push({name:album,  path:photos[random]})
+        })
+        res.status(200);
+        res.send(returnedPreview);
+
+    });
+
+    app.get("/api/static/getAlbumFiles", async function(req, res) {
+        try {
+            const album = req.query.album;
+
+            fs.mkdirSync(path.join(__dirname, "../../files/albumsPreview/" + album), { recursive: true })
+            let photos = fs.readdirSync(path.join(__dirname, "../../files/albums/" + album))
+            photos.forEach(photo => {
+                const inputPath = path.join(__dirname, "../../files/albums/" + album + "/" + photo);
+                const outputPath = path.join(__dirname, "../../files/albumsPreview/" + album + "/" + photo);
+                if(!fs.existsSync(outputPath)) {
+                    makePreviewImage(inputPath, outputPath)
+                }
+            });
+            res.status(200);
+            res.send(photos);
+        }
+        catch (error) {
+            console.log(error)
+            res.status(200);
+            res.send([]);
+        }
+
+
+
+    });
+
+
 
 }
 

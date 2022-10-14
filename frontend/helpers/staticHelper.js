@@ -38,3 +38,18 @@ export const updatePageEditables = async (page, editables) => {
         return response.data;
     }
 }
+
+export const getAlbums = async () => {
+    const response = await axios.get("/api/static/getAlbums");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+export const getAlbumFiles = async (album) => {
+    const response = await axios.get("/api/static/getAlbumFiles", {params: {album: album}});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}

@@ -70,6 +70,10 @@ export const menuItems = [
             {title: "Contact",
                 page: "contact",
                 access: "all",
+                items: []},
+            {title: "Photos",
+                page: "photos",
+                access: "all",
                 items: []}
             ]
     },
