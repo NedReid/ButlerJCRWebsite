@@ -17,10 +17,11 @@
     "multer": "^1.4.3",
     "nodemailer": "^6.7.3",
     "nodemon": "^2.0.12",
-    "pngjs": "^6.0.0"
+    "pngjs": "^6.0.0",
+    "sharp": "^0.31.3"
   },
   "type": "module",
   "devDependencies": {
-    "pdf-to-png-converter": "^2.2.2"
+    "pdf-to-png-converter": "^2.7.1"
   }
 }

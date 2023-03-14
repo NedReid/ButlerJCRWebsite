@@ -81,19 +81,21 @@ export const staticRoutes = async (app, auth, db) => {
         console.log("A")
         let albums = fs.readdirSync(path.join(__dirname, "../../files/albums"))
         let returnedPreview = []
-        albums.forEach(album => {
+        for (const album of albums) {
             fs.mkdirSync(path.join(__dirname, "../../files/albumsPreview/" + album), { recursive: true })
             let photos = fs.readdirSync(path.join(__dirname, "../../files/albums/" + album))
-            photos.forEach(photo => {
+            for (const photo of photos) {
                 const inputPath = path.join(__dirname, "../../files/albums/" + album + "/" + photo);
                 const outputPath = path.join(__dirname, "../../files/albumsPreview/" + album + "/" + photo);
                 if(!fs.existsSync(outputPath)) {
-                    makePreviewImage(inputPath, outputPath)
+                    console.log("gettibng prevs")
+                    await makePreviewImage(inputPath, outputPath)
                 }
-            });
+            };
             const random = Math.floor(Math.random() * photos.length);
             returnedPreview.push({name:album,  path:photos[random]})
-        })
+        }
+
         res.status(200);
         res.send(returnedPreview);
 
@@ -102,6 +104,7 @@ export const staticRoutes = async (app, auth, db) => {
     app.get("/api/static/getAlbumFiles", async function(req, res) {
         try {
             const album = req.query.album;
+            const __dirname = dirname(fileURLToPath(import.meta.url));
 
             fs.mkdirSync(path.join(__dirname, "../../files/albumsPreview/" + album), { recursive: true })
             let photos = fs.readdirSync(path.join(__dirname, "../../files/albums/" + album))
