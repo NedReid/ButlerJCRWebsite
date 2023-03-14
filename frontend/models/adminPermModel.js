@@ -17,6 +17,7 @@ export default class adminPermModel {
             this.pagePerms = init.pagePerms;
             this.adminPerms = init.adminPerms;
             this.democracy = init.democracy;
+            this.postCategories = init.postCategories;
             this._id = init._id;
 
         }

@@ -289,3 +289,35 @@ export const deleteCandidate =  async (event) => {
         return response.data;
     }
 }
+
+export const getPostCategories =  async () => {
+    const response = await axios.get("/api/admin/getPostCategories");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createPostCategory =  async (event) => {
+    const response = await axios.post("/api/admin/createPostCategory", event);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updatePostCategory =  async (event) => {
+    const response = await axios.post("/api/admin/updatePostCategory", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deletePostCategory =  async (event) => {
+    const response = await axios.post("/api/admin/deletePostCategory", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}

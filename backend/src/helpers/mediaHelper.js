@@ -6,6 +6,8 @@ import b64toBlob from 'b64-to-blob';
 import Jimp from "jimp";
 import {Readable} from 'stream';
 import {pdfToPng} from "pdf-to-png-converter";
+import sharp from 'sharp';
+
 
 export const parseRichText =  async (text, id, db) => {
     // console.log(text);
@@ -167,30 +169,35 @@ export const retrieveImageFile =  async (filename) => {
 }
 
 export const makePreviewImage = async (inputPath, outputPath) => {
-    if (inputPath.endsWith("jpg") || inputPath.endsWith("jpeg")) {
-        let buffer = fs.readFileSync(inputPath)
-        let image = await Jimp.read(buffer);
-        if(image.getWidth() > 400 || image.getHeight() > 400) {
-            image.scaleToFit(400,400);
+    sharp.cache(false)
+    if (inputPath.endsWith("jpg") || inputPath.endsWith("jpeg") || inputPath.endsWith("JPG")) {
+        const buffer = fs.readFileSync(inputPath)
+        const image = await sharp(buffer);
+        const md = await image.metadata();
+
+        if(md.width > 400 || md.height > 400) {
+            await image.resize(400,400, {fit: 'inside'});
         }
-        if(image.getWidth() > 200 || image.getHeight() > 200) {
-            image.quality(70);
+        if(md.width > 200 || md.height > 200) {
+            await image.jpeg({quality: 70});
         }
-        image.write(outputPath);
+
+        const ob = await image.toBuffer()
+        fs.writeFileSync(outputPath, ob);
+
     }
     else if (inputPath.endsWith("png")) {
-        let buffer = fs.readFileSync(inputPath);
-        let png = PNG.sync.read(buffer);
-        let alpha = png.alpha;
-        let image = await Jimp.read(buffer);
+        const buffer = fs.readFileSync(inputPath);
+        const png = PNG.sync.read(buffer);
+        const alpha = png.alpha;
+        const image = await Jimp.read(buffer);
         if(image.getWidth() > 300 || image.getHeight() > 300) {
             image.scaleToFit(300,300);
         }
         image.write(outputPath);
     }
     else {
-        let buffer = fs.readFileSync(inputPath);
-
+        const buffer = fs.readFileSync(inputPath);
         fs.writeFileSync(outputPath, buffer);
     }
 

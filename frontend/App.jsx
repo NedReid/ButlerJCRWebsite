@@ -29,7 +29,9 @@ import Footer from "./components/global/Footer";
 import JBs from "./components/static/JBs";
 import Contact from "./components/static/Contact";
 import Photos from "./components/static/Photos";
-
+import PostAdmin from "./components/students/PostAdmin";
+import WeeklyEmail from "./components/static/WeeklyEmail";
+import ViewPost from "./components/static/ViewPost";
 class App extends React.Component {
     state = {
         loggedIn: "waiting",
@@ -60,6 +62,7 @@ class App extends React.Component {
                              <Route path="/students" element={<Students verified={this.state.verified}/>}>
                                  <Route path="events" element={<UserEvents/>}/>
                                  <Route path="events/book:id" element={<BookEvent/>}/>
+                                 <Route path="edit-posts" element={<PostAdmin/>}/>
                              </Route>
                              <Route path="get-involved/societies" element={<Societies username={this.state.loggedIn}/>}/>
                              <Route path="get-involved/societies/edit:id" element={<EditSSC/>}/>
@@ -82,7 +85,9 @@ class App extends React.Component {
                              <Route path="jbs" element={<JBs/>}/>
                              <Route path="contact" element={<Contact/>}/>
                              <Route path="photos" element={<div><Photos/></div>}/>
+                             <Route path="weekly-email" element={<div><WeeklyEmail/></div>}/>
                              <Route path="photos/:id" element={<Photos/>}/>
+                             <Route path="posts/:id" element={<ViewPost/>}/>
 
                          </Routes>
                      </div>

@@ -81,19 +81,21 @@ export const staticRoutes = async (app, auth, db) => {
         console.log("A")
         let albums = fs.readdirSync(path.join(__dirname, "../../files/albums"))
         let returnedPreview = []
-        albums.forEach(album => {
+        for (const album of albums) {
             fs.mkdirSync(path.join(__dirname, "../../files/albumsPreview/" + album), { recursive: true })
             let photos = fs.readdirSync(path.join(__dirname, "../../files/albums/" + album))
-            photos.forEach(photo => {
+            for (const photo of photos) {
                 const inputPath = path.join(__dirname, "../../files/albums/" + album + "/" + photo);
                 const outputPath = path.join(__dirname, "../../files/albumsPreview/" + album + "/" + photo);
                 if(!fs.existsSync(outputPath)) {
-                    makePreviewImage(inputPath, outputPath)
+                    console.log("gettibng prevs")
+                    await makePreviewImage(inputPath, outputPath)
                 }
-            });
+            };
             const random = Math.floor(Math.random() * photos.length);
             returnedPreview.push({name:album,  path:photos[random]})
-        })
+        }
+
         res.status(200);
         res.send(returnedPreview);
 
@@ -102,6 +104,7 @@ export const staticRoutes = async (app, auth, db) => {
     app.get("/api/static/getAlbumFiles", async function(req, res) {
         try {
             const album = req.query.album;
+            const __dirname = dirname(fileURLToPath(import.meta.url));
 
             fs.mkdirSync(path.join(__dirname, "../../files/albumsPreview/" + album), { recursive: true })
             let photos = fs.readdirSync(path.join(__dirname, "../../files/albums/" + album))
@@ -120,9 +123,24 @@ export const staticRoutes = async (app, auth, db) => {
             res.status(200);
             res.send([]);
         }
+    });
 
+    app.get("/api/getPost", async function(req, res) {
+        console.log(req.query)
+        let post = await db.posts.findOneAsync({_id: req.query._id});
+        console.log(post)
+        post.post = await retrieveRichText(post.post, "posts");
+        res.status(200);
+        res.send(post);
+    });
 
-
+    app.get("/api/getPostsOfType", async function(req, res) {
+        console.log(req.query)
+        let cat = await db.postCategories.findOneAsync({name: req.query._id})
+        let post = await db.posts.findAsync({category: cat._id, visible: true});
+        console.log(post)
+        res.status(200);
+        res.send(post);
     });
 
 

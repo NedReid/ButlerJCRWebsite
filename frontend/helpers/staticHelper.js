@@ -53,3 +53,21 @@ export const getAlbumFiles = async (album) => {
         return response.data;
     }
 }
+
+
+export const getPost = async (_id) => {
+    console.log(_id)
+    const response = await axios.get("/api/getPost", {params: {_id: _id}});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+export const getPostsOfType = async (_id) => {
+    console.log(_id)
+    const response = await axios.get("/api/getPostsOfType", {params: {_id: _id}});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
