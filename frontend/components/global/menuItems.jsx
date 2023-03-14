@@ -13,6 +13,10 @@ export const menuItems = [
             {title: "Events",
                 page: "students/events",
                 access: "verified",
+                items: []},
+            {title: "Posts",
+                page: "students/edit-posts",
+                access: "verified",
                 items: []}
         ]
     },
@@ -47,7 +51,7 @@ export const menuItems = [
         ]
     },
     {
-        title: "\u00A0\u00A0The JCR\u00A0\u00A0",
+        title: "\u00A0\u00A0\u00A0The JCR\u00A0\u00A0\u00A0",
         page: "jcr",
         access: "all",
         items: [
@@ -74,7 +78,12 @@ export const menuItems = [
             {title: "Photos",
                 page: "photos",
                 access: "all",
-                items: []}
+                items: []},
+            {title: "Weekly Email",
+                page: "weekly-email",
+                access: "all",
+                items: []},
+
             ]
     },
 

@@ -13,7 +13,8 @@ export const adminRoutes = async (app, auth, db) => {
             SSCs: true,
             adminPerms: true,
             pagePerms: true,
-            democracy: true
+            democracy: true,
+            postCategories: true
         });
     }
 
@@ -511,6 +512,50 @@ export const adminRoutes = async (app, auth, db) => {
     app.post("/api/admin/deleteCandidate", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
             await db.candidates.removeAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.get("/api/admin/getPostCategories", async function (req, res) {
+        if (res.locals.adminUser.postCategories === true) {
+            let SSCs = await db.postCategories.findAsync({});
+            res.status(200);
+            res.send(SSCs);
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/createPostCategory", async function (req, res) {
+        if (res.locals.adminUser.postCategories === true) {
+            await db.postCategories.insertAsync(req.body);
+            res.status(201);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/updatePostCategory", async function (req, res) {
+        if (res.locals.adminUser.postCategories === true) {
+            await db.postCategories.updateAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/deletePostCategory", async function (req, res) {
+        if (res.locals.adminUser.postCategories === true) {
+            await db.postCategories.removeAsync({_id: req.body._id}, req.body);
             res.status(200);
             res.send();
         } else {

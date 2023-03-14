@@ -31,6 +31,8 @@ db.officers = new Datastore({ filename: 'database/officers.db', autoload: true }
 db.meetings = new Datastore({ filename: 'database/meetings.db', autoload: true });
 db.motions = new Datastore({ filename: 'database/motions.db', autoload: true });
 db.candidates = new Datastore({ filename: 'database/candidates.db', autoload: true });
+db.posts = new Datastore({ filename: 'database/posts.db', autoload: true });
+db.postCategories = new Datastore({ filename: 'database/postCategories.db', autoload: true });
 
 exceptionHandler.handle();
 const app = express();

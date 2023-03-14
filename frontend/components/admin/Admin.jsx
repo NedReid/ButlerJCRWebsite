@@ -9,6 +9,7 @@ import Officers from "./Officers";
 import Meetings from "./Meetings";
 import Motions from "./Motions";
 import Candidates from "./Candidates";
+import PostCategories from "./PostCategories";
 class Admin extends React.Component {
     constructor(props) {
         super(props);
@@ -25,6 +26,7 @@ class Admin extends React.Component {
             {this.props.admin.democracy && <Meetings/>}
             {this.props.admin.democracy && <Motions/>}
             {this.props.admin.democracy && <Candidates/>}
+            {this.props.admin.postCategories && <PostCategories/>}
 
         </>
 

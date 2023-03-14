@@ -123,9 +123,24 @@ export const staticRoutes = async (app, auth, db) => {
             res.status(200);
             res.send([]);
         }
+    });
 
+    app.get("/api/getPost", async function(req, res) {
+        console.log(req.query)
+        let post = await db.posts.findOneAsync({_id: req.query._id});
+        console.log(post)
+        post.post = await retrieveRichText(post.post, "posts");
+        res.status(200);
+        res.send(post);
+    });
 
-
+    app.get("/api/getPostsOfType", async function(req, res) {
+        console.log(req.query)
+        let cat = await db.postCategories.findOneAsync({name: req.query._id})
+        let post = await db.posts.findAsync({category: cat._id, visible: true});
+        console.log(post)
+        res.status(200);
+        res.send(post);
     });
 
 
