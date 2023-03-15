@@ -126,5 +126,17 @@ export const studentRoutes = async (app, auth, db) => {
         res.send(postCategories);
     });
 
+
+    app.get("/api/students/getMembershipStatus", async function(req, res) {
+        const member = await db.members.findOneAsync({username:res.locals.user.username});
+        res.status(200);
+        if (member === null){
+            res.send(false);
+        } else {
+            res.send(member);
+        }
+    });
+
+
 }
 

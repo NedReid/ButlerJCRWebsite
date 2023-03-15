@@ -24,26 +24,55 @@ export const paymentRoutes = async (app, auth, db, stripe) => {
     app.post("/api/payments/payLevy", async (req, res) => {
         // const { product } = req.body;
         console.log("Making Peement")
+        const url = process.env.URL;
+        const levy = await db.products.findOneAsync({name:"JCR Levy"});
         const session = await stripe.checkout.sessions.create({
             // payment_method_types: ["a"],
+            client_reference_id: res.locals.user.username + "_levy",
+            metadata: {username: res.locals.user.username},
             line_items: [
                 {
                     price_data: {
                         currency: "gbp",
                         product_data: {
-                            name: "JCR Levy",
+                            name: "JCR Levy - " + res.locals.user.username,
                         },
-                        unit_amount: 14600,
+                        unit_amount: levy.price * 100,
                     },
                     quantity: 1,
                 },
             ],
             mode: "payment",
-            success_url: "http://localhost:3001/success",
-            cancel_url: "http://localhost:3001/cancel",
+            success_url: `${url}/api/payments/levyPaid?id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `http://localhost:3001/error`,
         });
         res.json({ id: session.id });
     });
+
+    app.get("/api/payments/levyPaid", async function (req, res) {
+        console.log("Beams")
+        console.log(req.query)
+        const session = await stripe.checkout.sessions.retrieve(req.query.id);
+        const customer = session.metadata.username;
+        const status = session.payment_status;
+        const cdate = new Date(session.created * 1000);
+        let expiry = new Date(cdate.getFullYear() + 3,8,1)
+        if(cdate.getMonth() < 6) {
+            expiry = new Date(cdate.getFullYear() + 2,8,1)
+        }
+        console.log(expiry)
+        console.log(expiry.getTime())
+        if (status === "paid") {
+            res.redirect("/pay")
+            console.log("Yayy!")
+            await db.members.insertAsync({username:customer, expiry: expiry.getTime()})
+        }
+        // let product = await db.products.findOneAsync({name:req.query.name});
+        res.status(200);
+        res.send();
+    });
+
+
 
 
     app.get("/api/payments/getProducts", async function (req, res) {

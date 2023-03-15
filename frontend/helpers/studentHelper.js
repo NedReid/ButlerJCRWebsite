@@ -59,3 +59,10 @@ export const getPostCategories = async () => {
         return response.data;
     }
 }
+
+export const getMembershipStatus = async () => {
+    const response = await axios.get("/api/students/getMembershipStatus");
+    if (response.status === 200) {
+        return response.data;
+    }
+}
