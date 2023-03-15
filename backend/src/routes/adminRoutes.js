@@ -563,4 +563,50 @@ export const adminRoutes = async (app, auth, db) => {
             res.send();
         }
     });
+
+    app.post("/api/admin/createProduct", async function (req, res) {
+        if (res.locals.adminUser.finance === true) {
+            await db.products.insertAsync(req.body);
+            res.status(201);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/updateProduct", async function (req, res) {
+        if (res.locals.adminUser.finance === true) {
+            await db.products.updateAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/deleteProduct", async function (req, res) {
+        if (res.locals.adminUser.finance === true) {
+            await db.products.removeAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.get("/api/admin/getProducts", async function (req, res) {
+        if (res.locals.adminUser.finance === true) {
+            let products = await db.products.findAsync({});
+            res.status(200);
+            res.send(products);
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+
 }

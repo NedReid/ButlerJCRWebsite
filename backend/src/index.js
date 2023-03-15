@@ -1,11 +1,13 @@
 import "dotenv/config";
 import express from "express";
+import Stripe from "stripe";
 import path from "path";
 import exceptionHandler from 'express-exception-handler';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import Datastore from '@seald-io/nedb';
 import multer from 'multer';
+import cors from 'cors';
 import argon2 from 'argon2';
 import { AuthService } from './helpers/authHelper.js';
 import cookieParser from 'cookie-parser';
@@ -15,6 +17,7 @@ import { studentRoutes } from "./routes/studentRoutes.js";
 import { getInvolvedRoutes } from "./routes/getInvolvedRoutes.js";
 import { staticRoutes } from "./routes/staticRoutes.js";
 import { democracyRoutes } from "./routes/democracyRoutes.js";
+import {paymentRoutes} from "./routes/paymentRoutes.js";
 const db = {}
 const upload = multer({dest:'files/'});
 const auth = new AuthService();
@@ -33,13 +36,16 @@ db.motions = new Datastore({ filename: 'database/motions.db', autoload: true });
 db.candidates = new Datastore({ filename: 'database/candidates.db', autoload: true });
 db.posts = new Datastore({ filename: 'database/posts.db', autoload: true });
 db.postCategories = new Datastore({ filename: 'database/postCategories.db', autoload: true });
+db.payments = new Datastore({ filename: 'database/payments.db', autoload: true });
+db.products = new Datastore({ filename: 'database/products.db', autoload: true });
 
 exceptionHandler.handle();
 const app = express();
 const port = 3001;
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
-
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json({limit: '150mb'}));       // to support JSON-encoded bodies
 app.use(express.static(path.join(__dirname, '../../frontend/dist')));
@@ -51,6 +57,7 @@ await studentRoutes(app, auth, db);
 await getInvolvedRoutes(app, auth, db);
 await staticRoutes(app, auth, db);
 await democracyRoutes(app, auth, db);
+await paymentRoutes(app, auth, db, stripe);
 
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
