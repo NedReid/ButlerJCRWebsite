@@ -16,6 +16,7 @@ class PostCategories extends React.Component {
         console.log(postCategories);
     }
 
+
     editPostCategory = (event) => {
         const currentCategory = this.state.postCategories.find(category => {
             return category._id === event.target.value;

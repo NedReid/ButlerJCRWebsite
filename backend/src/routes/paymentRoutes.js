@@ -46,13 +46,13 @@ export const paymentRoutes = async (app, auth, db, stripe) => {
     });
 
 
-    app.get("/api/admin/getProducts", async function (req, res) {
+    app.get("/api/payments/getProducts", async function (req, res) {
         let products = await db.products.findAsync({});
         res.status(200);
         res.send(products);
     });
 
-    app.get("/api/admin/getProductByName", async function (req, res) {
+    app.get("/api/payments/getProductByName", async function (req, res) {
         let product = await db.products.findOneAsync({name:req.query.name});
         res.status(200);
         res.send(product);

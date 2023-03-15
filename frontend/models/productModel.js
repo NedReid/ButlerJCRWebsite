@@ -1,14 +1,14 @@
 export default class productModel {
-    productName = "";
-    productPrice = 0;
-    productParams = {};
+    name = "";
+    price = 0;
+    params = {};
     _id = undefined;
 
     constructor(init = undefined) {
         if(init !== undefined) {
-            this.productName = init.productName;
-            this.productPrice = init.productPrice
-            this.productParams = init.productParams;
+            this.name = init.name;
+            this.price = init.price;
+            this.params = init.params;
             this._id = init._id;
         }
 
