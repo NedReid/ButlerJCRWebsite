@@ -89,7 +89,7 @@ class App extends React.Component {
                              <Route path="weekly-email" element={<div><WeeklyEmail/></div>}/>
                              <Route path="photos/:id" element={<Photos/>}/>
                              <Route path="posts/:id" element={<ViewPost/>}/>
-                             <Route path="pay" element={<PayLevy/>}/>
+                             <Route path="pay" element={<PayLevy username={this.state.loggedIn}/>}/>
 
                          </Routes>
                      </div>

@@ -2,8 +2,9 @@ import argon2 from "argon2";
 import express from "express";
 import { sendVerificationMail } from '../helpers/emailer.js';
 import {parseRichText, retrieveRichText, retrieveImageFile, exportImageFile} from "../helpers/mediaHelper.js";
+import xl from 'excel4node';
 
-export const adminRoutes = async (app, auth, db) => {
+export const adminRoutes = async (app, auth, db, __dirname) => {
 
     if (await db.admins.findOneAsync({username: process.env.ADMIN_USER}) === null) {
         await db.admins.insertAsync({
@@ -608,5 +609,30 @@ export const adminRoutes = async (app, auth, db) => {
         }
     });
 
+    app.get("/api/admin/getMembersExcel", async function (req, res) {
+        if (res.locals.adminUser.finance === true) {
+            let wb = new xl.Workbook();
+            let ws = wb.addWorksheet('members');
+            let members = await db.members.findAsync({});
+            ws.cell(1,1).string("Username");
+            ws.cell(1,2).string("Expiry Year");
+            ws.cell(1,3).string("Transaction");
+            members.forEach((member, index) => {
+                ws.cell(index + 2, 1).string(member.username);
+                ws.cell(index + 2, 2).number(new Date(member.expiry).getFullYear() - 2000);
+                ws.cell(index + 2, 3).string(member.transaction);
+
+            })
+            await wb.write("files/members.xlsx")
+            res.status(200);
+            res.download(__dirname + "/../files/members.xlsx","members.xlsx", (err) => {
+                if (err) console.log(err);
+            });
+            console.log("done")
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
 
 }

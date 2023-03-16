@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import download from "js-file-download";
 export const getEvents =  async () => {
     const response = await axios.get("/api/admin/getEvents");
     if (response.status === 200)
@@ -320,4 +320,46 @@ export const deletePostCategory =  async (event) => {
     {
         return response.data;
     }
+}
+
+export const getProducts =  async () => {
+    const response = await axios.get("/api/admin/getProducts");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createProduct =  async (event) => {
+    const response = await axios.post("/api/admin/createProduct", event);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateProduct =  async (event) => {
+    const response = await axios.post("/api/admin/updateProduct", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deleteProduct =  async (event) => {
+    const response = await axios.post("/api/admin/deleteProduct", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const getMembersExcel =  async () => {
+    const response = await axios.get("/api/admin/getMembersExcel", {responseType:"blob"});
+    download(response.data, "members.xlsx")
+    // if (response.status === 200)
+    // {
+    //     return response.data;
+    // }
+    console.log(await response)
 }

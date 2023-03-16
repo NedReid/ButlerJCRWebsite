@@ -52,7 +52,7 @@ app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 app.use("/media", express.static(path.join(__dirname, '../media')));
 app.use("/files", express.static(path.join(__dirname, '../files')));
 authRoutes(app, auth, db);
-await adminRoutes(app, auth, db);
+await adminRoutes(app, auth, db, __dirname);
 await studentRoutes(app, auth, db);
 await getInvolvedRoutes(app, auth, db);
 await staticRoutes(app, auth, db);
