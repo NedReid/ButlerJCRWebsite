@@ -11,6 +11,7 @@ import Motions from "./Motions";
 import Candidates from "./Candidates";
 import PostCategories from "./PostCategories";
 import Products from "./Products";
+import Members from "./Members";
 class Admin extends React.Component {
     constructor(props) {
         super(props);
@@ -29,6 +30,7 @@ class Admin extends React.Component {
             {this.props.admin.democracy && <Candidates/>}
             {this.props.admin.postCategories && <PostCategories/>}
             {this.props.admin.finance && <Products/>}
+            {this.props.admin.finance && <Members/>}
         </>
 
     }

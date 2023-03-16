@@ -27,6 +27,7 @@
     "daisyui": "^2.15.0",
     "date-and-time": "^2.4.2",
     "html-react-parser": "^2.0.0",
+    "js-file-download": "^0.4.12",
     "react": "^18.1.0",
     "react-daisyui": "^2.0.6",
     "react-datetime-picker": "^3.5.0",

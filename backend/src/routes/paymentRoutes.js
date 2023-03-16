@@ -24,7 +24,7 @@ export const paymentRoutes = async (app, auth, db, stripe) => {
     app.post("/api/payments/payLevy", async (req, res) => {
         // const { product } = req.body;
         console.log("Making Peement")
-        const url = process.env.URL;
+        const url = process.env.WEB_ADDRESS;
         const levy = await db.products.findOneAsync({name:"JCR Levy"});
         const session = await stripe.checkout.sessions.create({
             // payment_method_types: ["a"],
@@ -44,7 +44,7 @@ export const paymentRoutes = async (app, auth, db, stripe) => {
             ],
             mode: "payment",
             success_url: `${url}/api/payments/levyPaid?id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `http://localhost:3001/error`,
+            cancel_url: `${url}/error`,
         });
         res.json({ id: session.id });
     });
@@ -55,6 +55,7 @@ export const paymentRoutes = async (app, auth, db, stripe) => {
         const session = await stripe.checkout.sessions.retrieve(req.query.id);
         const customer = session.metadata.username;
         const status = session.payment_status;
+        const intent = session.payment_intent
         const cdate = new Date(session.created * 1000);
         let expiry = new Date(cdate.getFullYear() + 3,8,1)
         if(cdate.getMonth() < 6) {
@@ -65,7 +66,7 @@ export const paymentRoutes = async (app, auth, db, stripe) => {
         if (status === "paid") {
             res.redirect("/pay")
             console.log("Yayy!")
-            await db.members.insertAsync({username:customer, expiry: expiry.getTime()})
+            await db.members.insertAsync({username: customer, expiry: expiry.getTime(), transaction: intent})
         }
         // let product = await db.products.findOneAsync({name:req.query.name});
         res.status(200);

@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import download from "js-file-download";
 export const getEvents =  async () => {
     const response = await axios.get("/api/admin/getEvents");
     if (response.status === 200)
@@ -352,4 +352,14 @@ export const deleteProduct =  async (event) => {
     {
         return response.data;
     }
+}
+
+export const getMembersExcel =  async () => {
+    const response = await axios.get("/api/admin/getMembersExcel", {responseType:"blob"});
+    download(response.data, "members.xlsx")
+    // if (response.status === 200)
+    // {
+    //     return response.data;
+    // }
+    console.log(await response)
 }

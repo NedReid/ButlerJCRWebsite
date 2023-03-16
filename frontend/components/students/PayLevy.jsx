@@ -46,7 +46,6 @@ class PayLevy extends React.Component {
                             <div className="py-4">You have paid your JCR Levy</div>
                             <div className="py-4">Username: {this.state.membershipStatus.username}</div>
                             <div className="py-4">Expiry Date: {date.format(new Date(this.state.membershipStatus.expiry), "DD/MM/YY")}</div>
-
                         </>
 
 
