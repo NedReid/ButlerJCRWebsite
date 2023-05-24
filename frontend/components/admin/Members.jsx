@@ -1,8 +1,9 @@
 import React from 'react';
-import { getRoles, getMembersExcel } from '../../helpers/adminHelper';
+import { getRoles, getMembersExcel, addMemberList} from '../../helpers/adminHelper';
 import CreateEditRole from './CreateEditRole';
 import {roleCategoryEnum, roleCategoryNames, meetingEnum, methodEnum} from "../../models/roles/roleEnums";
 import { Textarea, Checkbox } from "react-daisyui";
+import MemberTable from "./MemberTable";
 
 class Members extends React.Component {
     constructor(props) {
@@ -15,6 +16,10 @@ class Members extends React.Component {
 
     }
 
+    addMemberList = async () => {
+        await addMemberList({memberList:this.state.memberList, expiryYear: this.state.expiryYear, remove: this.state.remove})
+        window.location.reload(false)
+    }
 
 
     render() {
@@ -36,7 +41,8 @@ class Members extends React.Component {
                 <Checkbox onChange={(event) => this.setState({remove:!this.state.remove})} className="mr-2"></Checkbox>
                 Check if you want to remove, rather than add these names.
             </div>
-            <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={() => console.log(this.state)}>Add Names</button>
+            <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.addMemberList}>Add Names</button>
+            <MemberTable/>
         </div>
     }
 
