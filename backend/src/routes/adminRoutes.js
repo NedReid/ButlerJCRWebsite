@@ -15,7 +15,8 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
             adminPerms: true,
             pagePerms: true,
             democracy: true,
-            postCategories: true
+            postCategories: true,
+            photos: true
         });
     }
 
