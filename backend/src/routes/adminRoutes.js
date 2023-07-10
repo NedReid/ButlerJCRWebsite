@@ -1,8 +1,15 @@
 import argon2 from "argon2";
 import express from "express";
 import { sendVerificationMail } from '../helpers/emailer.js';
-import {parseRichText, retrieveRichText, retrieveImageFile, exportImageFile} from "../helpers/mediaHelper.js";
+import {
+    parseRichText,
+    retrieveRichText,
+    retrieveImageFile,
+    exportImageFile,
+    saveAlbumImage, makePreviewImage
+} from "../helpers/mediaHelper.js";
 import xl from 'excel4node';
+import fs from "fs";
 
 export const adminRoutes = async (app, auth, db, __dirname) => {
 
@@ -709,5 +716,30 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
         }
 
     });
+
+    app.post("/api/admin/uploadAlbumPhoto", async function (req, res) {
+        if (res.locals.adminUser.photos === true) {
+            const imageName = req.body.imageName;
+            console.log(imageName);
+            const imageData = req.body.imageData
+            const path = req.body.albumAddress;
+            const dir = "files/albums/" + path
+            const previewDir = "files/albumsPreview/" + path
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir);
+                fs.mkdirSync(previewDir);
+            }
+            await saveAlbumImage(imageData, (dir + "/" + imageName))
+            await makePreviewImage(dir + "/" + imageName, previewDir + "/" + imageName)
+
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+
+    });
+
 
 }

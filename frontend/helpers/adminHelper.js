@@ -1,5 +1,7 @@
 import axios from "axios";
 import download from "js-file-download";
+import * as fs from 'fs';
+
 export const getEvents =  async () => {
     const response = await axios.get("/api/admin/getEvents");
     if (response.status === 200)
@@ -391,6 +393,14 @@ export const deleteMember =  async (member) => {
     const response = await axios.post("/api/admin/deleteMember", member);
     if (response.status === 200)
     {
-        return response.data;
+        return true;
+    }
+}
+
+export const uploadAlbumPhoto =  async (member) => {
+    const response = await axios.post("/api/admin/uploadAlbumPhoto", member);
+    if (response.status === 200)
+    {
+        return true;
     }
 }
