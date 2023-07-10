@@ -6,6 +6,7 @@ export default class adminPermModel {
     pagePerms = false;
     adminPerms = false;
     democracy = false;
+    photos = false;
     _id = undefined;
 
     constructor(init = undefined) {
@@ -18,6 +19,7 @@ export default class adminPermModel {
             this.adminPerms = init.adminPerms;
             this.democracy = init.democracy;
             this.postCategories = init.postCategories;
+            this.photos = init.photos;
             this._id = init._id;
 
         }

@@ -158,6 +158,31 @@ export const exportImageFile = async (im_data, hq, name, id, db) => {
 
 }
 
+export const saveAlbumImage = async (im_data, path) => {
+    if ((typeof im_data === 'string' || im_data instanceof String) && im_data.startsWith("data:")) {
+        if (im_data.startsWith("data:image/jpeg") || im_data.startsWith("data:image/png") || im_data.startsWith("data:image/tiff") || im_data.startsWith("data:image/webp") || im_data.startsWith("data:image/gif")) {
+            console.log(path)
+            let im_dat = im_data.replace(/^data:image\/(png|jpeg|webp|gif|tiff);base64,/, "");
+            const buffer = Buffer.from(im_dat, "base64");
+            const image = await sharp(buffer);
+            const md = await image.metadata();
+            if (md.size > 3 * 1000 * 1000 && (md.width > 2000 || md.height > 2000)) {
+                await image.resize(2000,2000, {fit: 'inside'});
+            }
+
+
+            const ob = await image.toBuffer()
+            fs.writeFileSync(path, ob);
+        }
+        return path
+    }
+    else {
+        return false
+    }
+
+}
+
+
 export const retrieveImageFile =  async (filename) => {
     if ((typeof filename === 'string' || filename instanceof String) && fs.existsSync(filename)) {
         let ft = filename.substring(filename.lastIndexOf(".") + 1);
@@ -170,7 +195,7 @@ export const retrieveImageFile =  async (filename) => {
 
 export const makePreviewImage = async (inputPath, outputPath) => {
     sharp.cache(false)
-    if (inputPath.endsWith("jpg") || inputPath.endsWith("jpeg") || inputPath.endsWith("JPG")) {
+    if (inputPath.toLowerCase().endsWith("jpg") || inputPath.toLowerCase().endsWith("jpeg")) {
         const buffer = fs.readFileSync(inputPath)
         const image = await sharp(buffer);
         const md = await image.metadata();
@@ -186,7 +211,7 @@ export const makePreviewImage = async (inputPath, outputPath) => {
         fs.writeFileSync(outputPath, ob);
 
     }
-    else if (inputPath.endsWith("png")) {
+    else if (inputPath.toLowerCase().endsWith("png")) {
         const buffer = fs.readFileSync(inputPath);
         const png = PNG.sync.read(buffer);
         const alpha = png.alpha;
@@ -195,6 +220,18 @@ export const makePreviewImage = async (inputPath, outputPath) => {
             image.scaleToFit(300,300);
         }
         image.write(outputPath);
+    }
+    else if (inputPath.toLowerCase().endsWith("tiff") || inputPath.toLowerCase().endsWith("webp")) {
+        const buffer = fs.readFileSync(inputPath)
+        const image = await sharp(buffer);
+        const md = await image.metadata();
+
+        if(md.width > 400 || md.height > 400) {
+            await image.resize(400,400, {fit: 'inside'});
+        }
+
+        const ob = await image.toBuffer()
+        fs.writeFileSync(outputPath, ob);
     }
     else {
         const buffer = fs.readFileSync(inputPath);

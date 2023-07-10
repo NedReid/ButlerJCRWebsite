@@ -1,8 +1,15 @@
 import argon2 from "argon2";
 import express from "express";
 import { sendVerificationMail } from '../helpers/emailer.js';
-import {parseRichText, retrieveRichText, retrieveImageFile, exportImageFile} from "../helpers/mediaHelper.js";
+import {
+    parseRichText,
+    retrieveRichText,
+    retrieveImageFile,
+    exportImageFile,
+    saveAlbumImage, makePreviewImage
+} from "../helpers/mediaHelper.js";
 import xl from 'excel4node';
+import fs from "fs";
 
 export const adminRoutes = async (app, auth, db, __dirname) => {
 
@@ -15,7 +22,8 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
             adminPerms: true,
             pagePerms: true,
             democracy: true,
-            postCategories: true
+            postCategories: true,
+            photos: true
         });
     }
 
@@ -634,5 +642,104 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
             res.send();
         }
     });
+
+    app.get("/api/admin/getMembers", async function (req, res) {
+        if (res.locals.adminUser.finance === true) {
+            let members = await db.members.findAsync({});
+            res.status(200);
+            res.send(members);
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+
+    app.post("/api/admin/addMemberList", async function (req, res) {
+        if (res.locals.adminUser.finance === true) {
+            console.log(req.body)
+            let memberList = req.body.memberList.split("\n")
+            let membersToAdd = []
+            memberList.forEach((member) => {
+                member = member.trim();
+                member = member.toLowerCase();
+                const re = /^[a-z][a-z][a-z][a-z][0-9][0-9]$/gm;
+                if(re.test(member)) {
+                    membersToAdd.push(member);
+                }
+
+            });
+            if (req.body.remove) {
+                for (const member of membersToAdd) {
+                    await db.members.removeAsync({username: member})
+                }
+            } else {
+                let expiry = new Date(req.body.expiryYear,8,1)
+                for (const member of membersToAdd) {
+                    await db.members.insertAsync({username: member, expiry: expiry.getTime(), transaction: "added manually by " + res.locals.adminUser.username})
+                }
+            }
+
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/deleteMember", async function (req, res) {
+        if (res.locals.adminUser.finance === true) {
+            let member = req.body;
+            await db.members.removeAsync({_id: member._id})
+
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+
+    });
+
+    app.post("/api/admin/updateMember", async function (req, res) {
+        if (res.locals.adminUser.finance === true) {
+            let member = req.body;
+            console.log(member)
+            await db.members.updateAsync({_id:member._id},{username: member.username, expiry: member.expiry, transaction: member.transaction})
+
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+
+    });
+
+    app.post("/api/admin/uploadAlbumPhoto", async function (req, res) {
+        if (res.locals.adminUser.photos === true) {
+            const imageName = req.body.imageName;
+            console.log(imageName);
+            const imageData = req.body.imageData
+            const path = req.body.albumAddress;
+            const dir = "files/albums/" + path
+            const previewDir = "files/albumsPreview/" + path
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir);
+                fs.mkdirSync(previewDir);
+            }
+            await saveAlbumImage(imageData, (dir + "/" + imageName))
+            await makePreviewImage(dir + "/" + imageName, previewDir + "/" + imageName)
+
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+
+    });
+
 
 }
