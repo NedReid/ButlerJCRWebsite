@@ -33,6 +33,7 @@ import PostAdmin from "./components/students/PostAdmin";
 import WeeklyEmail from "./components/static/WeeklyEmail";
 import ViewPost from "./components/static/ViewPost";
 import PayLevy from "./components/students/PayLevy";
+import Account from "./components/students/Account";
 class App extends React.Component {
     state = {
         loggedIn: "waiting",
@@ -90,6 +91,7 @@ class App extends React.Component {
                              <Route path="photos/:id" element={<Photos/>}/>
                              <Route path="posts/:id" element={<ViewPost/>}/>
                              <Route path="pay" element={<PayLevy username={this.state.loggedIn}/>}/>
+                             <Route path="account" element={<Account username={this.state.loggedIn}/>}/>
 
                          </Routes>
                      </div>
