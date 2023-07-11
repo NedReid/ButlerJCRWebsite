@@ -182,6 +182,32 @@ export const saveAlbumImage = async (im_data, path) => {
 
 }
 
+export const saveLogo = async (im_data, path) => {
+    if ((typeof im_data === 'string' || im_data instanceof String) && im_data.startsWith("data:")) {
+        if (im_data.startsWith("data:image/jpeg") || im_data.startsWith("data:image/png") || im_data.startsWith("data:image/tiff") || im_data.startsWith("data:image/webp") || im_data.startsWith("data:image/gif")) {
+            console.log(path)
+            let im_dat = im_data.replace(/^data:image\/(png|jpeg|webp|gif|tiff);base64,/, "");
+            const buffer = Buffer.from(im_dat, "base64");
+            const image = await sharp(buffer);
+            const md = await image.metadata();
+            if ((md.width > 512 || md.height > 512)) {
+                await image.resize(512,512, {fit: 'inside'});
+            }
+
+            const ob = await image.toBuffer()
+            fs.writeFileSync(path, ob);
+            return path
+        }
+        else {
+            return false
+        }
+    }
+    else {
+        return false
+    }
+
+}
+
 
 export const retrieveImageFile =  async (filename) => {
     if ((typeof filename === 'string' || filename instanceof String) && fs.existsSync(filename)) {

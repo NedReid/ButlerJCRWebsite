@@ -1,7 +1,7 @@
 import argon2 from "argon2";
 import express from "express";
 import { sendVerificationMail } from '../helpers/emailer.js';
-import {parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
+import {parseRichText, retrieveRichText, saveLogo} from "../helpers/mediaHelper.js";
 
 export const getInvolvedRoutes = async (app, auth, db) => {
 
@@ -51,6 +51,25 @@ export const getInvolvedRoutes = async (app, auth, db) => {
                 res.send();
             }
         });
+
+        app.post("/api/get-involved/uploadSSCLogo", async function(req, res) {
+            const webToken = auth.checkToken(req.cookies['loginToken']);
+            let SSC = await db.SSCs.findOneAsync({_id: req.body.id});
+            if(SSC.editors.includes(webToken.username)) {
+                let logo = req.body.logo
+                let id = req.body.id
+                let path = "files/sscLogos/" + id
+                await saveLogo(logo, path)
+                res.status(200);
+                res.send();
+            }
+            else {
+                res.status(401);
+                res.send();
+            }
+        });
+
+
 
 }
 

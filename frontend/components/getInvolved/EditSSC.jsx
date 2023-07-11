@@ -6,7 +6,7 @@ import DateTimePicker from 'react-datetime-picker';
 import TextEditor from '../global/TextEditor';
 import questionModel from "../../models/questionModel";
 import SSCModel from "../../models/SSCModel";
-import {updateSSC, getSSC} from "../../helpers/getInvolvedHelper";
+import {updateSSC, getSSC, uploadSSCLogo} from "../../helpers/getInvolvedHelper";
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../global/Loading";
 
@@ -16,7 +16,7 @@ class EditSSC extends React.Component {
         super(props);
         let SSCId = this.props.params["id"].substring(1);
         console.log(SSCId)
-        this.state = {SSC: undefined, SSCId: SSCId};
+        this.state = {SSC: undefined, SSCId: SSCId, logo: ""};
     }
 
     async componentDidMount() {
@@ -35,7 +35,15 @@ class EditSSC extends React.Component {
         console.log(this.state.SSC)
     }
 
-
+    handleImageChange = async (event, type) => {
+        let im = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            this.state.logo = reader.result;
+            this.forceUpdate();
+        }
+        reader.readAsDataURL(im);
+    }
 
     handlePage = (page) => {
         this.state.SSC.page = page;
@@ -43,6 +51,7 @@ class EditSSC extends React.Component {
 
 
     submitButton = async (event) => {
+        await uploadSSCLogo({logo: this.state.logo, id: this.state.SSC._id})
         await updateSSC(this.state.SSC);
 
         this.props.navigate("/get-involved/ssc/" + this.state.SSC.slug, {replace: true})
@@ -92,6 +101,14 @@ class EditSSC extends React.Component {
                                                        type="radio" name={this.state.SSC._id + "visible"} value={true}/>
                         True</label>
                     </span>
+
+                    <label>Logo:
+                        <input className=" ml-2 mb-2 rounded border-2 border-slate-500"
+                               name="promotionalImage" type="file" accept="image/png, image/jpeg, iamge/tiff, image/webp, image/gif" onChange={(event) => this.handleImageChange(event, "promotionalImage")}/>
+                        {this.state.logo !== "" && (
+                                <img className="h-24 object-contain" src={this.state.logo}/>
+                        )}
+                    </label>
 
                 <label> SSC Page:</label>
                 <div className="p-1 rounded border-2 border-slate-500">

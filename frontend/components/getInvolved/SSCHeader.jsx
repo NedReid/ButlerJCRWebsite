@@ -15,7 +15,7 @@ class SSCHeader extends React.Component {
     }
 
     async componentDidMount() {
-        this.setState({gotImage: await this.checkImage("../../media/ssc/" + this.props.ssc._id)})
+        this.setState({gotImage: await this.checkImage("../../files/sscLogos/" + this.props.ssc._id)})
         this.setState({editor: this.props.username !== "waiting" &&  this.props.username !== false && this.props.ssc.editors.includes(this.props.username)})
     }
 
@@ -68,7 +68,7 @@ class SSCHeader extends React.Component {
             </>
             }
             <div className="flex items-center">
-                <img className="w-16 h-16 sm:w-24 sm:h-24 object-contain" src={this.state.gotImage? "../../media/ssc/" + this.props.ssc._id : "../../media/global/JCRLogo.png"} />
+                <img className="w-16 h-16 sm:w-24 sm:h-24 object-contain" src={this.state.gotImage? "../../files/sscLogos/" + this.props.ssc._id : "../../media/global/JCRLogo.png"} />
                 <div className="font-bold flex-grow text-center">{this.props.ssc.name}</div>
             </div>
             <div className="mt-2 text-center text-sm">{this.props.ssc.desc}</div>
