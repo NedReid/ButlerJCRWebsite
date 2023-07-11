@@ -20,7 +20,7 @@ class Societies extends React.Component {
 
     editPage = (id) =>
     {
-        this.props.navigate('edit:' + id, {replace: false})
+        this.props.navigate('edit/' + id, {replace: false})
     }
 
     goToPage = (slug) =>
