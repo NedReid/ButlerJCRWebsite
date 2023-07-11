@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import Header from './components/global/Header';
 import Login from './components/global/Login';
@@ -11,7 +11,8 @@ import {
     BrowserRouter as Router,
     Routes,
     Route,
-    Link
+    Switch,
+    Link, useLocation, useParams, useNavigate
 } from "react-router-dom";
 import Societies from "./components/getInvolved/Societies";
 import Sports from "./components/getInvolved/Sports";
@@ -43,8 +44,6 @@ class App extends React.Component {
 
 
 
-
-
     async componentDidMount(){
         const ns = await isLoggedIn()
         this.setState({admin:ns.admin, verified: ns.verified, loggedIn: ns.username});
@@ -55,7 +54,11 @@ class App extends React.Component {
          return <Router>
              <div className="md:container md:mx-auto">
                  <div className="object-center">
-                     <Header admin={this.state.admin} verified ={this.state.verified} />
+                     <Routes>
+                         <Route path="/mcr/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={true} />}/>
+                         <Route path="/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={false} />}/>
+                     </Routes>
+
                      <Login loggedIn={this.state.loggedIn} verified ={this.state.verified}/>
 
                      <div className="min-h-screen">
@@ -105,3 +108,11 @@ class App extends React.Component {
 }
 
 export default App;
+// export default function(props) {
+//     let location = useLocation;
+//     // let mcr = window.location.pathname.startsWith("/mcr")
+//     // useEffect(() => {
+//     //     mcr = window.location.pathname.startsWith("/mcr")
+//     // }, [location]);
+//     return <App {...props} loc={location} mcr={false}/>;
+// }
