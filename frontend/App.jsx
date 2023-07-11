@@ -67,13 +67,13 @@ class App extends React.Component {
                                  <Route path="edit-posts" element={<PostAdmin/>}/>
                              </Route>
                              <Route path="get-involved/societies" element={<Societies username={this.state.loggedIn}/>}/>
-                             <Route path="get-involved/societies/edit:id" element={<EditSSC/>}/>
+                             <Route path="get-involved/societies/edit/:id" element={<EditSSC/>}/>
                              <Route path="get-involved/societies/:id" element={<SSC/>}/>
                              <Route path="get-involved/sports" element={<Sports username={this.state.loggedIn}/>}/>
-                             <Route path="get-involved/sports/edit:id" element={<EditSSC/>}/>
+                             <Route path="get-involved/sports/edit/:id" element={<EditSSC/>}/>
                              <Route path="get-involved/sports/:id" element={<SSC/>}/>
                              <Route path="get-involved/committees" element={<Committees username={this.state.loggedIn}/>}/>
-                             <Route path="get-involved/committees/edit:id" element={<EditSSC/>}/>
+                             <Route path="get-involved/committees/edit/:id" element={<EditSSC/>}/>
                              <Route path="get-involved/committees/:id" element={<SSC/>}/>
                              <Route path="get-involved/ssc/:id" element={<SSC/>}/>
                              <Route path="/" element={<Homepage/>} />

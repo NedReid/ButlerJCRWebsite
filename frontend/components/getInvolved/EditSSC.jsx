@@ -14,7 +14,7 @@ class EditSSC extends React.Component {
     constructor(props) {
 
         super(props);
-        let SSCId = this.props.params["id"].substring(1);
+        let SSCId = this.props.params["id"];
         console.log(SSCId)
         this.state = {SSC: undefined, SSCId: SSCId, logo: ""};
     }
