@@ -114,7 +114,10 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
 
     app.post("/api/admin/createSSC", async function (req, res) {
         if (res.locals.adminUser.SSCs === true) {
-            await db.SSCs.insertAsync(req.body);
+            let ssc = await db.SSCs.insertAsync(req.body)
+            const id = ssc._id
+            ssc.slug = ssc._id
+            await db.SSCs.updateAsync({_id: id}, ssc)
             res.status(201);
             res.send();
         } else {

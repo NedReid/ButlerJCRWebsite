@@ -36,3 +36,11 @@ export const updateSSC =  async (SSC) => {
         return response.data;
     }
 }
+
+export const uploadSSCLogo =  async (logo) => {
+    const response = await axios.post("/api/get-involved/uploadSSCLogo", logo);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
