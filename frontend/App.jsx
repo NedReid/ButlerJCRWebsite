@@ -37,6 +37,7 @@ import PayLevy from "./components/students/PayLevy";
 import Account from "./components/students/Account";
 import MCRHomepage from "./components/MCR/MCRHomepage";
 import MCRWhosWho from "./components/MCR/MCRWhosWho";
+import MCRNews from "./components/MCR/MCRNews";
 class App extends React.Component {
     state = {
         loggedIn: "waiting",
@@ -99,6 +100,8 @@ class App extends React.Component {
                              <Route path="account" element={<Account username={this.state.loggedIn}/>}/>
                              <Route path="mcr" element={<MCRHomepage/>}/>
                              <Route path="mcr/whos-who" element={<MCRWhosWho/>}/>
+                             <Route path="mcr/news" element={<MCRNews/>}/>
+                             <Route path="mcr/posts/:id" element={<ViewPost/>}/>
 
                          </Routes>
                      </div>
