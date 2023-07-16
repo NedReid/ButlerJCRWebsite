@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import Header from './components/global/Header';
 import Login from './components/global/Login';
@@ -11,7 +11,8 @@ import {
     BrowserRouter as Router,
     Routes,
     Route,
-    Link
+    Switch,
+    Link, useLocation, useParams, useNavigate
 } from "react-router-dom";
 import Societies from "./components/getInvolved/Societies";
 import Sports from "./components/getInvolved/Sports";
@@ -34,14 +35,15 @@ import WeeklyEmail from "./components/static/WeeklyEmail";
 import ViewPost from "./components/static/ViewPost";
 import PayLevy from "./components/students/PayLevy";
 import Account from "./components/students/Account";
+import MCRHomepage from "./components/MCR/MCRHomepage";
+import MCRWhosWho from "./components/MCR/MCRWhosWho";
+import MCRNews from "./components/MCR/MCRNews";
 class App extends React.Component {
     state = {
         loggedIn: "waiting",
         verified: "waiting",
         admin: "waiting",
     }
-
-
 
 
 
@@ -55,7 +57,11 @@ class App extends React.Component {
          return <Router>
              <div className="md:container md:mx-auto">
                  <div className="object-center">
-                     <Header admin={this.state.admin} verified ={this.state.verified} />
+                     <Routes>
+                         <Route path="/mcr/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={true} />}/>
+                         <Route path="/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={false} />}/>
+                     </Routes>
+
                      <Login loggedIn={this.state.loggedIn} verified ={this.state.verified}/>
 
                      <div className="min-h-screen">
@@ -92,6 +98,10 @@ class App extends React.Component {
                              <Route path="posts/:id" element={<ViewPost/>}/>
                              <Route path="pay" element={<PayLevy username={this.state.loggedIn}/>}/>
                              <Route path="account" element={<Account username={this.state.loggedIn}/>}/>
+                             <Route path="mcr" element={<MCRHomepage/>}/>
+                             <Route path="mcr/whos-who" element={<MCRWhosWho/>}/>
+                             <Route path="mcr/news" element={<MCRNews/>}/>
+                             <Route path="mcr/posts/:id" element={<ViewPost/>}/>
 
                          </Routes>
                      </div>
@@ -105,3 +115,11 @@ class App extends React.Component {
 }
 
 export default App;
+// export default function(props) {
+//     let location = useLocation;
+//     // let mcr = window.location.pathname.startsWith("/mcr")
+//     // useEffect(() => {
+//     //     mcr = window.location.pathname.startsWith("/mcr")
+//     // }, [location]);
+//     return <App {...props} loc={location} mcr={false}/>;
+// }
