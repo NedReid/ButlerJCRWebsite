@@ -1,6 +1,7 @@
 import React from 'react';
 import {Carousel, Divider} from "react-daisyui";
 import { getFolderAddresses } from "../../helpers/staticHelper";
+import LatestPosts from "../static/LatestPosts";
 
 class MCRHomepage extends React.Component {
     constructor(props) {
@@ -81,6 +82,9 @@ class MCRHomepage extends React.Component {
             </div>
 
             <Divider/>
+
+            <LatestPosts types={["MCR News"]} text="Latest News"/>
+
         </div>
     }
 
