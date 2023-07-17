@@ -31,6 +31,18 @@ export class AuthService {
         }
     }
 
+    checkEToken(token) {
+        try {
+            const check = jwt.verify(token, this.esignature);
+            return check;
+
+        }
+        catch {
+            console.log("FAILED JWT")
+            return undefined;
+        }
+    }
+
 
     vToken(user) {
 
@@ -38,6 +50,16 @@ export class AuthService {
             username: user.username,
         };
         const expiration = '200h';
+
+        return jwt.sign(data, this.esignature, { expiresIn: expiration });
+    }
+
+    rToken(user) {
+
+        const data =  {
+            username: user.username,
+        };
+        const expiration = '24h';
 
         return jwt.sign(data, this.esignature, { expiresIn: expiration });
     }

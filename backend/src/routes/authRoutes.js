@@ -1,6 +1,6 @@
 import argon2 from "argon2";
 import express from "express";
-import { sendVerificationMail } from '../helpers/emailer.js';
+import { sendVerificationMail, sendPasswordResetEmail } from '../helpers/emailer.js';
 export const authRoutes = (app, auth, db) => {
 
     app.post("/api/register", async function(req, res) {
@@ -39,6 +39,61 @@ export const authRoutes = (app, auth, db) => {
             res.send("Unexpected error. Try again, or contact a webmaster.");
         }
     });
+
+    app.post("/api/passwordResetEmail", async function(req, res) {
+        req.body.username = req.body.username.toLowerCase();
+        try {
+            let user = await db.users.findOneAsync({ username:req.body.username});
+            if (user !== null) {
+                user.passwordReset = auth.rToken({username:req.body.username})
+                await db.users.updateAsync({_id: user._id}, user)
+                await sendPasswordResetEmail(user.username, user.passwordReset);
+                res.status(200);
+                res.send("Check your emails. You will receive a link to reset your password.");
+            }
+            else {
+                res.status(200);
+                res.send("This account does not exist");
+            }
+        }
+        catch {
+            res.status(200);
+            res.send("Unexpected error. Try again, or contact a webmaster.");
+        }
+    });
+
+    app.post("/api/submitNewPassword", async function(req, res) {
+        if (req.body.password.length < 8) {
+            res.status(200);
+            res.send("Password should be at least 8 characters");
+            return;
+        }
+        const hash = await argon2.hash(req.body.password, {hashLength: 64});
+        try {
+            console.log(req.body)
+            const webToken = auth.checkEToken(req.body.token);
+            const user = await db.users.findOneAsync({username: webToken.username, passwordReset: req.body.token});
+            if (user !== null) {
+                user.passwordReset = undefined
+                user.password = hash
+                await db.users.updateAsync({_id: user._id}, user)
+                res.status(201);
+                const token = auth.generateToken(user);
+                res.cookie('loginToken', token,{httpOnly: true});
+                res.send(user.username);
+
+            }
+            else {
+                res.status(200);
+                res.send("Error with reset link");
+            }
+        }
+        catch {
+            res.status(200);
+            res.send("Unexpected error. Try again, or contact a webmaster.");
+        }
+    });
+
 
     app.post("/api/login", async function(req, res) {
         req.body.username = req.body.username.toLowerCase();
@@ -95,6 +150,27 @@ export const authRoutes = (app, auth, db) => {
                 resp.admin = admin;
             }
             console.log(resp);
+            res.send(resp);
+        }
+        catch {
+            res.status(204);
+            res.send();
+        }
+    });
+
+    app.get("/api/getUserByResetToken", async function(req, res) {
+        console.log("checking");
+        try {
+            res.status(201);
+            const webToken = auth.checkEToken(req.query.resetToken);
+            console.log(webToken)
+            const user = await db.users.findOneAsync({username: webToken.username, passwordReset: req.query.resetToken});
+            let resp = {
+                username: false,
+            }
+            if (user !== null) {
+                resp.username = webToken.username;
+            }
             res.send(resp);
         }
         catch {
