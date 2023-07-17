@@ -1,5 +1,5 @@
 import React from 'react';
-import {login, register, isLoggedIn, logout, resendVerificationEmail} from '../../helpers/loginHelper';
+import {login, register, isLoggedIn, logout, resendVerificationEmail, passwordResetEmail} from '../../helpers/loginHelper';
 import Loading from "./Loading";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import {menuItems} from "./menuItems";
@@ -89,6 +89,16 @@ class Login extends React.Component {
 
     }
 
+    handleForgot = async (event) =>  {
+        if (!(/^[A-Z]{4}[0-9]{2}$/i).test(this.state.username)) {
+            this.setState({tagText: "Type in CIS Code into the 'Username' box to reset password"});
+        }
+        else {
+            let resp = await passwordResetEmail(this.state.username);
+            this.setState({tagText: resp.data});
+        }
+    }
+
 
     async checkLogin(event) {
         const resp = await isLoggedIn();
@@ -151,7 +161,7 @@ class Login extends React.Component {
                                 onClick={this.handleLogin}>Login
                         </button>
                         <button className="bg-amber-400 rounded my-1 mx-2 px-2 transition hover:bg-amber-600"
-                                onClick={() => console.log("Forgot Password not implemented")}>Forgot?
+                                onClick={this.handleForgot}>Forgot?
                         </button>
                         <button className="bg-amber-400 rounded my-1 mx-2 px-2 transition hover:bg-amber-600"
                                 onClick={()=> this.setState({loginState: loginStateEnum.notLoggedIn})}>Back
@@ -258,7 +268,7 @@ class Login extends React.Component {
                             </div>
                             <div className="flex h-8 w-full">
                                 <button className="bg-gray-500 px-2 text-white flex-grow transition hover:bg-gray-600"
-                                        onClick={() => console.log("Forgot Password not implemented")}>Forgot?
+                                        onClick={this.handleForgot}>Forgot?
                                 </button>
                                 <button className="bg-gray-500 px-2 text-white flex-grow transition hover:bg-gray-600"
                                         onClick={()=> this.setState({loginState: loginStateEnum.notLoggedIn, tagText: ""})}>Back

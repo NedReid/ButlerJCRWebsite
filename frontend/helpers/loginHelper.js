@@ -21,6 +21,15 @@ export const resendVerificationEmail =  async () => {
     }
 }
 
+export const passwordResetEmail =  async (username) => {
+    const response = await axios.post("/api/passwordResetEmail", {username: username});
+    if (response.status === 200)
+    {
+        return response;
+    }
+
+}
+
 export const isLoggedIn =  async () => {
     const response = await axios.get("/api/isLoggedIn");
     console.log(response);
@@ -31,6 +40,24 @@ export const isLoggedIn =  async () => {
     }
     return {username: false, verified: false, admin:false}
 }
+
+export const getUserByResetToken =  async (resetToken) => {
+    const response = await axios.get("/api/getUserByResetToken", {params: {resetToken: resetToken}});
+    console.log(response)
+    if (response.status === 201 && response.data.username !== false)
+    {
+        return response.data;
+    }
+    else {
+        return undefined
+    }
+}
+
+export const submitNewPassword =  async (token, password) => {
+    const response = await axios.post("/api/submitNewPassword", {token: token, password: password});
+    return response;
+}
+
 
 export const logout = async () => {
     const response = await axios.get("/api/logout");
