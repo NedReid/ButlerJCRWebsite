@@ -70,4 +70,13 @@ export const getPostsOfType = async (_id) => {
     {
         return response.data;
     }
+
+}
+export const getPostsOfTypes = async (types, number) => {
+    console.log(types)
+    const response = await axios.get("/api/getPostsOfTypes", {params: {types: types, number: number}});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
 }

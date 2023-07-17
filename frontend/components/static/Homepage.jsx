@@ -1,6 +1,7 @@
 import React from 'react';
 import {Carousel, Divider} from "react-daisyui";
 import { getFolderAddresses } from "../../helpers/staticHelper";
+import LatestPosts from "./LatestPosts";
 
 class Homepage extends React.Component {
     constructor(props) {
@@ -102,8 +103,8 @@ class Homepage extends React.Component {
                     Thank you all for your time and I hope to see you around campus soon!
                 </div>
 
-
             </div>
+            <LatestPosts types={["Weekly Email"]} text="Latest Posts"/>
 
 
         </div>

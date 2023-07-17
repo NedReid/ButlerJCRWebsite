@@ -137,13 +137,34 @@ export const staticRoutes = async (app, auth, db) => {
     app.get("/api/getPostsOfType", async function(req, res) {
         console.log(req.query)
         let cat = await db.postCategories.findOneAsync({name: req.query._id})
-        let post = await db.posts.findAsync({category: cat._id, visible: true});
+        let post = []
+        if (cat !== null) {
+            post = await db.posts.findAsync({category: cat._id, visible: true});
+        }
         console.log(post)
         res.status(200);
         res.send(post);
     });
 
-
+    app.get("/api/getPostsOfTypes", async function(req, res) {
+        console.log(req.query)
+        let posts = []
+        const types = req.query.types
+        for (let i = 0; i < types.length; i++) {
+            let cat = await db.postCategories.findOneAsync({name: types[i]})
+            console.log(types[i])
+            let post = []
+            if (cat !== null) {
+                post = await db.posts.findAsync({category: cat._id, visible: true});
+            }
+            posts = posts.concat(post)
+        }
+        let sortedPosts = posts.sort((a, b) => (b.date - a.date));
+        sortedPosts = sortedPosts.slice(0, req.query.number)
+        console.log(sortedPosts)
+        res.status(200);
+        res.send(sortedPosts);
+    });
 
 }
 
