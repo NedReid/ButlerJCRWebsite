@@ -1,12 +1,13 @@
 import {SSCEnum} from "./SSCEnum";
 
 export const calendarEventEnum = {
-    largeEvent: 0,
-    barEvent: 1,
-    campaignWeek: 2,
-    campaignWeekEvent: 3,
-    chillEvent: 4,
-    other: 5,
+    other: 0,
+    largeEvent: 1,
+    barEvent: 2,
+    campaignWeek: 3,
+    campaignWeekEvent: 4,
+    chillEvent: 5,
+    formal: 6,
 }
 
 export const getCalendarEventTypeName = (type) => {
@@ -23,6 +24,8 @@ export const getCalendarEventTypeName = (type) => {
             return "Chill Event"
         case calendarEventEnum.other:
             return "Other"
+        case calendarEventEnum.formal:
+            return "Formal"
     }
 }
 
@@ -33,13 +36,15 @@ export const calendarEventTypeColor = (type) => {
         case calendarEventEnum.barEvent:
             return "#258c33";
         case calendarEventEnum.campaignWeek:
-            return "#5b3307"
+            return "#a14b03"
         case calendarEventEnum.campaignWeekEvent:
             return "#a40303"
         case calendarEventEnum.chillEvent:
             return "#146b93"
         case calendarEventEnum.other:
             return "#3a3a3a"
+        case calendarEventEnum.formal:
+            return "#9d18bb"
     }
 }
 

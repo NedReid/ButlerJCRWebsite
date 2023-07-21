@@ -100,7 +100,7 @@ class CreateEditCalendarEvent extends React.Component {
 
             <label> Event Category:</label>
             <select name="category" defaultValue={this.state.event.category} onChange={(event) => this.handleNumChange(event, "category")} className="select select-bordered w-full max-w-xs mb-2">
-                {[...Array(6)].map((x, i) => {
+                {[...Array(7)].map((x, i) => {
                     return <option value={i} key="category">{getCalendarEventTypeName(i)}</option>
                 })}
             </select>
