@@ -80,3 +80,17 @@ export const getPostsOfTypes = async (types, number) => {
         return response.data;
     }
 }
+
+export const getCalendarEventPreviews = async () => {
+    const response = await axios.get("/api/getCalendarEventPreviews");
+    if (response.status === 200) {
+        return response.data;
+    }
+}
+
+export const getCalendarEventSelection = async (selection) => {
+    const response = await axios.get("/api/getCalendarEventSelection", {params: {selection: selection}});
+    if (response.status === 200) {
+        return response.data;
+    }
+}

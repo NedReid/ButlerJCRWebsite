@@ -1,7 +1,7 @@
 import fs from "fs";
 
 export const tailwindParse =  (html) => {
-    console.log("aaaaa", html);
+    // console.log("aaaaa", html);
     // html = html.replaceAll("<h2>", "<h2 className='text-2xl text-semibold pb-2'>");
     // html = html.replaceAll("<h3>", "<h3 className='text-xl text-medium pb-2'>");
     // html = html.replaceAll("<ul>", "<ul className='list-disc'>");
@@ -14,7 +14,7 @@ export const tailwindParse =  (html) => {
     //     '<li data-bangle-name="listItem" data-bangle-attrs="{&quot;todoChecked&quot;:true}" className="flex items-center"><input type="checkbox" className="checkbox-sm"  disabled/>');
     // html = html.replace( '<iframe width="560" height="315" src="https://www.youtube.com/embed/lJIrF4YjHfQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
     html = html.replaceAll("<p></p>", "<p><br className='ProseMirror-trailingBreak'></p>")
-    console.log(html.indexOf('<a href="https://www.youtube.com/watch?v='))
+    // console.log(html.indexOf('<a href="https://www.youtube.com/watch?v='))
     while(html.indexOf('<a href="https://www.youtube.com/watch?v=') >=  0) {
         let a_start = html.indexOf('<a href="https://www.youtube.com/watch?v=');
         let id_start = a_start + 41
