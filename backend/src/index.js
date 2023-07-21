@@ -38,6 +38,8 @@ db.posts = new Datastore({ filename: 'database/posts.db', autoload: true });
 db.postCategories = new Datastore({ filename: 'database/postCategories.db', autoload: true });
 db.payments = new Datastore({ filename: 'database/payments.db', autoload: true });
 db.products = new Datastore({ filename: 'database/products.db', autoload: true });
+db.calendarEvents = new Datastore({ filename: 'database/calendarEvents.db', autoload: true });
+
 
 exceptionHandler.handle();
 const app = express();

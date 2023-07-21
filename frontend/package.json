@@ -8,7 +8,6 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.4",
-    "pdf-to-png-converter": "^2.2.2",
     "postcss": "^8.4.12",
     "tailwindcss": "^3.0.23"
   },
@@ -20,9 +19,13 @@
     "@bangle.dev/react-menu": "^0.28.11",
     "@bangle.dev/tooltip": "^0.28.11",
     "@bangle.dev/utils": "^0.28.11",
+    "@fullcalendar/core": "^6.1.8",
+    "@fullcalendar/daygrid": "^6.1.8",
+    "@fullcalendar/interaction": "^6.1.8",
+    "@fullcalendar/react": "^6.1.8",
+    "@fullcalendar/timegrid": "^6.1.8",
     "@stripe/stripe-js": "^1.49.0",
     "@vitejs/plugin-react": "^1.0.7",
-    "alpinejs": "^3.9.5",
     "axios": "^0.26.1",
     "daisyui": "^2.15.0",
     "date-and-time": "^2.4.2",
@@ -30,10 +33,10 @@
     "js-file-download": "^0.4.12",
     "react": "^18.1.0",
     "react-daisyui": "^2.0.6",
+    "react-date-picker": "^10.2.1",
     "react-datetime-picker": "^3.5.0",
     "react-dom": "^18.1.0",
     "react-icons": "^4.4.0",
-    "react-pdf": "^5.7.2",
     "react-router-dom": "^6.3.0",
     "vite": "^2.9.0"
   }

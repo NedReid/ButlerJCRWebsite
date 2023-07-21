@@ -60,7 +60,7 @@ class Events extends React.Component {
                     })}
 
                 </select>
-                {this.state.events.map((event, index) =>{
+                {this.state.events.map((event, index) => {
                     if(event === this.state.currentEvent) {
                         return <CreateEditEvent closeTab={this.onUpdated} key={index} event={this.state.currentEvent}/>
                     }

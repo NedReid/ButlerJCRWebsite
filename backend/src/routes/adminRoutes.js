@@ -744,5 +744,50 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
 
     });
 
+    app.get("/api/admin/getCalendarEvents", async function (req, res) {
+        if (res.locals.adminUser.events === true) {
+            let events = await db.calendarEvents.findAsync({});
+            events = await Promise.all(await events.map(async (ev) => {
+                if (typeof ev.description === 'string' || ev.description instanceof String) {
+                    ev.description = await retrieveRichText(ev.description, "calendarEvents");
+                }
+                return ev
+            }));
+            res.status(200);
+            res.send(events);
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/createCalendarEvent", async function (req, res) {
+        if (res.locals.adminUser.events === true) {
+            const desc = req.body.description
+            req.body.description = "placeholder"
+            let newEvent = await db.calendarEvents.insertAsync(req.body);
+            newEvent.description = await parseRichText(desc, newEvent._id, "calendarEvents");
+            await db.calendarEvents.updateAsync({_id: newEvent._id}, newEvent);
+            res.status(201);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/updateCalendarEvent", async function (req, res) {
+        if (res.locals.adminUser.events === true) {
+            // console.log(req.body);
+            req.body.description = await parseRichText(req.body.description, req.body._id, "calendarEvents");
+            await db.calendarEvents.updateAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
 
 }

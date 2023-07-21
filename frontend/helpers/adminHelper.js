@@ -404,3 +404,28 @@ export const uploadAlbumPhoto =  async (member) => {
         return true;
     }
 }
+
+export const getCalendarEvents =  async (member) => {
+    const response = await axios.get("/api/admin/getCalendarEvents");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createCalendarEvent =  async (event) => {
+    const response = await axios.post("/api/admin/createCalendarEvent", event);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateCalendarEvent =  async (event) => {
+    const response = await axios.post("/api/admin/updateCalendarEvent", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+

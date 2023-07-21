@@ -166,5 +166,27 @@ export const staticRoutes = async (app, auth, db) => {
         res.send(sortedPosts);
     });
 
+    app.get("/api/getCalendarEventPreviews", async function (req, res) {
+        let events = await db.calendarEvents.findAsync({});
+        events = events.map((ev) => {
+                ev.description = "";
+                return ev
+        });
+        res.status(200);
+        res.send(events);
+    });
+
+    app.get("/api/getCalendarEventSelection", async function (req, res) {
+        let events = await db.calendarEvents.findAsync({_id: {$in: req.query.selection}});
+        events = await Promise.all(await events.map(async (ev) => {
+            if (typeof ev.description === 'string' || ev.description instanceof String) {
+                ev.description = await retrieveRichText(ev.description, "calendarEvents");
+            }
+            return ev
+        }));
+        res.status(200);
+        res.send(events);
+    });
+
 }
 

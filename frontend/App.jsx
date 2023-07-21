@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, Suspense} from 'react';
 
 import Header from './components/global/Header';
 import Login from './components/global/Login';
@@ -39,6 +39,9 @@ import MCRHomepage from "./components/MCR/MCRHomepage";
 import MCRWhosWho from "./components/MCR/MCRWhosWho";
 import MCRNews from "./components/MCR/MCRNews";
 import ResetPassword from "./components/global/ResetPassword";
+import Loading from "./components/global/Loading";
+import CalendarEdit from "./components/admin/CalendarEdit";
+const Calendar = React.lazy(() => import("./components/static/Calendar"));
 class App extends React.Component {
     state = {
         loggedIn: "waiting",
@@ -104,6 +107,8 @@ class App extends React.Component {
                              <Route path="mcr/news" element={<MCRNews/>}/>
                              <Route path="mcr/posts/:id" element={<ViewPost/>}/>
                              <Route path="reset-password/:id" element={<ResetPassword/>}/>
+                             <Route path="calendar" element={<Suspense fallback={<Loading/>}><Calendar admin={this.state.admin}/></Suspense>}/>
+                             <Route path="calendar/edit" element={<CalendarEdit admin={this.state.admin}/>}/>
 
 
                          </Routes>
