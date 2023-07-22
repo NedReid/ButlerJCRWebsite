@@ -1,6 +1,8 @@
 import argon2 from "argon2";
 import express from "express";
 import { sendVerificationMail, sendPasswordResetEmail } from '../helpers/emailer.js';
+
+const cookieLen = 1000 * 60 * 60 * 24 * 7
 export const authRoutes = (app, auth, db) => {
 
     app.post("/api/register", async function(req, res) {
@@ -26,7 +28,7 @@ export const authRoutes = (app, auth, db) => {
                 await sendVerificationMail(newUser.username, newUser.registered);
                 res.status(201);
                 const token = auth.generateToken(newUser);
-                res.cookie('loginToken', token,{httpOnly: true});
+                res.cookie('loginToken', token,{maxAge: cookieLen, httpOnly: true});
                 res.send(newUser.username);
             }
             else {
@@ -79,7 +81,7 @@ export const authRoutes = (app, auth, db) => {
                 await db.users.updateAsync({_id: user._id}, user)
                 res.status(201);
                 const token = auth.generateToken(user);
-                res.cookie('loginToken', token,{httpOnly: true});
+                res.cookie('loginToken', token,{maxAge: cookieLen, httpOnly: true});
                 res.send(user.username);
 
             }
@@ -112,7 +114,7 @@ export const authRoutes = (app, auth, db) => {
                     console.log(foundUser)
                     res.status(201);
                     const token = auth.generateToken(foundUser);
-                    res.cookie('loginToken', token,{httpOnly: true});
+                    res.cookie('loginToken', token,{maxAge: cookieLen, httpOnly: true});
                     res.send(foundUser.username);
                 }
                 else {
