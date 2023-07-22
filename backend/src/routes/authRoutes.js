@@ -2,7 +2,7 @@ import argon2 from "argon2";
 import express from "express";
 import { sendVerificationMail, sendPasswordResetEmail } from '../helpers/emailer.js';
 
-const cookieLen = 1000 * 60 * 60 * 24 * 7
+const cookieLen = 1000 * 60 * 60 * 24 * 28
 export const authRoutes = (app, auth, db) => {
 
     app.post("/api/register", async function(req, res) {
