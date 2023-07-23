@@ -41,6 +41,8 @@ import MCRNews from "./components/MCR/MCRNews";
 import ResetPassword from "./components/global/ResetPassword";
 import Loading from "./components/global/Loading";
 import CalendarEdit from "./components/admin/CalendarEdit";
+import Cookies from "./components/static/Cookies";
+import CookiesModal from "./components/static/CookiesModal";
 const Calendar = React.lazy(() => import("./components/static/Calendar"));
 class App extends React.Component {
     state = {
@@ -61,6 +63,7 @@ class App extends React.Component {
          return <Router>
              <div className="md:container md:mx-auto">
                  <div className="object-center">
+                     <CookiesModal/>
                      <Routes>
                          <Route path="/mcr/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={true} />}/>
                          <Route path="/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={false} />}/>
@@ -109,7 +112,7 @@ class App extends React.Component {
                              <Route path="reset-password/:id" element={<ResetPassword/>}/>
                              <Route path="calendar" element={<Suspense fallback={<Loading/>}><Calendar admin={this.state.admin}/></Suspense>}/>
                              <Route path="calendar/edit" element={<CalendarEdit admin={this.state.admin}/>}/>
-
+                             <Route path="cookies" element={<Cookies/>}/>
 
                          </Routes>
                      </div>

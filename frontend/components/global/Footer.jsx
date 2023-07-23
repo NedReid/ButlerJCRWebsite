@@ -16,10 +16,19 @@ class Footer extends React.Component {
     render() {
         return <>
                 <div className="w-full h-4 align bg-red-800"/>
-                <div className="text-white z-16 p-4 bg-red-700">
-                    © Josephine Butler JCR, 2022
-                    <br/>
-                    <a className="hover:underline" href="https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5192013">Registered Charity No. 1197721</a>
+                <div className="flex text-white z-16 p-4 bg-red-700">
+                    <div className="pr-2 grow">
+                        © Josephine Butler JCR, 2023
+                        <br/>
+                        <a className="hover:underline" href="https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5192013">Registered Charity No. 1197721</a>
+                    </div>
+                    <div className="text-right">
+                        <Link replace to="/cookies" className="underline hover:brightness-75">Cookies Policy</Link>
+                        <br/>
+                        <Link replace to="/feedback" className="underline hover:brightness-75">Website Feedback</Link>
+
+                    </div>
+
                 </div>
             </>
     }
