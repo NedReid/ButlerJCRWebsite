@@ -5,7 +5,15 @@ module.exports = {
     content: ["./**/*.{html,jsx}", "node_modules/daisyui/dist/**/*.js"],
     // specify other options here
     theme: {
-        // Some useful comment
+        screens: {
+            'xs': '450px',
+            'sm': '640px',
+            'md': '768px',
+            'lg': '1024px',
+            'xl': '1280px',
+            '2xl': '1536px',
+        },
+            // Some useful comment
         fontFamily: {
             'raleway': ['raleway', 'sans-serif'],
         },
