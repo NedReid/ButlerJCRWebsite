@@ -94,3 +94,11 @@ export const getCalendarEventSelection = async (selection) => {
         return response.data;
     }
 }
+
+export const sendFeedback = async (feedback) => {
+    const response = await axios.post("/api/static/sendFeedback", feedback);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}

@@ -77,3 +77,30 @@ export const sendPasswordResetEmail = async (username, resetToken) => {
     });
     transporter.sendMail(message);
 }
+
+export const sendFeedback = async (feedback) => {
+    const htmlContent = `<h1>Josephine Butler College JCR</h1>
+                    <h2>Website Feedback</h2>
+                    <p><b>User: ${feedback.name}</b></p>
+                    <p><b>Email: ${feedback.email}</b></p>
+                    <p><b>Type: ${feedback.type}</b></p>
+                    ${feedback.details}`;
+    console.log(htmlContent)
+    var message = {
+        from: process.env.EMAILER_ADDRESS,
+        to: process.env.EMAILER_ADDRESS,
+        subject: "WEBSITE FEEDBACK - " + feedback.type,
+        text: "You need to be able to view HTML to view this message.",
+        html: htmlContent
+    };
+
+    await transporter.verify(function (error, success) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Server is ready to take our messages");
+        }
+    });
+    transporter.sendMail(message);
+}
+
