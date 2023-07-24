@@ -5,6 +5,7 @@ import * as path from 'path';
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import {makePreviewImage, parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
+import {sendFeedback} from "../helpers/emailer.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const staticRoutes = async (app, auth, db) => {
@@ -186,6 +187,12 @@ export const staticRoutes = async (app, auth, db) => {
         }));
         res.status(200);
         res.send(events);
+    });
+
+    app.post("/api/static/sendFeedback", async function(req, res) {
+        await sendFeedback(req.body)
+        res.status(200);
+        res.send();
     });
 
 }
