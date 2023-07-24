@@ -43,7 +43,7 @@ db.calendarEvents = new Datastore({ filename: 'database/calendarEvents.db', auto
 
 exceptionHandler.handle();
 const app = express();
-const port = 3001;
+const port = process.env.PORT;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
