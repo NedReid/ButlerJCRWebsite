@@ -40,6 +40,7 @@ db.payments = new Datastore({ filename: 'database/payments.db', autoload: true }
 db.products = new Datastore({ filename: 'database/products.db', autoload: true });
 db.calendarEvents = new Datastore({ filename: 'database/calendarEvents.db', autoload: true });
 db.keyValues = new Datastore({ filename: 'database/keyValues.db', autoload: true });
+db.FAQ = new Datastore({ filename: 'database/FAQ.db', autoload: true });
 
 
 exceptionHandler.handle();

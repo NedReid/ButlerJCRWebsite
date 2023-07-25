@@ -444,3 +444,27 @@ export const setKeyValue =  async (key, value) => {
         return response.data;
     }
 }
+
+export const createFAQ =  async (event) => {
+    const response = await axios.post("/api/admin/createFAQ", event);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateFAQ =  async (event) => {
+    const response = await axios.post("/api/admin/updateFAQ", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deleteFAQ =  async (event) => {
+    const response = await axios.post("/api/admin/deleteFAQ", event);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}

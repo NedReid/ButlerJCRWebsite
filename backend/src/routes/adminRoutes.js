@@ -817,4 +817,30 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
     });
 
 
+    app.post("/api/admin/createFAQ", async function (req, res) {
+            const answer = req.body.answer
+            req.body.answer = ""
+            const newDb = await db.FAQ.insertAsync(req.body);
+            newDb.answer = await parseRichText(answer, newDb._id, "FAQ");
+            await db.FAQ.updateAsync({_id: newDb._id}, newDb);
+            res.status(201);
+            res.send();
+    });
+
+    app.post("/api/admin/updateFAQ", async function (req, res) {
+        req.body.answer = await parseRichText(req.body.answer, req.body._id, "FAQ");
+        await db.FAQ.updateAsync({_id: req.body._id}, req.body);
+        res.status(200);
+        res.send();
+
+    });
+
+    app.post("/api/admin/deleteFAQ", async function (req, res) {
+        await db.FAQ.removeAsync({_id: req.body._id}, req.body);
+        res.status(200);
+        res.send();
+
+    });
+
+
 }
