@@ -405,7 +405,7 @@ export const uploadAlbumPhoto =  async (member) => {
     }
 }
 
-export const getCalendarEvents =  async (member) => {
+export const getCalendarEvents =  async () => {
     const response = await axios.get("/api/admin/getCalendarEvents");
     if (response.status === 200)
     {
@@ -429,3 +429,18 @@ export const updateCalendarEvent =  async (event) => {
     }
 }
 
+export const getKeyValue =  async (key) => {
+    const response = await axios.get("/api/admin/getKeyValue", {params: {key: key}});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const setKeyValue =  async (key, value) => {
+    const response = await axios.post("/api/admin/setKeyValue", {key: key, value: value});
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}

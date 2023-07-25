@@ -50,13 +50,14 @@ class App extends React.Component {
         loggedIn: "waiting",
         verified: "waiting",
         admin: "waiting",
+        freshers: "waiting"
     }
 
 
 
     async componentDidMount(){
         const ns = await isLoggedIn()
-        this.setState({admin:ns.admin, verified: ns.verified, loggedIn: ns.username});
+        this.setState({admin:ns.admin, verified: ns.verified, loggedIn: ns.username, freshers: ns.freshers});
         console.log(ns)
     }
 
@@ -66,8 +67,8 @@ class App extends React.Component {
                  <div className="object-center">
                      <CookiesModal/>
                      <Routes>
-                         <Route path="/mcr/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={true} />}/>
-                         <Route path="/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={false} />}/>
+                         <Route path="/mcr/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={true} freshers={this.state.freshers} />}/>
+                         <Route path="/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={false} freshers={this.state.freshers}/>}/>
                      </Routes>
 
                      <Login loggedIn={this.state.loggedIn} verified ={this.state.verified}/>

@@ -21,6 +21,25 @@ export const menuItems = [
         ]
     },
     {
+        title: "Freshers",
+        page: "/freshers",
+        access: "freshers",
+        items: [
+            {title: "Home",
+                page: "/freshers",
+                access: "freshers",
+                items: []},
+            {title: "FAQ",
+                page: "/freshers/events",
+                access: "freshers",
+                items: []},
+            {title: "Schedule",
+                page: "/freshers/schedule",
+                access: "freshers",
+                items: []}
+        ]
+    },
+    {
         title: "\u00A0\u00A0MCR\u00A0\u00A0",
         page: "/mcr",
         access: "all",

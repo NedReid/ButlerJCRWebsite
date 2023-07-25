@@ -136,12 +136,14 @@ export const authRoutes = (app, auth, db) => {
         try {
             res.status(201);
             const webToken = auth.checkToken(req.cookies['loginToken']);
-            const user = await db.users.findOneAsync({username: webToken.username});
-            const admin = await db.admins.findOneAsync({username: webToken.username});
+            const user = await db.users.findOneAsync({username: (webToken === undefined? "" : webToken.username)});
+            const admin = await db.admins.findOneAsync({username: (webToken === undefined? "" : webToken.username)});
+            const freshersVisible = await db.keyValues.findOneAsync({key: "freshersVisibility"});
             let resp = {
                 username: false,
                 verified: false,
-                admin: false
+                admin: false,
+                freshers: false
             }
             if (user !== null) {
                 resp.username = webToken.username;
@@ -150,6 +152,9 @@ export const authRoutes = (app, auth, db) => {
             if (admin !== null)
             {
                 resp.admin = admin;
+            }
+            if (freshersVisible !== null && (freshersVisible.value === "visible" || (freshersVisible.value === "preview" && admin !== null && admin.freshers === true))) {
+                resp.freshers = true
             }
             console.log(resp);
             res.send(resp);
