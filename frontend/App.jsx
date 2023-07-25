@@ -44,6 +44,7 @@ import CalendarEdit from "./components/admin/CalendarEdit";
 import Cookies from "./components/static/Cookies";
 import CookiesModal from "./components/static/CookiesModal";
 import Feedback from "./components/static/Feedback";
+import FreshersHomepage from "./components/freshers/FreshersHomepage";
 const Calendar = React.lazy(() => import("./components/static/Calendar"));
 class App extends React.Component {
     state = {
@@ -116,6 +117,7 @@ class App extends React.Component {
                              <Route path="calendar/edit" element={<CalendarEdit admin={this.state.admin}/>}/>
                              <Route path="cookies" element={<Cookies/>}/>
                              <Route path="feedback" element={<Feedback/>}/>
+                             <Route path="freshers" element={<FreshersHomepage/>}/>
 
                          </Routes>
                      </div>
