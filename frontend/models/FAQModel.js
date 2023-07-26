@@ -3,6 +3,8 @@ export default class FAQModel {
     question = "";
     answer = "<p></p>";
 
+    order = 0;
+
     _id = undefined;
 
     constructor(init = undefined) {
@@ -11,7 +13,7 @@ export default class FAQModel {
             this.question = init.question;
             this.answer = init.answer;
             this._id = init._id;
-
+            this.order = init.order;
         }
     }
 

@@ -445,24 +445,24 @@ export const setKeyValue =  async (key, value) => {
     }
 }
 
-export const createFAQ =  async (event) => {
-    const response = await axios.post("/api/admin/createFAQ", event);
+export const createFAQ =  async (q) => {
+    const response = await axios.post("/api/admin/createFAQ", {question: q.question, answer: q.answer, order: q.order, category: q.category});
     if (response.status === 201)
     {
         return response.data;
     }
 }
 
-export const updateFAQ =  async (event) => {
-    const response = await axios.post("/api/admin/updateFAQ", event);
+export const updateFAQ =  async (q) => {
+    const response = await axios.post("/api/admin/updateFAQ", q);
     if (response.status === 200)
     {
         return response.data;
     }
 }
 
-export const deleteFAQ =  async (event) => {
-    const response = await axios.post("/api/admin/deleteFAQ", event);
+export const deleteFAQ =  async (q) => {
+    const response = await axios.post("/api/admin/deleteFAQ", q);
     if (response.status === 200)
     {
         return response.data;

@@ -45,6 +45,7 @@ import Cookies from "./components/static/Cookies";
 import CookiesModal from "./components/static/CookiesModal";
 import Feedback from "./components/static/Feedback";
 import FreshersHomepage from "./components/freshers/FreshersHomepage";
+import FreshersFAQ from "./components/freshers/FreshersFAQ";
 const Calendar = React.lazy(() => import("./components/static/Calendar"));
 class App extends React.Component {
     state = {
@@ -58,7 +59,7 @@ class App extends React.Component {
 
     async componentDidMount(){
         const ns = await isLoggedIn()
-        this.setState({admin:ns.admin, verified: ns.verified, loggedIn: ns.username, freshers: ns.freshers});
+        await this.setState({admin:ns.admin, verified: ns.verified, loggedIn: ns.username, freshers: ns.freshers});
         console.log(ns)
     }
 
@@ -118,6 +119,7 @@ class App extends React.Component {
                              <Route path="cookies" element={<Cookies/>}/>
                              <Route path="feedback" element={<Feedback/>}/>
                              <Route path="freshers" element={<FreshersHomepage/>}/>
+                             <Route path="freshers/faq" element={<FreshersFAQ admin={this.state.admin}/>}/>
 
                          </Routes>
                      </div>
