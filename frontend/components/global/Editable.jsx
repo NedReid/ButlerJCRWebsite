@@ -5,7 +5,7 @@ import { editableModel } from "../../models/editableModel";
 import parse from "html-react-parser";
 import {tailwindParse} from "../../helpers/tailwindParse";
 
-class PageEditor extends React.Component {
+class Editable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {editable: new editableModel()}
@@ -47,4 +47,4 @@ class PageEditor extends React.Component {
 
 }
 
-export default PageEditor;
+export default Editable;

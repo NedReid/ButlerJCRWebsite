@@ -23,7 +23,8 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
             pagePerms: true,
             democracy: true,
             postCategories: true,
-            photos: true
+            photos: true,
+            freshers: true
         });
     }
 
@@ -787,6 +788,58 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
             res.status(401);
             res.send();
         }
+    });
+
+    app.get("/api/admin/getKeyValue", async function (req, res) {
+        const kv = await db.keyValues.findOneAsync({key: req.query.key})
+        if (kv === undefined || kv === null) {
+            res.status(200);
+            res.send(false);
+
+        }
+        else {
+            res.status(200);
+            res.send(kv.value);
+        }
+    });
+
+    app.post("/api/admin/setKeyValue", async function (req, res) {
+        const kv = await db.keyValues.findOneAsync({key: req.body.key});
+        if (kv === undefined || kv === null) {
+            await db.keyValues.insertAsync({key: req.body.key, value: req.body.value})
+        }
+        else {
+            kv.value = req.body.value
+            await db.keyValues.updateAsync({_id: kv._id},kv)
+        }
+        res.status(200);
+        res.send();
+    });
+
+
+    app.post("/api/admin/createFAQ", async function (req, res) {
+            const answer = req.body.answer
+            req.body.answer = ""
+            const newDb = await db.FAQ.insertAsync(req.body);
+            newDb.answer = await parseRichText(answer, newDb._id, "FAQ");
+            await db.FAQ.updateAsync({_id: newDb._id}, newDb);
+            res.status(201);
+            res.send();
+    });
+
+    app.post("/api/admin/updateFAQ", async function (req, res) {
+        req.body.answer = await parseRichText(req.body.answer, req.body._id, "FAQ");
+        await db.FAQ.updateAsync({_id: req.body._id}, req.body);
+        res.status(200);
+        res.send();
+
+    });
+
+    app.post("/api/admin/deleteFAQ", async function (req, res) {
+        await db.FAQ.removeAsync({_id: req.body._id}, req.body);
+        res.status(200);
+        res.send();
+
     });
 
 

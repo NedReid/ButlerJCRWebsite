@@ -195,5 +195,18 @@ export const staticRoutes = async (app, auth, db) => {
         res.send();
     });
 
+    app.get("/api/getFAQofCategory", async function (req, res) {
+        let FAQ = await db.FAQ.findAsync({category: req.query.category});
+        FAQ = await Promise.all(await FAQ.map(async (q) => {
+            if (typeof q.answer === 'string' || q.answer instanceof String) {
+                q.answer = await retrieveRichText(q.answer, "FAQ");
+            }
+            return q
+        }));
+        res.status(200);
+        res.send(FAQ);
+    });
+
+
 }
 

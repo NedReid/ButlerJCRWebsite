@@ -26,7 +26,7 @@ class Header extends React.Component {
                                 return (
                                     <li className="menu-items" key={index}>
                                         { (menu.access === "all" || (menu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
-                                                                 || (menu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
+                                                                 || (menu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting") || (menu.access === "freshers" && this.props.freshers === true)) &&
                                             <Link replace to={menu.items.length > 0? "./" : menu.page} className="text-center self-end hover:animate-pingOnce px-3 py-1 bg-red-900 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300">{menu.title} </Link>
                                         }
                                         <ul className="w-full">
@@ -34,7 +34,7 @@ class Header extends React.Component {
                                             return (
                                                 <li className="menu-items w-full" key={index}>
                                                     { (subMenu.access === "all" || (subMenu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
-                                                        || (subMenu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
+                                                        || (subMenu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting") || (subMenu.access === "freshers" && this.props.freshers === true)) &&
                                                     <Link replace to={subMenu.page} className="w-full text-center  px-3 py-1 hover:animate-pingOnce bg-red-900 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300">{subMenu.title} </Link>
                                                     }
 
@@ -60,7 +60,7 @@ class Header extends React.Component {
                         {menuItems.map((menu, index) => {
                             return (<>
                                     { (menu.access === "all" || (menu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
-                                        || (menu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
+                                        || (menu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting") || (menu.access === "freshers" && this.props.freshers === true)) &&
                                     <li className="menu-items w-full flex" key={index}>
                                         {menu.items.length > 0?
                                              <button onClick={() => this.setState({subOpen: this.state.subOpen.map((item, index2) => {return (index === index2?  !item :  false)})})} className="w-full text-center self-end hover:animate-pingOnce px-3 py-1 bg-red-900 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300"><p className="text-center w-full">{menu.title}</p></button>
@@ -74,7 +74,7 @@ class Header extends React.Component {
                                 return (
                                     <li className="menu-items w-full sm-vertical" key={index}>
                                         { (subMenu.access === "all" || (subMenu.access === "admin" && this.props.admin !== false && this.props.admin !== "waiting")
-                                            || (subMenu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting")) &&
+                                            || (subMenu.access === "verified" && this.props.verified !== false && this.props.verified !== "waiting") || (subMenu.access === "freshers" && this.props.freshers === true)) &&
                                         <Link replace onClick={() => this.setState({open:false})} to={subMenu.page} className="w-full text-center  px-3 py-1 hover:animate-pingOnce bg-orange-800 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300"><p className="text-center w-full">{subMenu.title}</p></Link>
                                         }
                                     </li>

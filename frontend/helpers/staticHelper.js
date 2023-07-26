@@ -102,3 +102,10 @@ export const sendFeedback = async (feedback) => {
         return response.data;
     }
 }
+
+export const getFAQofCategory = async (category) => {
+    const response = await axios.get("/api/getFAQofCategory", {params: {category: category}});
+    if (response.status === 200) {
+        return response.data;
+    }
+}

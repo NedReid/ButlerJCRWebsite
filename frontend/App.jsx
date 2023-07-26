@@ -44,19 +44,23 @@ import CalendarEdit from "./components/admin/CalendarEdit";
 import Cookies from "./components/static/Cookies";
 import CookiesModal from "./components/static/CookiesModal";
 import Feedback from "./components/static/Feedback";
+import FreshersHomepage from "./components/freshers/FreshersHomepage";
+import FreshersFAQ from "./components/freshers/FreshersFAQ";
+import FreshersSchedule from "./components/freshers/FreshersSchedule";
 const Calendar = React.lazy(() => import("./components/static/Calendar"));
 class App extends React.Component {
     state = {
         loggedIn: "waiting",
         verified: "waiting",
         admin: "waiting",
+        freshers: "waiting"
     }
 
 
 
     async componentDidMount(){
         const ns = await isLoggedIn()
-        this.setState({admin:ns.admin, verified: ns.verified, loggedIn: ns.username});
+        await this.setState({admin:ns.admin, verified: ns.verified, loggedIn: ns.username, freshers: ns.freshers});
         console.log(ns)
     }
 
@@ -66,8 +70,8 @@ class App extends React.Component {
                  <div className="object-center">
                      <CookiesModal/>
                      <Routes>
-                         <Route path="/mcr/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={true} />}/>
-                         <Route path="/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={false} />}/>
+                         <Route path="/mcr/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={true} freshers={this.state.freshers} />}/>
+                         <Route path="/*" element={<Header admin={this.state.admin} verified ={this.state.verified} mcr={false} freshers={this.state.freshers}/>}/>
                      </Routes>
 
                      <Login loggedIn={this.state.loggedIn} verified ={this.state.verified}/>
@@ -115,6 +119,9 @@ class App extends React.Component {
                              <Route path="calendar/edit" element={<CalendarEdit admin={this.state.admin}/>}/>
                              <Route path="cookies" element={<Cookies/>}/>
                              <Route path="feedback" element={<Feedback/>}/>
+                             <Route path="freshers" element={<FreshersHomepage/>}/>
+                             <Route path="freshers/faq" element={<FreshersFAQ admin={this.state.admin}/>}/>
+                             <Route path="freshers/schedule" element={<FreshersSchedule/>}/>
 
                          </Routes>
                      </div>
