@@ -9,6 +9,7 @@ import Datastore from '@seald-io/nedb';
 import multer from 'multer';
 import cors from 'cors';
 import argon2 from 'argon2';
+import shrinkRay from "shrink-ray-current";
 import { AuthService } from './helpers/authHelper.js';
 import cookieParser from 'cookie-parser';
 import { authRoutes } from "./routes/authRoutes.js";
@@ -49,6 +50,7 @@ const port = process.env.PORT;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
+app.use(shrinkRay());
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json({limit: '150mb'}));       // to support JSON-encoded bodies

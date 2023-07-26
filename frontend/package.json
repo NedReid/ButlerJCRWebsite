@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "vite",
     "watch-dev": "vite build --watch --minify false --mode development",
-    "watch": "vite build --watch --minify false",
+    "watch": "vite build --watch",
     "build": "vite build",
     "preview": "vite preview"
   },
