@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import Stripe from "stripe";
+// import Stripe from "stripe";
 import path from "path";
 import exceptionHandler from 'express-exception-handler';
 import { dirname } from 'path';
@@ -48,7 +48,7 @@ exceptionHandler.handle();
 const app = express();
 const port = process.env.PORT;
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
+// const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
 app.use(shrinkRay());
 app.use(cors());
@@ -63,7 +63,7 @@ await studentRoutes(app, auth, db);
 await getInvolvedRoutes(app, auth, db);
 await staticRoutes(app, auth, db);
 await democracyRoutes(app, auth, db);
-await paymentRoutes(app, auth, db, stripe);
+// await paymentRoutes(app, auth, db, stripe);
 
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));

@@ -33,8 +33,8 @@ import Photos from "./components/static/Photos";
 import PostAdmin from "./components/students/PostAdmin";
 import WeeklyEmail from "./components/static/WeeklyEmail";
 import ViewPost from "./components/static/ViewPost";
-import PayLevy from "./components/students/PayLevy";
-import Account from "./components/students/Account";
+// import PayLevy from "./components/students/PayLevy";
+// import Account from "./components/students/Account";
 import MCRHomepage from "./components/MCR/MCRHomepage";
 import MCRWhosWho from "./components/MCR/MCRWhosWho";
 import MCRNews from "./components/MCR/MCRNews";
@@ -108,8 +108,8 @@ class App extends React.Component {
                              <Route path="weekly-email" element={<div><WeeklyEmail/></div>}/>
                              <Route path="photos/:id" element={<Photos/>}/>
                              <Route path="posts/:id" element={<ViewPost/>}/>
-                             <Route path="pay" element={<PayLevy username={this.state.loggedIn}/>}/>
-                             <Route path="account" element={<Account username={this.state.loggedIn}/>}/>
+                             {/*<Route path="pay" element={<PayLevy username={this.state.loggedIn}/>}/>*/}
+                             {/*<Route path="account" element={<Account username={this.state.loggedIn}/>}/>*/}
                              <Route path="mcr" element={<MCRHomepage/>}/>
                              <Route path="mcr/whos-who" element={<MCRWhosWho/>}/>
                              <Route path="mcr/news" element={<MCRNews/>}/>
