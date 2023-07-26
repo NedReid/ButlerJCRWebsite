@@ -46,6 +46,7 @@ import CookiesModal from "./components/static/CookiesModal";
 import Feedback from "./components/static/Feedback";
 import FreshersHomepage from "./components/freshers/FreshersHomepage";
 import FreshersFAQ from "./components/freshers/FreshersFAQ";
+import FreshersSchedule from "./components/freshers/FreshersSchedule";
 const Calendar = React.lazy(() => import("./components/static/Calendar"));
 class App extends React.Component {
     state = {
@@ -120,6 +121,7 @@ class App extends React.Component {
                              <Route path="feedback" element={<Feedback/>}/>
                              <Route path="freshers" element={<FreshersHomepage/>}/>
                              <Route path="freshers/faq" element={<FreshersFAQ admin={this.state.admin}/>}/>
+                             <Route path="freshers/schedule" element={<FreshersSchedule/>}/>
 
                          </Routes>
                      </div>
