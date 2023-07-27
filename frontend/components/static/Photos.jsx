@@ -74,9 +74,9 @@ class Photos extends React.Component {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                             {(this.state.albumPhotos.map((photo, index) => {
                                 return <div className="group relative w-64 h-64 hover:cursor-pointer" onClick={() => this.setState({photo: index})}>
-                                    <img className="object-cover w-64 h-64" src={"/files/albumsPreview/" + this.state.currentAlbum + "/" + photo}/>
+                                    <img className="object-cover w-64 h-64" src={"/files/albumsPreview/" + this.state.currentAlbum + "/" + photo + ".webp"}/>
                                     <div className="z-10 hidden group-hover:block absolute -left-8 -top-8 w-80 h-80">
-                                        <img className="object-cover w-80 h-80" src={"/files/albumsPreview/" + this.state.currentAlbum + "/" + photo}/>
+                                        <img className="object-cover w-80 h-80" src={"/files/albumsPreview/" + this.state.currentAlbum + "/" + photo + ".webp"}/>
                                     </div>
                                 </div>
                             }))}

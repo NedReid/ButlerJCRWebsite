@@ -46,7 +46,7 @@ class MCRHomepage extends React.Component {
             }
             <div className="mt-8 sm:flex p-1">
                 <div className="w-1/2 sm:w-1/3 translate-x-1/2 sm:translate-x-0 sm:mr-4 mb-2">
-                    <img className="" src="/media/home/mcrpresident.jpg"/>
+                    <img className="" src="/media/home/mcrpresident.webp"/>
                     <div className="w-full text-center mt-1 font-semibold text-grey-800">Joe Gellman</div>
                     <div className="w-full text-center text-grey-800 italic">MCR President</div>
                 </div>

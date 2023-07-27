@@ -82,26 +82,6 @@ class CalendarEdit extends React.Component {
         this.setState({currentEvent: currentEvent});
     }
 
-    submitButton = async (event) => {
-        if (this.state.password.length < 8) {
-            this.setState({errorText: "Password should be at least 8 characters"});
-            return
-        } else if (this.state.password !== this.state.password2) {
-            this.setState({errorText: "Passwords do not match"});
-            return
-        }
-        const resp = await submitNewPassword(this.state.token, this.state.password);
-        if (resp.status === 201) {
-            this.props.navigate("/", {replace: true});
-            window.location.reload(false);
-        }
-        else if (resp.status === 200) {
-            this.setState({errorText: resp.data});
-        }
-
-
-    }
-
 
     render() {
         console.log("RENDERING", this.state.post)

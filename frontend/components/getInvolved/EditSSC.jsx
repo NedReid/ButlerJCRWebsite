@@ -54,7 +54,7 @@ class EditSSC extends React.Component {
         await uploadSSCLogo({logo: this.state.logo, id: this.state.SSC._id})
         await updateSSC(this.state.SSC);
 
-        this.props.navigate("/get-involved/ssc/" + this.state.SSC.slug, {replace: true})
+        this.props.navigate("/get-involved/ssc/" + this.state.SSC.slug, {replace: false})
 
     }
 
