@@ -1,20 +1,8 @@
 import React from "react";
-import {createEvent, getCalendarEvents, getEvents, updateEvent} from '../../helpers/adminHelper';
-import eventModel from '../../models/eventModel';
-import { selectionModeEnum } from "../../models/selectionModeEnum";
-import DateTimePicker from 'react-datetime-picker';
-import TextEditor from '../global/TextEditor';
-import questionModel from "../../models/questionModel";
-import SSCModel from "../../models/SSCModel";
-import { getPost } from "../../helpers/staticHelper";
+import {getCalendarEvents} from '../../helpers/adminHelper';
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../global/Loading";
-import parse from "html-react-parser";
-import {tailwindParse} from "../../helpers/tailwindParse";
-import {getUserByResetToken, submitNewPassword} from "../../helpers/loginHelper";
 import CreateEditCalendarEvent from "./CreateEditCalendarEvent";
-import {meetingToName} from "../../models/roles/roleEnums";
-import CreateEditCandidate from "./CreateEditCandidate";
 import {monthName} from "../../models/calendarEventEnum";
 
 class CalendarEdit extends React.Component {

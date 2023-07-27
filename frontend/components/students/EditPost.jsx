@@ -1,15 +1,9 @@
 import React from "react";
-import {createEvent, createPostCategory, deleteSSC, updateEvent, updatePostCategory} from '../../helpers/adminHelper';
-import eventModel from '../../models/eventModel';
-import { selectionModeEnum } from "../../models/selectionModeEnum";
-import DateTimePicker from 'react-datetime-picker';
 import TextEditor from '../global/TextEditor';
-import questionModel from "../../models/questionModel";
 import postModel from "../../models/postModel";
-import {updatePost, createPost, deletePost} from "../../helpers/studentHelper";
+import {createPost, deletePost, updatePost} from "../../helpers/studentHelper";
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../global/Loading";
-import postCategoryModel from "../../models/postCategoryModel";
 
 class EditPost extends React.Component {
     constructor(props) {

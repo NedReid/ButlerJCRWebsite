@@ -1,20 +1,12 @@
 import React from "react";
-import {createEvent, updateEvent} from '../../helpers/adminHelper';
-import eventModel from '../../models/eventModel';
-import { selectionModeEnum } from "../../models/selectionModeEnum";
-import DateTimePicker from 'react-datetime-picker';
-import TextEditor from '../global/TextEditor';
-import questionModel from "../../models/questionModel";
-import roleModel from "../../models/roles/roleModel";
-import {AiFillEdit, AiOutlineSave, AiOutlineEdit} from 'react-icons/ai';
+import {AiOutlineEdit, AiOutlineSave} from 'react-icons/ai';
 import {Collapse, Divider} from "react-daisyui";
-import {updateRole, getRoleBySlug} from "../../helpers/democracyHelper";
+import {getRoleBySlug, updateRole} from "../../helpers/democracyHelper";
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../global/Loading";
 import parse from "html-react-parser";
 import {tailwindParse} from "../../helpers/tailwindParse";
 import {meetingToName, methodName} from "../../models/roles/roleEnums";
-import {updatePageEditables} from "../../helpers/staticHelper";
 import InPlaceEditor from "../global/InPlaceEditor";
 
 class Role extends React.Component {

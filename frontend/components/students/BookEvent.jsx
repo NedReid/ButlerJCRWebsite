@@ -1,15 +1,9 @@
 import React from "react";
-import {useNavigate, useParams} from 'react-router-dom';
-import {createEvent, updateEvent} from '../../helpers/adminHelper';
-import eventModel from '../../models/eventModel';
-import { selectionModeEnum } from "../../models/selectionModeEnum";
-import { questionTypeEnum } from "../../models/questionTypeEnum";
-import DateTimePicker from 'react-datetime-picker';
-import TextEditor from '../global/TextEditor';
-import questionModel from "../../models/questionModel";
+import {useParams} from 'react-router-dom';
+import {questionTypeEnum} from "../../models/questionTypeEnum";
 import individualAnswerModel from "../../models/individualAnswerModel";
 import eventBookingModel from "../../models/eventBookingModel";
-import {getEvents, createEventBooking} from "../../helpers/studentHelper";
+import {createEventBooking, getEvents} from "../../helpers/studentHelper";
 import Loading from "../global/Loading";
 
 class BookEvent extends React.Component {
