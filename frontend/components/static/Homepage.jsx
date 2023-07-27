@@ -34,7 +34,7 @@ class Homepage extends React.Component {
             {this.state.carouselPaths.length >= 2 && <div className="w-full h-52 relative flex justify-center"><Carousel buttonStyle={buttonStyle} className="w-full h-52 absolute " display="sequential">
                 {this.state.carouselPaths.map( (addr) => {
                     return <Carousel.Item>
-                        <img className="w-full object-cover" src={addr}/>
+                        <img alt="Photos of Butler College" className="w-full object-cover" src={addr}/>
                     </Carousel.Item>
                     })}
             </Carousel>
@@ -46,7 +46,7 @@ class Homepage extends React.Component {
             }
             <div className="mt-8 sm:flex p-1">
                 <div className="w-1/2 sm:w-1/3 translate-x-1/2 sm:translate-x-0 sm:mr-4 mb-2">
-                    <img className="" src="/media/home/president.webp"/>
+                    <img alt="Photo of JCR President" className="" src="/media/home/president.webp"/>
                     <div className="w-full text-center mt-1 font-semibold text-grey-800">Urwah Mirza</div>
                     <div className="w-full text-center text-grey-800 italic">JCR President</div>
                 </div>
@@ -79,7 +79,7 @@ class Homepage extends React.Component {
                     We are confident that you will enjoy your time at Josephine Butler College, and we very much look forward to welcoming you into our community.<br/><br/> Thank you.
                 </div>
                 <div className="w-1/2 sm:w-1/3 translate-x-1/2 sm:translate-x-0 sm:ml-4 mb-2">
-                    <img className="" src="/media/home/facso.webp"/>
+                    <img alt="Photo of JCR FACSO" className="" src="/media/home/facso.webp"/>
                     <div className="w-full text-center mt-1 font-semibold text-grey-800">Joseph Chesters</div>
                     <div className="w-full text-center text-grey-800 italic">JCR FACSO</div>
                 </div>
@@ -90,7 +90,7 @@ class Homepage extends React.Component {
 
             <div className="mt-8 sm:flex p-1">
                 <div className="w-1/2 sm:w-1/3 translate-x-1/2 sm:translate-x-0 sm:mr-4 mb-2">
-                    <img className="" src="/media/home/mole.webp"/>
+                    <img alt="Photo of Butler Mole" className="" src="/media/home/mole.webp"/>
                     <div className="w-full text-center mt-1 font-semibold text-grey-800">Butler Mole</div>
                     <div className="w-full text-center text-grey-800 italic">JCR Mascot</div>
                 </div>

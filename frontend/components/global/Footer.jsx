@@ -20,13 +20,11 @@ class Footer extends React.Component {
                     <div className="pr-2 grow">
                         © Josephine Butler JCR, 2023
                         <br/>
-                        <a className="hover:underline" href="https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5192013">Registered Charity No. 1197721</a>
+                        <div className="mt-2" ><a className="hover:underline" href="https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5192013">Registered Charity No. 1197721</a></div>
                     </div>
                     <div className="text-right">
-                        <Link replace to="/cookies" className="underline hover:brightness-75">Cookies Policy</Link>
-                        <br/>
-                        <Link replace to="/feedback" className="underline hover:brightness-75">Website Feedback</Link>
-
+                        <div><Link replace to="/cookies" className="underline hover:brightness-75">Cookies Policy</Link></div>
+                        <div className="mt-2" ><Link replace to="/feedback" className="underline hover:brightness-75">Website Feedback</Link></div>
                     </div>
 
                 </div>
