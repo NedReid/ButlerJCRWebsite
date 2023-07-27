@@ -1,12 +1,5 @@
 import React from "react";
-import {createEvent, updateEvent} from '../../helpers/adminHelper';
-import eventModel from '../../models/eventModel';
-import { selectionModeEnum } from "../../models/selectionModeEnum";
-import DateTimePicker from 'react-datetime-picker';
-import TextEditor from '../global/TextEditor';
-import questionModel from "../../models/questionModel";
-import SSCModel from "../../models/SSCModel";
-import { getPost } from "../../helpers/staticHelper";
+import {getPost} from "../../helpers/staticHelper";
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../global/Loading";
 import parse from "html-react-parser";

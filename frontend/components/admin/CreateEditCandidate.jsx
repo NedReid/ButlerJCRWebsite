@@ -1,9 +1,8 @@
 import React from "react";
-import {createCandidate, updateCandidate, deleteCandidate} from '../../helpers/adminHelper';
+import {createCandidate, deleteCandidate, updateCandidate} from '../../helpers/adminHelper';
 import candidateModel from '../../models/roles/candidateModel';
-import {meetingToName, methodEnum, methodName, roleCategoryEnum, roleCategoryNames, meetingEnum} from "../../models/roles/roleEnums";
+import {meetingToName, roleCategoryEnum, roleCategoryNames} from "../../models/roles/roleEnums";
 import TextEditor from "../global/TextEditor";
-import DateTimePicker from "react-datetime-picker";
 
 class CreateEditCandidate extends React.Component {
     constructor(props) {

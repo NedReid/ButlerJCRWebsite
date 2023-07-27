@@ -1,14 +1,11 @@
 import React from "react";
 import {createCalendarEvent, updateCalendarEvent} from '../../helpers/adminHelper';
-import eventModel from '../../models/eventModel';
-import { selectionModeEnum } from "../../models/selectionModeEnum";
-import DateTimePicker from 'react-datetime-picker';
+import DateTimePicker from 'react-datetime-picker/dist/entry.nostyle';
+import "react-datetime-picker/dist/DateTimePicker.css"
 import TextEditor from '../global/TextEditor';
-import CreateEditQuestion from './CreateEditQuestion';
 import questionModel from "../../models/questionModel";
 import {calendarEventModel} from "../../models/calendarEventModel";
-import {calendarEventEnum, getCalendarEventTypeName} from "../../models/calendarEventEnum";
-import {meetingEnum, meetingToName} from "../../models/roles/roleEnums";
+import {getCalendarEventTypeName} from "../../models/calendarEventEnum";
 import {Checkbox} from "react-daisyui";
 
 class CreateEditCalendarEvent extends React.Component {

@@ -1,10 +1,6 @@
 import React from "react";
-import {createEvent, updateEvent} from '../../helpers/adminHelper';
 import questionModel from '../../models/questionModel';
-import { questionTypeEnum } from "../../models/questionTypeEnum";
-import DateTimePicker from 'react-datetime-picker';
-import TextEditor from '../global/TextEditor';
-import eventModel from "../../models/eventModel";
+import {questionTypeEnum} from "../../models/questionTypeEnum";
 
 class CreateEditQuestion extends React.Component {
     constructor(props) {

@@ -1,8 +1,9 @@
 import React from "react";
 import {createEvent, updateEvent} from '../../helpers/adminHelper';
 import eventModel from '../../models/eventModel';
-import { selectionModeEnum } from "../../models/selectionModeEnum";
-import DateTimePicker from 'react-datetime-picker';
+import {selectionModeEnum} from "../../models/selectionModeEnum";
+import DateTimePicker from 'react-datetime-picker/dist/entry.nostyle';
+import "react-datetime-picker/dist/DateTimePicker.css";
 import TextEditor from '../global/TextEditor';
 import CreateEditQuestion from './CreateEditQuestion';
 import questionModel from "../../models/questionModel";

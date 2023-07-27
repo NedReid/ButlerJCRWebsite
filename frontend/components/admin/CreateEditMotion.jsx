@@ -1,9 +1,8 @@
 import React from "react";
-import {createMotion, updateMotion, deleteMotion} from '../../helpers/adminHelper';
+import {createMotion, deleteMotion, updateMotion} from '../../helpers/adminHelper';
 import motionModel from '../../models/roles/motionModel';
-import {meetingToName, methodEnum, methodName, roleCategoryEnum, roleCategoryNames, meetingEnum} from "../../models/roles/roleEnums";
+import {meetingToName} from "../../models/roles/roleEnums";
 import TextEditor from "../global/TextEditor";
-import DateTimePicker from "react-datetime-picker";
 
 class CreateEditMotion extends React.Component {
     constructor(props) {
