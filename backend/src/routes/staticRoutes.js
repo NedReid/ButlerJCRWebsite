@@ -87,14 +87,15 @@ export const staticRoutes = async (app, auth, db) => {
             let photos = fs.readdirSync(path.join(__dirname, "../../files/albums/" + album))
             for (const photo of photos) {
                 const inputPath = path.join(__dirname, "../../files/albums/" + album + "/" + photo);
-                const outputPath = path.join(__dirname, "../../files/albumsPreview/" + album + "/" + photo);
+                const outputPath = path.join(__dirname, "../../files/albumsPreview/" + album + "/" + photo + ".webp");
                 if(!fs.existsSync(outputPath)) {
                     console.log("gettibng prevs")
                     await makePreviewImage(inputPath, outputPath)
                 }
             };
-            const random = Math.floor(Math.random() * photos.length);
-            returnedPreview.push({name:album,  path:photos[random]})
+            let previews = fs.readdirSync(path.join(__dirname, "../../files/albumsPreview/" + album))
+            const random = Math.floor(Math.random() * previews.length);
+            returnedPreview.push({name:album,  path:previews[random]})
         }
 
         res.status(200);
@@ -111,7 +112,7 @@ export const staticRoutes = async (app, auth, db) => {
             let photos = fs.readdirSync(path.join(__dirname, "../../files/albums/" + album))
             photos.forEach(photo => {
                 const inputPath = path.join(__dirname, "../../files/albums/" + album + "/" + photo);
-                const outputPath = path.join(__dirname, "../../files/albumsPreview/" + album + "/" + photo);
+                const outputPath = path.join(__dirname, "../../files/albumsPreview/" + album + "/" + photo + ".webp");
                 if(!fs.existsSync(outputPath)) {
                     makePreviewImage(inputPath, outputPath)
                 }

@@ -223,7 +223,7 @@ class Login extends React.Component {
                     <span className="pl-2 flex flex-grow items-center font-normal">
                             You are not logged in.
                         </span>
-                    <button className={"aspect-square swap swap-rotate " + (this.state.open? "swap-active bg-orange-700 hover:bg-orange-800": "hover:bg-red-800 ")} onClick={() => this.setState({open: !this.state.open})}>
+                    <button aria-label="Open/Close login screen" className={"aspect-square swap swap-rotate " + (this.state.open? "swap-active bg-orange-700 hover:bg-orange-800": "hover:bg-red-800 ")} onClick={() => this.setState({open: !this.state.open})}>
                         <AiOutlineUp className="swap-on text-3xl"></AiOutlineUp>
                         <AiOutlineDown className="swap-off text-3xl"></AiOutlineDown>
                     </button>
@@ -260,7 +260,7 @@ class Login extends React.Component {
                                     <div className="flex-grow"/>
                                 </div>
                                 <div className="flex items-center font-normal">
-                                    <button className="w-16 h-16 bg-gray-500  my-1 mx-2 px-2 transition text-white hover:bg-gray-600"
+                                    <button aria-label="Login" className="w-16 h-16 bg-gray-500  my-1 mx-2 px-2 transition text-white hover:bg-gray-600"
                                             onClick={this.handleLogin}>❯
                                     </button>
                                 </div>
@@ -292,7 +292,7 @@ class Login extends React.Component {
                                     <div className="flex-grow"/>
                                 </div>
                                 <div className="flex items-center font-normal">
-                                    <button className="w-16 h-16 bg-gray-500  my-1 mx-2 px-2 transition text-white hover:bg-gray-600"
+                                    <button aria-label="Register" className="w-16 h-16 bg-gray-500  my-1 mx-2 px-2 transition text-white hover:bg-gray-600"
                                             onClick={this.handleRegister}>❯
                                     </button>
                                 </div>

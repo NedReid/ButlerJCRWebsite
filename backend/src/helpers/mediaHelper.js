@@ -19,43 +19,35 @@ export const parseRichText =  async (text, id, db) => {
         // let img = new Image();
         // img.src = im_data;
         let path = "";
-        if (im_data.startsWith("data:image/jpeg")) {
-            let im_dat = im_data.replace(/^data:image\/jpeg;base64,/, "");
-            // console.log(im_dat);
+        sharp.cache(false)
+
+        if (im_data.startsWith("data:image/jpeg") || im_data.startsWith("data:image/png") || im_data.startsWith("data:image/tiff") ||
+            im_data.startsWith("data:image/webp") || im_data.startsWith("data:image/gif")) {
+
+            let im_dat = im_data.replace(/^data:image\/(png|jpeg|webp|gif|tiff);base64,/, "");
             const buffer = Buffer.from(im_dat, "base64");
-            path = "files/" + db + "/" + id + "/" + num_im +".jpeg"
-            let image = await Jimp.read(buffer);
-            if(image.getWidth() > 1000 || image.getHeight() > 1000) {
-                image.scaleToFit(1000,1000);
+            const image = await sharp(buffer, {animated: true});
+            const md = await image.metadata();
+            if ((md.width > 1000 || md.height > 1000)) {
+                await image.resize(1000,1000, {fit: 'inside'});
             }
-            if(image.getWidth() > 500 || image.getHeight() > 500) {
-                image.quality(60);
+            if (md.pages > 10) {
+                await image.webp({quality: 30})
+
+            } else if ((md.width > 400 || md.height > 400)) {
+                await image.webp({quality: 60})
+            } else {
+                await image.webp({lossless: true})
             }
-            image.write(path);
-        }
-        else if (im_data.startsWith("data:image/png")) {
-            console.log("png")
-            let im_dat = im_data.replace(/^data:image\/png;base64,/, "");
-            const buffer = Buffer.from(im_dat, "base64");
-            let png = PNG.sync.read(buffer);
-            let alpha = png.alpha;
-            // console.log(alpha);
-            let image = await Jimp.read(buffer);
-            if(image.getWidth() > 1000 || image.getHeight() > 1000) {
-                image.scaleToFit(1000,1000);
+            path = "files/" + db + "/" + id + "/" + num_im +".webp"
+            const dir = "files/" + db + "/" + id
+            if (!fs.existsSync(dir)){
+                fs.mkdirSync(dir);
             }
-            path = "files/" + db + "/" + id + "/" + num_im + ".png"
-            if((image.getWidth() > 400 || image.getHeight() > 400) && !alpha) {
-                // console.log("ooh no")
-                path = "files/" + db + "/" + id + "/" + num_im + ".jpeg"
-                image.quality(80);
-            }
-            if(image.getWidth() > 600 || image.getHeight() > 600) {
-                image.quality(60);
-            }
-            image.write(path);
-        }
-        else {
+            const ob = await image.toBuffer()
+            fs.writeFileSync(path, ob);
+
+        } else {
             const end_form = im_data.indexOf(";")
             const format = im_data.substring(11,end_form);
             // console.log(format);
@@ -164,7 +156,7 @@ export const saveAlbumImage = async (im_data, path) => {
             console.log(path)
             let im_dat = im_data.replace(/^data:image\/(png|jpeg|webp|gif|tiff);base64,/, "");
             const buffer = Buffer.from(im_dat, "base64");
-            const image = await sharp(buffer);
+            const image = await sharp(buffer, {animated: true});
             const md = await image.metadata();
             if (md.size > 3 * 1000 * 1000 && (md.width > 2000 || md.height > 2000)) {
                 await image.resize(2000,2000, {fit: 'inside'});
@@ -188,7 +180,7 @@ export const saveLogo = async (im_data, path) => {
             console.log(path)
             let im_dat = im_data.replace(/^data:image\/(png|jpeg|webp|gif|tiff);base64,/, "");
             const buffer = Buffer.from(im_dat, "base64");
-            const image = await sharp(buffer);
+            const image = await sharp(buffer, {animated: true});
             const md = await image.metadata();
             if ((md.width > 512 || md.height > 512)) {
                 await image.resize(512,512, {fit: 'inside'});
@@ -221,43 +213,24 @@ export const retrieveImageFile =  async (filename) => {
 
 export const makePreviewImage = async (inputPath, outputPath) => {
     sharp.cache(false)
-    if (inputPath.toLowerCase().endsWith("jpg") || inputPath.toLowerCase().endsWith("jpeg")) {
+    if (inputPath.toLowerCase().endsWith("jpg") || inputPath.toLowerCase().endsWith("jpeg") ||
+        inputPath.toLowerCase().endsWith("png") || inputPath.toLowerCase().endsWith("tiff") ||
+        inputPath.toLowerCase().endsWith("webp") || inputPath.toLowerCase().endsWith("gif")
+    ) {
         const buffer = fs.readFileSync(inputPath)
-        const image = await sharp(buffer);
+        const image = await sharp(buffer, {animated: true});
         const md = await image.metadata();
 
         if(md.width > 400 || md.height > 400) {
             await image.resize(400,400, {fit: 'inside'});
         }
-        if(md.width > 200 || md.height > 200) {
-            await image.jpeg({quality: 70});
+        await image.webp({quality: 60});
+        if (md.pages > 10) {
+            await image.webp({quality: 30});
         }
-
         const ob = await image.toBuffer()
         fs.writeFileSync(outputPath, ob);
 
-    }
-    else if (inputPath.toLowerCase().endsWith("png")) {
-        const buffer = fs.readFileSync(inputPath);
-        const png = PNG.sync.read(buffer);
-        const alpha = png.alpha;
-        const image = await Jimp.read(buffer);
-        if(image.getWidth() > 300 || image.getHeight() > 300) {
-            image.scaleToFit(300,300);
-        }
-        image.write(outputPath);
-    }
-    else if (inputPath.toLowerCase().endsWith("tiff") || inputPath.toLowerCase().endsWith("webp")) {
-        const buffer = fs.readFileSync(inputPath)
-        const image = await sharp(buffer);
-        const md = await image.metadata();
-
-        if(md.width > 400 || md.height > 400) {
-            await image.resize(400,400, {fit: 'inside'});
-        }
-
-        const ob = await image.toBuffer()
-        fs.writeFileSync(outputPath, ob);
     }
     else {
         const buffer = fs.readFileSync(inputPath);

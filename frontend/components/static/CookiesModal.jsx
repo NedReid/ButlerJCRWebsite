@@ -27,7 +27,7 @@ class CookiesModal extends React.Component {
                     <div className="mt-0.5">This website is in <span className="font-semibold">Beta</span>. If you encounter any issues, please use our <Link replace to="/feedback" className="underline hover:brightness-75">website feedback form</Link>.</div>
 
                 </div>
-                <button className="text-4xl md:text-3xl px-2 xs:px-0 text-center xs:aspect-square xs:h-24 xs:w-24 sm:h-20 sm:w-20 md:h-16 md:w-16 font-bold bg-gray-800 hover:bg-gray-900" onClick={this.accept}><AiOutlineCheck className="mx-auto"/></button>
+                <button aria-label="Dismiss cookies notification" className="text-4xl md:text-3xl px-2 xs:px-0 text-center xs:aspect-square xs:h-24 xs:w-24 sm:h-20 sm:w-20 md:h-16 md:w-16 font-bold bg-gray-800 hover:bg-gray-900" onClick={this.accept}><AiOutlineCheck className="mx-auto"/></button>
             </div>
 
 

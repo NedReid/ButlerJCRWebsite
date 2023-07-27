@@ -31,10 +31,10 @@ class Homepage extends React.Component {
         }
 
         return <div>
-            {this.state.carouselPaths.length >= 2 && <div className="w-full h-52 relative flex justify-center"><Carousel buttonStyle={buttonStyle} className="w-full h-52 absolute " display="sequential">
-                {this.state.carouselPaths.map( (addr) => {
-                    return <Carousel.Item>
-                        <img alt="Photos of Butler College" className="w-full object-cover" src={addr}/>
+            {this.state.carouselPaths.length >= 2 && <div className="w-full h-52 relative flex justify-center"><Carousel id="carousel" buttonStyle={buttonStyle} className="w-full h-52 absolute " display="sequential">
+                {this.state.carouselPaths.map( (addr, index) => {
+                    return <Carousel.Item role="option"  aria-label={"Photos of Butler College"}>
+                        <img aria-label={"Photo of Butler College"} className="w-full object-cover" src={addr}/>
                     </Carousel.Item>
                     })}
             </Carousel>
