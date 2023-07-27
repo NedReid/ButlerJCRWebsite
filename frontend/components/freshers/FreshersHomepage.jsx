@@ -84,12 +84,12 @@ class FreshersHomepage extends React.Component {
                         </div>
                         <div className="flex flex-col justify-center items-center">
                             <div className="italic text-grey-800 mt-4">Any questions about freshers?!? Go to our FAQ!</div>
-                            <Link replace to="/freshers/faq" className="hover:brightness-75 transition-all">
+                            <Link to="/freshers/faq" className="hover:brightness-75 transition-all">
                                 <img className="rounded-lg border-2 border-red-900 max-w-[250px] m-4" src="/media/freshers/faq.jpg" />
                             </Link>
 
                             <div className="italic text-grey-800 mt-4">Wondering what freshers week entails? Check our our schedule!</div>
-                            <Link replace to="/freshers/schedule" className="hover:brightness-75 transition-all">
+                            <Link to="/freshers/schedule" className="hover:brightness-75 transition-all">
                                 <img className="rounded-lg border-2 border-red-900 max-w-[250px] m-4" src="/media/freshers/schedule.jpg" />
                             </Link>
 

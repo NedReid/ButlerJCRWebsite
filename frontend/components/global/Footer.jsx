@@ -23,8 +23,8 @@ class Footer extends React.Component {
                         <div className="mt-2" ><a className="hover:underline" href="https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5192013">Registered Charity No. 1197721</a></div>
                     </div>
                     <div className="text-right">
-                        <div><Link replace to="/cookies" className="underline hover:brightness-75">Cookies Policy</Link></div>
-                        <div className="mt-2" ><Link replace to="/feedback" className="underline hover:brightness-75">Website Feedback</Link></div>
+                        <div><Link to="/cookies" className="underline hover:brightness-75">Cookies Policy</Link></div>
+                        <div className="mt-2" ><Link to="/feedback" className="underline hover:brightness-75">Website Feedback</Link></div>
                     </div>
 
                 </div>

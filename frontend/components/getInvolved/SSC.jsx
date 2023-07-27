@@ -47,7 +47,7 @@ class SSC extends React.Component {
     submitButton = async (event) => {
         await updateSSC(this.state.SSC);
 
-        this.props.navigate("get-involved/" + this.state.SSC.slug, {replace: true})
+        this.props.navigate("get-involved/" + this.state.SSC.slug, {replace: false})
 
     }
 

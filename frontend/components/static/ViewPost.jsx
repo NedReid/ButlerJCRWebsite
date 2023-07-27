@@ -47,7 +47,7 @@ class ViewPost extends React.Component {
     submitButton = async (event) => {
         await updatePost(this.state.post);
 
-        this.props.navigate("get-involved/" + this.state.post.slug, {replace: true})
+        this.props.navigate("get-involved/" + this.state.post.slug, {replace: false})
 
     }
 
