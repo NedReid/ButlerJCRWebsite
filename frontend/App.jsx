@@ -4,8 +4,8 @@ import Header from './components/global/Header';
 import Login from './components/global/Login';
 import Admin from './components/admin/Admin';
 import Students from './components/students/Students';
-import UserEvents from './components/students/UserEvents';
-import BookEvent from "./components/students/BookEvent";
+// import UserEvents from './components/students/UserEvents';
+// import BookEvent from "./components/students/BookEvent";
 import {isLoggedIn} from './helpers/loginHelper';
 import {
     BrowserRouter as Router,
@@ -67,8 +67,8 @@ class App extends React.Component {
         return (                         <Routes>
             <Route path="/admin" element={<Admin admin={this.state.admin} />}/>
             <Route path="/students" element={<Students verified={this.state.verified}/>}>
-                <Route path="events" element={<UserEvents/>}/>
-                <Route path="events/book:id" element={<BookEvent/>}/>
+                {/*<Route path="events" element={<UserEvents/>}/>*/}
+                {/*<Route path="events/book:id" element={<BookEvent/>}/>*/}
                 <Route path="edit-posts" element={<PostAdmin/>}/>
             </Route>
             <Route path="/get-involved/societies" element={<Societies username={this.state.loggedIn}/>}/>
