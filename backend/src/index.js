@@ -140,9 +140,6 @@ app.use(errorHandler);
 // });
 
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
 
 if (process.env.CERT_ADDRESS !== undefined) {
     console.log("Starting HTTPS server")
@@ -151,6 +148,11 @@ if (process.env.CERT_ADDRESS !== undefined) {
         key: fs.readFileSync(process.env.KEY_ADDRESS)
     };
     https.createServer(options, app).listen(443);
+}
+else {
+    app.listen(port, () => {
+        console.log(`Example app listening at http://localhost:${port}`)
+    })
 }
 
 // app.get("/api/getMusicData" , function(req, res) {
