@@ -2,7 +2,7 @@ import React, {useEffect, Suspense} from 'react';
 import {Button, Modal} from "react-daisyui";
 import Cookies from "js-cookie";
 import {Link} from "react-router-dom";
-import {AiOutlineCheck} from "react-icons/all";
+import {AiOutlineCheck} from "react-icons/ai";
 
 class CookiesModal extends React.Component {
 
