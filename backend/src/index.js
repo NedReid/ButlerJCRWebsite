@@ -19,6 +19,8 @@ import { getInvolvedRoutes } from "./routes/getInvolvedRoutes.js";
 import { staticRoutes } from "./routes/staticRoutes.js";
 import { democracyRoutes } from "./routes/democracyRoutes.js";
 import {paymentRoutes} from "./routes/paymentRoutes.js";
+import fs from "fs";
+import https from "https";
 const db = {}
 const upload = multer({dest:'files/'});
 const auth = new AuthService();
@@ -141,6 +143,15 @@ app.use(errorHandler);
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
+
+if (process.env.CERT_ADDRESS !== undefined) {
+    console.log("Starting HTTPS server")
+    const options = {
+        cert: fs.readFileSync(process.env.CERT_ADDRESS),
+        key: fs.readFileSync(process.env.KEY_ADDRESS)
+    };
+    https.createServer(options, app).listen(443);
+}
 
 // app.get("/api/getMusicData" , function(req, res) {
 //     try {
