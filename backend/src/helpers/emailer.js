@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 
 let transporter = nodemailer.createTransport({
     pool: true,
-    host: "smtp.gmail.com",
+    host: "smtppro.zoho.eu",
     port: 465,
     secure: true, // use TLS
     auth: {
