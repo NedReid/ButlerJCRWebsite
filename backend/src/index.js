@@ -20,8 +20,7 @@ import { staticRoutes } from "./routes/staticRoutes.js";
 import { democracyRoutes } from "./routes/democracyRoutes.js";
 import {paymentRoutes} from "./routes/paymentRoutes.js";
 import fs from "fs";
-import http2 from "http2";
-import http2Express from "http2-express-bridge";
+import spdy from "spdy";
 const db = {}
 const upload = multer({dest:'files/'});
 const auth = new AuthService();
@@ -48,7 +47,7 @@ db.FAQ = new Datastore({ filename: 'database/FAQ.db', autoload: true });
 
 
 exceptionHandler.handle();
-const app = http2Express(express);
+const app = express();
 const port = process.env.PORT;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
@@ -147,9 +146,8 @@ if (process.env.CERT_ADDRESS !== undefined) {
     const options = {
         cert: fs.readFileSync(process.env.CERT_ADDRESS),
         key: fs.readFileSync(process.env.KEY_ADDRESS),
-        allowHTTP1: true
     };
-    http2.createSecureServer(options, app).listen(443);
+    spdy.createServer(options, app).listen(443);
 }
 else {
     app.listen(port, () => {
