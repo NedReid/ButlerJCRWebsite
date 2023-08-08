@@ -88,7 +88,7 @@ class CalendarEdit extends React.Component {
 
                 <br/>
 
-                Edit Current Candidate:
+                Edit Current Calendar Event. Select by <b>Start Date</b>:
                 <br/>
                 <label> Year:
                     <input className=" ml-2 mb-2 rounded border-2 border-slate-500" name="election_year"
