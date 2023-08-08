@@ -154,7 +154,9 @@ if (process.env.CERT_ADDRESS !== undefined) {
         cert: fs.readFileSync(process.env.CERT_ADDRESS),
         key: fs.readFileSync(process.env.KEY_ADDRESS),
     };
-    spdy.createServer(options, app).listen(443);
+    const server = spdy.createServer(options, app);
+    server.listen(443);
+    server.listen(80);
 }
 else {
     app.listen(port, () => {
