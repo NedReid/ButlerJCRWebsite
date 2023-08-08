@@ -30,7 +30,7 @@ export const menuItems = [
                 access: "freshers",
                 items: []},
             {title: "FAQ",
-                page: "/freshers/events",
+                page: "/freshers/faq",
                 access: "freshers",
                 items: []},
             {title: "Schedule",
