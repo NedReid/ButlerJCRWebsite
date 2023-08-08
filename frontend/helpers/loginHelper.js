@@ -58,6 +58,10 @@ export const submitNewPassword =  async (token, password) => {
     return response;
 }
 
+export const verifyLogin =  async (token) => {
+    const response = await axios.post("/api/verifyLogin", {token: token});
+    return response;
+}
 
 export const logout = async () => {
     const response = await axios.get("/api/logout");

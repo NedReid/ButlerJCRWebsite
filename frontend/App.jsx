@@ -47,6 +47,7 @@ import Feedback from "./components/static/Feedback";
 import FreshersHomepage from "./components/freshers/FreshersHomepage";
 import FreshersFAQ from "./components/freshers/FreshersFAQ";
 import FreshersSchedule from "./components/freshers/FreshersSchedule";
+import VerifyLogin from "./components/global/VerifyLogin";
 const Calendar = React.lazy(() => import("./components/static/Calendar"));
 
 class App extends React.Component {
@@ -109,6 +110,8 @@ class App extends React.Component {
             <Route path="/freshers" element={<FreshersHomepage/>}/>
             <Route path="/freshers/faq" element={<FreshersFAQ admin={this.state.admin}/>}/>
             <Route path="/freshers/schedule" element={<FreshersSchedule/>}/>
+            <Route path="/verify/:id" element={<VerifyLogin/>}/>
+
 
         </Routes>)
     }

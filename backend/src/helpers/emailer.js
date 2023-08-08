@@ -16,7 +16,7 @@ export const sendVerificationMail = async (username, verificationToken) => {
                     <h2>Verify your account login</h2>
                     <p>Hello, ${username}</p>
                     <p>Pretty please with a cherry on top could you verify your email? You can do so by clicking this link:</p>
-                    <a href='${process.env.WEB_ADDRESS}/api/verifyLogin/${verificationToken}'>${process.env.WEB_ADDRESS}/api/verifyLogin/${verificationToken}</a>
+                    <a href='${process.env.WEB_ADDRESS}/verify/${verificationToken}'>${process.env.WEB_ADDRESS}/verify/${verificationToken}</a>
                     <br>
                     <p>Many Thanks,</p>
                     <p>Butler JCR</p>`;

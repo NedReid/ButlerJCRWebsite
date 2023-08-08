@@ -224,17 +224,15 @@ export const authRoutes = (app, auth, db) => {
         }
     });
 
-    app.get("/api/verifyLogin/:vKey", async function(req, res) {
-        console.log("trying")
-        console.log(req.params.vKey);
-        const user = await db.users.findOneAsync({registered: req.params.vKey});
-        user.registered = true;
-        await db.users.updateAsync({_id:user._id}, user);
-        res.status(201);
-        res.redirect("/")
-        res.send();
+    app.post("/api/verifyLogin", async function(req, res) {
         try {
-
+            console.log("trying")
+            console.log(req.body.token);
+            const user = await db.users.findOneAsync({registered: req.body.token});
+            user.registered = true;
+            await db.users.updateAsync({_id:user._id}, user);
+            res.status(200);
+            res.send();
         }
         catch {
             res.status(204);
