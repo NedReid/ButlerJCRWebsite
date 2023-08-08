@@ -142,6 +142,13 @@ app.use(errorHandler);
 
 
 if (process.env.CERT_ADDRESS !== undefined) {
+    app.use((req, res, next) => {
+        if (req.protocol === 'http') {
+            return res.redirect(301, `https://${req.headers.host}${req.url}`);
+        }
+
+        next();
+    });
     console.log("Starting HTTPS server")
     const options = {
         cert: fs.readFileSync(process.env.CERT_ADDRESS),
