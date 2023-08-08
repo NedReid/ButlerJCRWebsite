@@ -142,7 +142,8 @@ app.use(errorHandler);
 
 
 if (process.env.CERT_ADDRESS !== undefined) {
-    app.use((req, res, next) => {
+    const httpApp = express()
+    httpApp.use((req, res, next) => {
         if (req.protocol === 'http') {
             return res.redirect(301, `https://${req.headers.host}${req.url}`);
         }
@@ -154,9 +155,9 @@ if (process.env.CERT_ADDRESS !== undefined) {
         cert: fs.readFileSync(process.env.CERT_ADDRESS),
         key: fs.readFileSync(process.env.KEY_ADDRESS),
     };
-    const server = spdy.createServer(options, app);
-    server.listen(443);
-    server.listen(80);
+    spdy.createServer(options, app).listen(443);
+    httpApp.listen(80)
+
 }
 else {
     app.listen(port, () => {
