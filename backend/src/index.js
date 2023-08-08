@@ -20,7 +20,8 @@ import { staticRoutes } from "./routes/staticRoutes.js";
 import { democracyRoutes } from "./routes/democracyRoutes.js";
 import {paymentRoutes} from "./routes/paymentRoutes.js";
 import fs from "fs";
-import https from "https";
+import http2 from "http2";
+import http2Express from "http2-express-bridge";
 const db = {}
 const upload = multer({dest:'files/'});
 const auth = new AuthService();
@@ -47,7 +48,7 @@ db.FAQ = new Datastore({ filename: 'database/FAQ.db', autoload: true });
 
 
 exceptionHandler.handle();
-const app = express();
+const app = http2Express(express);
 const port = process.env.PORT;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
@@ -145,9 +146,10 @@ if (process.env.CERT_ADDRESS !== undefined) {
     console.log("Starting HTTPS server")
     const options = {
         cert: fs.readFileSync(process.env.CERT_ADDRESS),
-        key: fs.readFileSync(process.env.KEY_ADDRESS)
+        key: fs.readFileSync(process.env.KEY_ADDRESS),
+        allowHTTP1: true
     };
-    https.createServer(options, app).listen(443);
+    http2.createSecureServer(options, app).listen(443);
 }
 else {
     app.listen(port, () => {
