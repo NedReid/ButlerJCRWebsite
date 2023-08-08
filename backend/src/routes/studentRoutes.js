@@ -53,9 +53,10 @@ export const studentRoutes = async (app, auth, db) => {
 
         if (postCategory.editors.includes(res.locals.user.username) || postCategory.editors.length === 0) {
             const post = req.body.post;
+            req.body.post = "";
             const newDb = await db.posts.insertAsync(req.body);
-            newDb.post = await parseRichText(post, newDb._id, "posts");;
-            await db.posts.updateAsync({_id: newDb}, newDb);
+            newDb.post = await parseRichText(post, newDb._id, "posts");
+            await db.posts.updateAsync({_id: newDb._id}, newDb);
             res.status(201);
             res.send();
         }
