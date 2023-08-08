@@ -6,12 +6,25 @@ import {parseRichText, retrieveRichText, saveLogo} from "../helpers/mediaHelper.
 export const getInvolvedRoutes = async (app, auth, db) => {
 
 
-    app.get("/api/get-involved/getSSCHeaders", async function(req, res) {
+        app.get("/api/get-involved/getSSCHeaders", async function(req, res) {
+
+            const webToken = auth.checkToken(req.cookies['loginToken']);
+            // let admin = false;
+            // if (webToken !== undefined) {
+            //     const foundUser = await db.admins.findOneAsync({username: webToken.username});
+            //     if (foundUser !== null) {
+            //         admin = foundUser.SSCs;
+            //     }
+            // }
+
             let SSCs = await db.SSCs.findAsync({});
             SSCs = await Promise.all(await SSCs.map(async (ssc) => {
                 ssc.page = "beans";
                 return ssc
             }));
+            SSCs = SSCs.filter((ssc) => {
+                return ssc.visible || (webToken !== undefined && ssc.editors.includes(webToken.username))
+            })
             res.status(200);
             res.send(SSCs);
         });
