@@ -734,7 +734,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
                 fs.mkdirSync(previewDir);
             }
             await saveAlbumImage(imageData, (dir + "/" + imageName))
-            await makePreviewImage(dir + "/" + imageName, previewDir + "/" + imageName)
+            await makePreviewImage(dir + "/" + imageName, previewDir + "/" + imageName + ".webp")
 
             res.status(200);
             res.send();
