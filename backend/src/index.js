@@ -20,7 +20,8 @@ import { staticRoutes } from "./routes/staticRoutes.js";
 import { democracyRoutes } from "./routes/democracyRoutes.js";
 import {paymentRoutes} from "./routes/paymentRoutes.js";
 import fs from "fs";
-import spdy from "spdy";
+// import spdy from "spdy";
+import https from "https";
 const db = {}
 const upload = multer({dest:'files/'});
 const auth = new AuthService();
@@ -155,7 +156,8 @@ if (process.env.CERT_ADDRESS !== undefined) {
         cert: fs.readFileSync(process.env.CERT_ADDRESS),
         key: fs.readFileSync(process.env.KEY_ADDRESS),
     };
-    spdy.createServer(options, app).listen(443);
+    // spdy.createServer(options, app).listen(443);
+    https.createServer(options, app).listen(443);
     httpApp.listen(80)
 
 }
