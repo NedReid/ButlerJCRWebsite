@@ -110,13 +110,14 @@ export const staticRoutes = async (app, auth, db) => {
 
             fs.mkdirSync(path.join(__dirname, "../../files/albumsPreview/" + album), { recursive: true })
             let photos = fs.readdirSync(path.join(__dirname, "../../files/albums/" + album))
-            photos.forEach(photo => {
+            for (const photo of photos) {
                 const inputPath = path.join(__dirname, "../../files/albums/" + album + "/" + photo);
                 const outputPath = path.join(__dirname, "../../files/albumsPreview/" + album + "/" + photo + ".webp");
                 if(!fs.existsSync(outputPath)) {
-                    makePreviewImage(inputPath, outputPath)
+                    console.log("making preview for " + outputPath)
+                    await makePreviewImage(inputPath, outputPath)
                 }
-            });
+            };
             res.status(200);
             res.send(photos);
         }
