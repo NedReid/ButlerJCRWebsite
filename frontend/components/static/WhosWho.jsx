@@ -16,7 +16,7 @@ class WhosWho extends React.Component {
                 <WhosWhoBlock name="Arman Huq" pronouns="He/Him" role="FACSO" photo="2023/armanh.webp" email="butler.facso@durham.ac.uk"/>
                 <WhosWhoBlock name="Eloise Fleming" pronouns="She/Her" role="JCR Chair" photo="2023/eloisef.webp" email="butler.chair@durham.ac.uk"/>
                 <WhosWhoBlock name="Lottie Gibson" pronouns="She/Her" role="Societies Officer" photo="2023/lottieg.webp" email="butler.societies@durham.ac.uk"/>
-                <WhosWhoBlock name="Niamh Morton" pronouns="She/Her" role="Sports Officer" photo="jb.jpg" email="niamh.e.morton@durham.ac.uk"/>
+                <WhosWhoBlock name="Niamh Morton" pronouns="She/Her" role="Sports Officer" photo="2023/niamhm.webp" email="niamh.e.morton@durham.ac.uk"/>
                 <WhosWhoBlock name="Alice Lee" pronouns="She/Her" role="Social Chair" photo="2023/alicel.webp" email="alice.lee@durham.ac.uk"/>
                 <WhosWhoBlock name="Ben Baker" pronouns="He/Him" role="Vice-President" photo="2023/benb.webp" email="ben.baker@durham.ac.uk"/>
                 <WhosWhoBlock name="Shannon Southern" pronouns="She/Her" role="JBs Officer" photo="2023/shannons.webp" email="shannon.e.southern@durham.ac.uk"/>
