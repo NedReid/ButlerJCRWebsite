@@ -22,7 +22,7 @@ class WhosWho extends React.Component {
                 <WhosWhoBlock name="Shannon Southern" pronouns="She/Her" role="JBs Officer" photo="2023/shannons.webp" email="shannon.e.southern@durham.ac.uk"/>
                 {/*<WhosWhoBlock name="Harry Clipston" pronouns="He/Him" role="Technical Director" photo="2023/dans.webp" email="jbtechcomm@gmail.com"/>*/}
                 <WhosWhoBlock name="Rosa Aziz" pronouns="They/She" role="Welfare Officer" photo="2023/rosaa.webp" email="butler.welfarejcr@durham.ac.uk"/>
-                <WhosWhoBlock name="Mathilde Wilson-Drummond" pronouns="She/Her" role="Welfare Officer" photo="2023/mathildewd.webp" email="butler.welfarejcr@durham.ac.uk"/>
+                <WhosWhoBlock name="Mathilde Wilson-Drummond" pronouns="She/They" role="Welfare Officer" photo="2023/mathildewd.webp" email="butler.welfarejcr@durham.ac.uk"/>
                 <WhosWhoBlock name="Jakub Kostrzewa" pronouns="He/Him" role="Treasurer" photo="2023/jakubk.webp" email="butler.treasurer@durham.ac.uk"/>
                 <WhosWhoBlock name="Hazel Cheung" pronouns="She/Her" role="Publicity Officer" photo="2023/hazelc.webp" email="hazel.m.cheung@durham.ac.uk"/>
                 <WhosWhoBlock name="Zeni (Xeni) Pun" pronouns="She/Her" role="International Officer" photo="2023/xenip.webp" email="zeni.pun@durham.ac.uk"/>
