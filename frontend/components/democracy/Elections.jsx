@@ -135,9 +135,9 @@ class Elections extends React.Component {
                                         <Collapse.Title className="group-hover:bg-slate-300 text-xl font-semibold">{officer.name}: {officer.role.name}</Collapse.Title>
                                         <Collapse.Content className="bg-slate-50">
                                             <div><b>Description: </b><i>{officer.role.desc}</i></div>
-                                            <div><b>Election Method: </b><ElectionMethodModal text={methodName(officer.role.e_method)} method={officer.role.e_method}/></div>
+                                            <div><b>Election Method: </b><ElectionMethodModal text={methodName(officer.role.e_method)} text_props="text-blue-700 hover:underline" method={officer.role.e_method}/></div>
                                             <Divider className="my-0"/>
-                                            <button className="text-blue-700" onClick={() => this.goToRolePage(officer.role.slug)}>{officer.role.name} Webpage!</button>
+                                            <button className="text-blue-700 hover:underline" onClick={() => this.goToRolePage(officer.role.slug)}>{officer.role.name} Webpage!</button>
                                         </Collapse.Content>
                                     </Collapse>
                                 })}
