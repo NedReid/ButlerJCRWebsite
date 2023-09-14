@@ -11,8 +11,8 @@ class ElectionMethodModal extends React.Component {
     render()
     {
         return <>
-            <button className="text-blue-700" onClick={() => this.setState({open: true})}>{this.props.text}</button>
-            <Modal open={this.state.open} onClickBackdrop={() => this.setState({open: false})}>
+            <button className={this.props.text_props} onClick={() => this.setState({open: true})}>{this.props.text}</button>
+            <Modal className="text-black" open={this.state.open} onClickBackdrop={() => this.setState({open: false})}>
                 <Modal.Header>
                     {methodName(this.props.method)} Elections
                 </Modal.Header>

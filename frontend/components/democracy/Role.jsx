@@ -8,6 +8,7 @@ import parse from "html-react-parser";
 import {tailwindParse} from "../../helpers/tailwindParse";
 import {meetingToName, methodName} from "../../models/roles/roleEnums";
 import InPlaceEditor from "../global/InPlaceEditor";
+import ElectionMethodModal from "./ElectionMethodModal";
 
 class Role extends React.Component {
     constructor(props) {
@@ -63,7 +64,7 @@ class Role extends React.Component {
                     </div>
                     <div>
                         <p><i>Election Method:</i></p>
-                        <p className="font-semibold">{methodName(this.state.role.e_method)}</p>
+                        <div><ElectionMethodModal text_props="hover:underline font-semibold" text={methodName(this.state.role.e_method)} method={this.state.role.e_method}/></div>
                         <br/>
                     </div>
                     {this.state.officers.length > 0?
@@ -118,7 +119,7 @@ class Role extends React.Component {
                     <div className="text-6xl font-semibold">{this.state.role.name}</div>
                 </div>
                 <div className="md:pl-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 justify-between">
-                    <div className="w-full h-full justify-self-end md:hidden">
+                    <div className="w-full h-full justify-self-end md:hidden relative z-10">
                         {sideBar}
                     </div>
                     <div className="pl-4 md:pl-0 col-span-2 p-2 lg:col-span-3 mt-2">
