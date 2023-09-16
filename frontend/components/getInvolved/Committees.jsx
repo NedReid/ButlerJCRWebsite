@@ -31,7 +31,8 @@ class Committees extends React.Component {
     render() {
         return <div className="my-2 p-8">
             <div className="text-4xl font-bold">Committees</div>
-            Committees are good. Please join one if you want.
+            Committees are made up of elected chairs and any members who would like to join, as well as any other exec members who are internally elected.
+            <br/> Committees have a purpose, like welfare committee or democracy committee. They are an integral part of college and help keep the JCR running smoothly.
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {this.state.SSCs.filter((ssc) => {return ssc.type === SSCEnum.committee}).map((ssc, index) => {
                     return (
