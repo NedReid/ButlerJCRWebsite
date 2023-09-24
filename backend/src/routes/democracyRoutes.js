@@ -398,5 +398,12 @@ export const democracyRoutes = async (app, auth, db) => {
             res.send();
         }
     });
+
+    app.get("/api/democracy/getDocuments", async function(req, res) {
+        let documents = await db.documents.findAsync({});
+        res.status(200);
+        res.send(documents);
+    });
+
 }
 

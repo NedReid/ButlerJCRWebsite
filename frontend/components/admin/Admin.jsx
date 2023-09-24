@@ -9,6 +9,7 @@ import Officers from "./Officers";
 import Meetings from "./Meetings";
 import Motions from "./Motions";
 import Candidates from "./Candidates";
+import Documents from "./Documents";
 import PostCategories from "./PostCategories";
 // import Products from "./Products";
 // import Members from "./Members";
@@ -30,6 +31,7 @@ class Admin extends React.Component {
             {this.props.admin.democracy && <Meetings/>}
             {this.props.admin.democracy && <Motions/>}
             {this.props.admin.democracy && <Candidates/>}
+            {this.props.admin.democracy && <Documents/>}
             {this.props.admin.postCategories && <PostCategories/>}
             {/*{this.props.admin.finance && <Products/>}*/}
             {/*{this.props.admin.finance && <Members/>}*/}

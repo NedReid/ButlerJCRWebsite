@@ -468,3 +468,35 @@ export const deleteFAQ =  async (q) => {
         return response.data;
     }
 }
+
+export const getDocuments =  async () => {
+    const response = await axios.get("/api/admin/getDocuments");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const createDocument =  async (document, file) => {
+    const response = await axios.post("/api/admin/createDocument", {document: document, file: file});
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateDocument =  async (document, file) => {
+    const response = await axios.post("/api/admin/updateDocument", {document: document, file: file});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deleteDocument =  async (document) => {
+    const response = await axios.post("/api/admin/deleteDocument", {document: document});
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
