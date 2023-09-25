@@ -96,3 +96,11 @@ export const getCandidate = async (_id) => {
         return response.data;
     }
 }
+
+export const getDocuments = async () => {
+    const response = await axios.get("/api/democracy/getDocuments");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}

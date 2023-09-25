@@ -842,5 +842,73 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
 
     });
 
+    app.post("/api/admin/createDocument", async function (req, res) {
+        if (res.locals.adminUser.democracy === true) {
+            const document = await db.documents.insertAsync(req.body.document);
+            if (req.body.file !== "") {
+                let dat = req.body.file.replace(/^data:application\/pdf;base64,/, "");
+                let buffer = Buffer.from(dat, "base64");
+                const dir = "files/documents/" + document._id;
+                const path = dir + "/" + document.address;
+                if (!fs.existsSync(dir)){
+                    fs.mkdirSync(dir);
+                }
+                fs.writeFileSync(path, buffer);
+            }
+            res.status(201);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/updateDocument", async function (req, res) {
+        if (res.locals.adminUser.democracy === true) {
+            await db.documents.updateAsync({_id: req.body.document._id}, req.body.document);
+            if (req.body.file !== "") {
+                let dat = req.body.file.replace(/^data:application\/pdf;base64,/, "");
+                let buffer = Buffer.from(dat, "base64");
+                const dir = "files/documents/" + req.body.document._id;
+                const path = dir + "/" + req.body.document.address;
+                if (!fs.existsSync(dir)){
+                    fs.mkdirSync(dir);
+                }
+                fs.writeFileSync(path, buffer);
+            }
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/deleteDocument", async function (req, res) {
+        if (res.locals.adminUser.democracy === true) {
+            await db.documents.removeAsync({_id: req.body.document._id}, req.body.document);
+            const dir = "files/documents/" + req.body.document._id;
+            if (fs.existsSync(dir)){
+                fs.rmSync(dir, {recursive: true});
+            }
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.get("/api/admin/getDocuments", async function (req, res) {
+        if (res.locals.adminUser.democracy === true) {
+            let documents = await db.documents.findAsync({});
+            res.status(200);
+            res.send(documents);
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
 
 }
