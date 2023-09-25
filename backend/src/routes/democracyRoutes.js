@@ -405,5 +405,15 @@ export const democracyRoutes = async (app, auth, db) => {
         res.send(documents);
     });
 
+    app.get("/standing-orders", async function(req, res) {
+        let documents = await db.documents.findAsync({"category": 1});
+        documents.sort((a, b) => {return ((new Date(b.date)).valueOf() - (new Date(a.date)).valueOf())});
+        console.log(documents)
+        const latestDoc = documents[0];
+        res.status(200);
+        res.redirect("/files/documents/" + latestDoc._id + "/" + latestDoc.address);
+        res.send();
+    });
+
 }
 
