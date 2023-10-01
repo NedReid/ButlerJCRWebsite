@@ -73,7 +73,7 @@ export const democracyRoutes = async (app, auth, db) => {
     const getApplicableRoles = async (meeting) => {
         const roles = await db.roles.findAsync({});
         const d = new Date(meeting.date)
-        const dayAfter = new Date(d.getFullYear(), d.getMonth(), d.getDate())
+        const dayAfter = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1)
         console.log(new Date().getTime())
         console.log(dayAfter.getTime())
         if ((new Date().getTime()) > dayAfter.getTime())

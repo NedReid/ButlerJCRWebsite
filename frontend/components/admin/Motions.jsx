@@ -6,7 +6,7 @@ import {meetingToName, methodEnum, roleCategoryEnum, roleCategoryNames} from "..
 class Motions extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {addingMotion: false, motions: [], currentMotion: undefined, typeSelect:2022, meetingSelect: "", meetings:[]};
+        this.state = {addingMotion: false, motions: [], currentMotion: undefined, typeSelect:(new Date()).getFullYear(), meetingSelect: "", meetings:[]};
         this.motionSelect = React.createRef()
     }
 

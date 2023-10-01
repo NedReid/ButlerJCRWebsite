@@ -7,7 +7,7 @@ import {getRole} from "../../helpers/democracyHelper";
 class Candidates extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {addingCandidate: false, candidates: [], currentCandidate: undefined, typeSelect:2022, meetingSelect: "", meetings:[]};
+        this.state = {addingCandidate: false, candidates: [], currentCandidate: undefined, typeSelect:(new Date()).getFullYear(), meetingSelect: "", meetings:[]};
         this.candidateSelect = React.createRef()
     }
 

@@ -6,7 +6,7 @@ import {meetingToName, methodEnum} from "../../models/roles/roleEnums";
 class Meetings extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {addingMeeting: false, meetings: [], currentMeeting: undefined, typeSelect:2022};
+        this.state = {addingMeeting: false, meetings: [], currentMeeting: undefined, typeSelect:(new Date()).getFullYear()};
         this.meetingSelect = React.createRef()
     }
 
