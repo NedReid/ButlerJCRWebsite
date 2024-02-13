@@ -109,3 +109,10 @@ export const getFAQofCategory = async (category) => {
         return response.data;
     }
 }
+
+export const getWhosWhoOfCategory = async (category) => {
+    const response = await axios.get("/api/getWhosWhoOfCategory", {params: {category: category}});
+    if (response.status === 200) {
+        return response.data;
+    }
+}

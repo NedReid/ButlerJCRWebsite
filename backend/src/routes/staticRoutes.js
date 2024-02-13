@@ -199,7 +199,7 @@ export const staticRoutes = async (app, auth, db) => {
 
     app.get("/api/getFAQofCategory", async function (req, res) {
         let FAQ = await db.FAQ.findAsync({category: req.query.category});
-        FAQ = await Promise.all(await FAQ.map(async (q) => {
+        FAQ = await Promise.all(FAQ.map(async (q) => {
             if (typeof q.answer === 'string' || q.answer instanceof String) {
                 q.answer = await retrieveRichText(q.answer, "FAQ");
             }
@@ -207,6 +207,12 @@ export const staticRoutes = async (app, auth, db) => {
         }));
         res.status(200);
         res.send(FAQ);
+    });
+
+    app.get("/api/getWhosWhoOfCategory", async function (req, res) {
+        let whosWho = await db.whosWho.findAsync({category: req.query.category});
+        res.status(200);
+        res.send(whosWho);
     });
 
 

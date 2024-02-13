@@ -73,8 +73,7 @@ class FAQ extends React.Component {
         newQ.category = this.state.category;
         newQ.order = this.state.nextOrder;
         newQ._id = this.state.nextOrder;
-        this.state.nextOrder++;
-        this.state.FAQ.push(newQ);
+        this.setState({nextOrder: this.state.nextOrder + 1, FAQ: [...this.state.FAQ, newQ]})
         this.forceUpdate();
     }
 

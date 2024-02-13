@@ -46,6 +46,7 @@ db.calendarEvents = new Datastore({ filename: 'database/calendarEvents.db', auto
 db.keyValues = new Datastore({ filename: 'database/keyValues.db', autoload: true });
 db.FAQ = new Datastore({ filename: 'database/FAQ.db', autoload: true });
 db.documents = new Datastore({ filename: 'database/documents.db', autoload: true });
+db.whosWho = new Datastore({ filename: 'database/whosWho.db', autoload: true });
 
 
 exceptionHandler.handle();

@@ -93,7 +93,7 @@ class App extends React.Component {
             <Route path="/documents/" element={<Documents/>}/>
             <Route path="/faq/" element={<FAQ admin={this.state.admin}/>}/>
             <Route path="/oh-no" element={<Error/>}/>
-            <Route path="/whos-who" element={<WhosWho/>}/>
+            <Route path="/whos-who" element={<WhosWho admin={this.state.admin}/>}/>
             <Route path="/jbs" element={<JBs/>}/>
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/photos" element={<div><Photos/></div>}/>
