@@ -93,6 +93,7 @@ class WhosWho extends React.Component {
         let newPerson = new whosWhoModel()
         newPerson.category = this.state.category;
         newPerson.subcategory = subcategory;
+        newPerson.photo = "media/whoswho/jb.jpg"
         newPerson._id = this.getTempId();
         this.setState({whosWho: [...this.state.whosWho, newPerson]})
         this.forceUpdate();
@@ -102,6 +103,7 @@ class WhosWho extends React.Component {
         let newPerson = new whosWhoModel()
         newPerson.category = this.state.category;
         newPerson.subcategory = this.state.newCategoryText;
+        newPerson.photo = "media/whoswho/jb.jpg"
         newPerson.order = 0;
         newPerson._id = this.getTempId();
         this.setState({subCategory: "", whosWho: [...this.state.whosWho, newPerson]})

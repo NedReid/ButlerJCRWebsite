@@ -115,7 +115,7 @@ class WhosWhoBlock extends React.Component {
 
         }
         else {
-            return <div className="m-4 border-slate-400 text-center justify-items-center p-2 h-44 w-88 border-2 rounded-lg drop-shadow-xl bg-white">
+            return <div className="m-4 border-slate-400 text-center justify-items-center p-2 h-[11.25rem] w-88 border-2 rounded-lg drop-shadow-xl bg-white">
                 <div className="grid grid-cols-2">
                     <img className="my-auto w-40 h-40 object-contain" src={this.state.person.photo}/>
                     <div className="text-center justify-items-center w-40 pl-2">
