@@ -93,7 +93,7 @@ class App extends React.Component {
             <Route path="/documents/" element={<Documents/>}/>
             <Route path="/faq/" element={<FAQ admin={this.state.admin}/>}/>
             <Route path="/oh-no" element={<Error/>}/>
-            <Route path="/whos-who" element={<WhosWho/>}/>
+            <Route path="/whos-who" element={<WhosWho admin={this.state.admin}/>}/>
             <Route path="/jbs" element={<JBs/>}/>
             <Route path="/contact" element={<Contact/>}/>
             <Route path="/photos" element={<div><Photos/></div>}/>
@@ -103,7 +103,7 @@ class App extends React.Component {
             {/*<Route path="/pay" element={<PayLevy username={this.state.loggedIn}/>}/>*/}
             {/*<Route path="/account" element={<Account username={this.state.loggedIn}/>}/>*/}
             <Route path="/mcr" element={<MCRHomepage/>}/>
-            <Route path="/mcr/whos-who" element={<MCRWhosWho/>}/>
+            <Route path="/mcr/whos-who" element={<MCRWhosWho admin={this.state.admin}/>}/>
             <Route path="/mcr/news" element={<MCRNews/>}/>
             <Route path="/mcr/posts/:id" element={<ViewPost/>}/>
             <Route path="/reset-password/:id" element={<ResetPassword/>}/>

@@ -910,5 +910,29 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
         }
     });
 
+    app.post("/api/admin/createWhosWho", async function (req, res) {
+        const photo = req.body.photo
+        req.body.photo = "";
+        const newDb = await db.whosWho.insertAsync(req.body);
+        newDb.photo = await exportImageFile(photo,true,  "photo", newDb._id,"whosWho");
+        await db.whosWho.updateAsync({_id: newDb._id}, newDb);
 
+        res.status(201);
+        res.send();
+    });
+
+    app.post("/api/admin/updateWhosWho", async function (req, res) {
+        req.body.photo = await exportImageFile(req.body.photo,false,  "photo", req.body._id,"whosWho");
+        await db.whosWho.updateAsync({_id: req.body._id}, req.body);
+        res.status(200);
+        res.send();
+
+    });
+
+    app.post("/api/admin/deleteWhosWho", async function (req, res) {
+        await db.whosWho.removeAsync({_id: req.body._id}, req.body);
+        res.status(200);
+        res.send();
+
+    });
 }

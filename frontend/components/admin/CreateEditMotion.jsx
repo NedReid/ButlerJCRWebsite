@@ -101,7 +101,7 @@ class CreateEditMotion extends React.Component {
             <br/>
             {this.state.currentYear !== "" && <select
                 defaultValue={this.state.motion.meeting} onChange={(event) => this.handleChange(event, "meeting")} key={this.state.currentYear} className="select select-bordered w-full max-w-xs">
-                <option value="">Select Meeting}</option>
+                <option value="">Select Meeting</option>
                 {this.props.meetings.filter((meeting) => {return meeting.date.getFullYear() === this.state.currentYear}).map((meeting, index) => {
                     return (
                         <option value={meeting._id} key={this.typeSelect + "_" + index}>{meetingToName(meeting.m_type) + " " + meeting.date.getFullYear()}</option>

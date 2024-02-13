@@ -500,3 +500,28 @@ export const deleteDocument =  async (document) => {
         return response.data;
     }
 }
+
+export const createWhosWho =  async (data) => {
+    const response = await axios.post("/api/admin/createWhosWho", data);
+    if (response.status === 201)
+    {
+        return response.data;
+    }
+}
+
+export const updateWhosWho =  async (data) => {
+    const response = await axios.post("/api/admin/updateWhosWho", data);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deleteWhosWho =  async (data) => {
+    const response = await axios.post("/api/admin/deleteWhosWho", data);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
