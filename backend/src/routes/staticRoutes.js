@@ -170,7 +170,7 @@ export const staticRoutes = async (app, auth, db) => {
     });
 
     app.get("/api/getCalendarEventPreviews", async function (req, res) {
-        let events = await db.calendarEvents.findAsync({});
+        let events = await db.calendarEvents.findAsync({visible: true});
         events = events.map((ev) => {
                 ev.description = "";
                 return ev
