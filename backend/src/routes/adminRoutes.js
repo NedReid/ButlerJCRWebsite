@@ -6,7 +6,7 @@ import {
     retrieveRichText,
     retrieveImageFile,
     exportImageFile,
-    saveAlbumImage, makePreviewImage
+    saveAlbumImage, makePreviewImage, deleteDatabaseImages
 } from "../helpers/mediaHelper.js";
 import xl from 'excel4node';
 import fs from "fs";
@@ -141,6 +141,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
     app.post("/api/admin/deleteSSC", async function (req, res) {
         if (res.locals.adminUser.SSCs === true) {
             await db.SSCs.removeAsync({_id: req.body._id}, req.body);
+            deleteDatabaseImages(req.body._id, "SSCs")
             res.status(200);
             res.send();
         } else {
@@ -278,6 +279,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
     app.post("/api/admin/deleteRole", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
             await db.roles.removeAsync({_id: req.body._id}, req.body);
+            deleteDatabaseImages(req.body._id, "roles")
             res.status(200);
             res.send();
         } else {
@@ -322,6 +324,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
     app.post("/api/admin/deleteOfficer", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
             await db.officers.removeAsync({_id: req.body._id}, req.body);
+            deleteDatabaseImages(req.body._id, "officers")
             res.status(200);
             res.send();
         } else {
@@ -392,6 +395,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
     app.post("/api/admin/deleteMeeting", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
             await db.meetings.removeAsync({_id: req.body._id}, req.body);
+            deleteDatabaseImages(req.body._id, "meetings")
             res.status(200);
             res.send();
         } else {
@@ -458,6 +462,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
     app.post("/api/admin/deleteMotion", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
             await db.motions.removeAsync({_id: req.body._id}, req.body);
+            deleteDatabaseImages(req.body._id, "motions")
             res.status(200);
             res.send();
         } else {
@@ -525,6 +530,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
     app.post("/api/admin/deleteCandidate", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
             await db.candidates.removeAsync({_id: req.body._id}, req.body);
+            deleteDatabaseImages(req.body._id, "candidates")
             res.status(200);
             res.send();
         } else {
@@ -837,6 +843,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
 
     app.post("/api/admin/deleteFAQ", async function (req, res) {
         await db.FAQ.removeAsync({_id: req.body._id}, req.body);
+        deleteDatabaseImages(req.body._id, "FAQ")
         res.status(200);
         res.send();
 
@@ -887,10 +894,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
     app.post("/api/admin/deleteDocument", async function (req, res) {
         if (res.locals.adminUser.democracy === true) {
             await db.documents.removeAsync({_id: req.body.document._id}, req.body.document);
-            const dir = "files/documents/" + req.body.document._id;
-            if (fs.existsSync(dir)){
-                fs.rmSync(dir, {recursive: true});
-            }
+            deleteDatabaseImages(req.body.document._id, "documents")
             res.status(200);
             res.send();
         } else {
@@ -931,6 +935,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
 
     app.post("/api/admin/deleteWhosWho", async function (req, res) {
         await db.whosWho.removeAsync({_id: req.body._id}, req.body);
+        deleteDatabaseImages(req.body._id, "whosWho")
         res.status(200);
         res.send();
 

@@ -1,7 +1,7 @@
 import argon2 from "argon2";
 import express from "express";
 import { sendVerificationMail } from '../helpers/emailer.js';
-import {parseRichText, retrieveImageFile, retrieveRichText} from "../helpers/mediaHelper.js";
+import {deleteDatabaseImages, parseRichText, retrieveImageFile, retrieveRichText} from "../helpers/mediaHelper.js";
 
 export const studentRoutes = async (app, auth, db) => {
 
@@ -94,6 +94,7 @@ export const studentRoutes = async (app, auth, db) => {
         console.log("BEANZ", post.editor,res.locals.user.username)
         if (post.editor === res.locals.user.username) {
             await db.posts.removeAsync({_id: req.body._id}, {});
+            deleteDatabaseImages(req.body._id, "posts")
             res.status(200);
             res.send();
         } else {
