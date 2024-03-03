@@ -12,6 +12,7 @@ import sharp from 'sharp';
 export const parseRichText =  async (text, id, db) => {
     // console.log(text);
     let num_im = 0
+    const dir = "files/" + db + "/" + id
     while(text.indexOf('<img src="data:image') >=  0) {
         let im_start = text.indexOf('<img src="data:image') + 10;
         let im_end = text.indexOf('"', im_start);
@@ -39,8 +40,7 @@ export const parseRichText =  async (text, id, db) => {
             } else {
                 await image.webp({lossless: true})
             }
-            path = "files/" + db + "/" + id + "/" + num_im +".webp"
-            const dir = "files/" + db + "/" + id
+            path = dir + "/" + num_im +".webp"
             if (!fs.existsSync(dir)){
                 fs.mkdirSync(dir);
             }
@@ -54,8 +54,7 @@ export const parseRichText =  async (text, id, db) => {
             const end_head = im_data.indexOf(",") + 1
             let im_dat = im_data.slice(end_head);
             // console.log(im_dat);
-            path = "files/" + db + "/" + id + "/" + num_im + "." + format
-            const dir = "files/" + db + "/" + id
+            path = dir + "/" + num_im + "." + format
             const buffer = Buffer.from(im_dat, "base64");
             if (!fs.existsSync(dir)){
                 fs.mkdirSync(dir);
@@ -66,6 +65,13 @@ export const parseRichText =  async (text, id, db) => {
         }
         text = text.replace(im_data, path)
         num_im++
+    }
+    if (fs.existsSync(dir)) {
+        const filesInFolder = fs.readdirSync(dir)
+        const filesToDelete = filesInFolder.filter((file) => Number(file.match(/(\d+)\..*/)[1]) >= num_im)
+        filesToDelete.forEach((fileToDelete) => {
+            fs.rmSync(dir + "/" + fileToDelete)
+        })
     }
     return text
 }
@@ -236,6 +242,11 @@ export const makePreviewImage = async (inputPath, outputPath) => {
         const buffer = fs.readFileSync(inputPath);
         fs.writeFileSync(outputPath, buffer);
     }
+}
 
-
+export const deleteDatabaseImages = (id, db) => {
+    const dir = "files/" + db + "/" + id + "/";
+    if (fs.existsSync(dir)){
+        fs.rmSync(dir, {recursive: true});
+    }
 }
