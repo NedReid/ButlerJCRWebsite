@@ -940,4 +940,52 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
         res.send();
 
     });
+
+    app.post("/api/admin/createPhotoAlbum", async function (req, res) {
+        if (res.locals.adminUser.photos === true) {
+            await db.photoAlbums.insertAsync(req.body);
+            res.status(201);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/updatePhotoAlbum", async function (req, res) {
+        if (res.locals.adminUser.photos === true) {
+            await db.photoAlbums.updateAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.get("/api/admin/getPhotoAlbums", async function (req, res) {
+        if (res.locals.adminUser.photos === true) {
+            let pagePerms = await db.photoAlbums.findAsync({});
+            res.status(200);
+            res.send(pagePerms);
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+    app.post("/api/admin/deletePhotoAlbum", async function (req, res) {
+        if (res.locals.adminUser.photos === true) {
+            deleteDatabaseImages(req.body._id, "albums")
+            deleteDatabaseImages(req.body._id, "albumsPreview")
+            await db.photoAlbums.removeAsync({_id: req.body._id}, req.body);
+            res.status(200);
+            res.send();
+        } else {
+            res.status(401);
+            res.send();
+        }
+    });
+
+
 }

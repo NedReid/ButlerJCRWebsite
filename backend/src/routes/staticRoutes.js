@@ -81,8 +81,14 @@ export const staticRoutes = async (app, auth, db) => {
     app.get("/api/static/getAlbums", async function(req, res) {
         console.log("A")
         let albums = fs.readdirSync(path.join(__dirname, "../../files/albums"))
+        let photoAlbums = await db.photoAlbums.findAsync({})
         let returnedPreview = []
         for (const album of albums) {
+            let photoAlbum = photoAlbums.find((photoAlbum) => photoAlbum.name === album)
+            if (!photoAlbum) {
+                photoAlbum = await db.photoAlbums.insertAsync({name: album, date: new Date()})
+            }
+
             fs.mkdirSync(path.join(__dirname, "../../files/albumsPreview/" + album), { recursive: true })
             let photos = fs.readdirSync(path.join(__dirname, "../../files/albums/" + album))
             for (const photo of photos) {
@@ -95,7 +101,7 @@ export const staticRoutes = async (app, auth, db) => {
             };
             let previews = fs.readdirSync(path.join(__dirname, "../../files/albumsPreview/" + album))
             const random = Math.floor(Math.random() * previews.length);
-            returnedPreview.push({name:album,  path:previews[random]})
+            returnedPreview.push({...photoAlbum,  path:previews[random]})
         }
 
         res.status(200);

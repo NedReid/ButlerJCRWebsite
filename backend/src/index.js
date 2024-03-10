@@ -47,6 +47,7 @@ db.keyValues = new Datastore({ filename: 'database/keyValues.db', autoload: true
 db.FAQ = new Datastore({ filename: 'database/FAQ.db', autoload: true });
 db.documents = new Datastore({ filename: 'database/documents.db', autoload: true });
 db.whosWho = new Datastore({ filename: 'database/whosWho.db', autoload: true });
+db.photoAlbums = new Datastore({ filename: 'database/photoAlbums.db', autoload: true });
 
 
 exceptionHandler.handle();
