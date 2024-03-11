@@ -6,7 +6,7 @@ import {
     retrieveRichText,
     retrieveImageFile,
     exportImageFile,
-    saveAlbumImage, makePreviewImage, deleteDatabaseImages
+    saveAlbumImage, makePreviewImage, deleteDatabaseImages, renameImageFolder
 } from "../helpers/mediaHelper.js";
 import xl from 'excel4node';
 import fs from "fs";
@@ -954,6 +954,20 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
 
     app.post("/api/admin/updatePhotoAlbum", async function (req, res) {
         if (res.locals.adminUser.photos === true) {
+            const newAlbum = req.body
+            const oldAlbum = await db.photoAlbums.findOneAsync({_id: req.body._id});
+
+            if (newAlbum.name === "") {
+                res.status(400);
+                res.send();
+                return
+            }
+
+            if (newAlbum.name !== oldAlbum.name) {
+                renameImageFolder(oldAlbum.name, newAlbum.name, "albums")
+                renameImageFolder(oldAlbum.name, newAlbum.name, "albumsPreview")
+            }
+
             await db.photoAlbums.updateAsync({_id: req.body._id}, req.body);
             res.status(200);
             res.send();
@@ -976,8 +990,9 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
 
     app.post("/api/admin/deletePhotoAlbum", async function (req, res) {
         if (res.locals.adminUser.photos === true) {
-            deleteDatabaseImages(req.body._id, "albums")
-            deleteDatabaseImages(req.body._id, "albumsPreview")
+            const oldAlbum = await db.photoAlbums.findOneAsync({_id: req.body._id});
+            deleteDatabaseImages(oldAlbum.name, "albums")
+            deleteDatabaseImages(oldAlbum.name, "albumsPreview")
             await db.photoAlbums.removeAsync({_id: req.body._id}, req.body);
             res.status(200);
             res.send();

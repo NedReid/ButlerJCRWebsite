@@ -15,6 +15,7 @@ import PostCategories from "./PostCategories";
 // import Members from "./Members";
 import Photos from "./Photos";
 import FreshersVisibility from "./FreshersVisibility";
+import PhotoAlbums from "./PhotoAlbums";
 class Admin extends React.Component {
     constructor(props) {
         super(props);
@@ -36,6 +37,7 @@ class Admin extends React.Component {
             {/*{this.props.admin.finance && <Products/>}*/}
             {/*{this.props.admin.finance && <Members/>}*/}
             {this.props.admin.photos && <Photos/>}
+            {this.props.admin.photos && <PhotoAlbums/>}
             {this.props.admin.freshers && <FreshersVisibility/>}
         </>
 

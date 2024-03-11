@@ -250,3 +250,11 @@ export const deleteDatabaseImages = (id, db) => {
         fs.rmSync(dir, {recursive: true});
     }
 }
+
+export const renameImageFolder = (oldName, newName, db) => {
+    const oldDir = "files/" + db + "/" + oldName + "/";
+    const newDir = "files/" + db + "/" + newName + "/";
+    if (fs.existsSync(oldDir)){
+        fs.renameSync(oldDir, newDir)
+    }
+}

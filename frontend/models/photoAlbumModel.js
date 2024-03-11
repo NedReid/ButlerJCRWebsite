@@ -6,7 +6,7 @@ export default class productModel {
     constructor(init = undefined) {
         if(init !== undefined) {
             this.name = init.name;
-            this.date = init.date;
+            this.date = new Date(init.date);
             this._id = init._id;
         }
 
