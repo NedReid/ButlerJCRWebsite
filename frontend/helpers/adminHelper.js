@@ -525,3 +525,34 @@ export const deleteWhosWho =  async (data) => {
     }
 }
 
+export const getPhotoAlbums =  async () => {
+    const response = await axios.get("/api/admin/getPhotoAlbums");
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const updatePhotoAlbum =  async (data) => {
+    const response = await axios.post("/api/admin/updatePhotoAlbum", data);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const deletePhotoAlbum =  async (data) => {
+    const response = await axios.post("/api/admin/deletePhotoAlbum", data);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}
+
+export const  createPhotoAlbum =  async (data) => {
+    const response = await axios.post("/api/admin/createPhotoAlbum", data);
+    if (response.status === 200)
+    {
+        return response.data;
+    }
+}

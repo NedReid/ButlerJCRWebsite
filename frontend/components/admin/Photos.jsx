@@ -1,5 +1,12 @@
 import React from 'react';
-import {getRoles, getMembersExcel, addMemberList, uploadAlbumPhoto} from '../../helpers/adminHelper';
+import {
+    getRoles,
+    getMembersExcel,
+    addMemberList,
+    uploadAlbumPhoto,
+    getPagePerms,
+    getPhotoAlbums, createPhotoAlbum
+} from '../../helpers/adminHelper';
 import CreateEditRole from './CreateEditRole';
 import {roleCategoryEnum, roleCategoryNames, meetingEnum, methodEnum} from "../../models/roles/roleEnums";
 import { Textarea, Checkbox } from "react-daisyui";
@@ -10,15 +17,25 @@ import Loading from "../global/Loading";
 class Photos extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {albumName: "", albumAddress: "", album: undefined, uploading: false, progress: 0, skipped: ""};
+        this.state = {selectedPhotoAlbum: "", photoAlbums: null, albumName: "", albumAddress: "", album: undefined, uploading: false, progress: 0, skipped: ""};
     }
 
-    handleName = async (event) => {
-        await this.setState({albumName: event.target.value})
+    async componentDidMount(){
+        const photoAlbums = await getPhotoAlbums()
+        this.setState({photoAlbums: photoAlbums});
     }
+
+
+    handleName = async (event) => {
+        await this.setState({albumName: event.target.value, selectedPhotoAlbum: ""})
+    }
+
+    selectPhotoAlbum = async (event) => {
+        await this.setState({albumName: event.target.value, selectedPhotoAlbum: event.target.value})
+    }
+
     handleAddress = async (event) => {
         await this.setState({albumAddress: event.target.value, album: event.target.files})
-        console.log(event.target.files)
     }
 
     reset = async (event) => {
@@ -27,6 +44,10 @@ class Photos extends React.Component {
 
     submitButton = async (event) => {
         await this.setState({uploading: true})
+        console.log(this.state.selectedPhotoAlbum)
+        if (this.state.selectedPhotoAlbum === "") {
+            await createPhotoAlbum({name: this.state.albumName, date: new Date()})
+        }
         for (let i = 0; i < this.state.album.length; i++) {
             await this.setState({progress: i})
             const image = this.state.album[i];
@@ -78,8 +99,19 @@ class Photos extends React.Component {
                     <>
                         <div className="text-xl font-semibold">Upload an Album</div>
                         <label>Album Name:
+                            Choose existing album to add to:
+                            <select defaultValue="" value={this.state.selectedPhotoAlbum} onChange={this.selectPhotoAlbum} key="photoAlbums" className="select select-bordered w-full max-w-xs">
+                                <option value="">Select Page</option>
+                                {this.state.photoAlbums && this.state.photoAlbums.map((photoAlbum, index) => {
+                                    return (
+                                        <option value={photoAlbum.name} key={"photoAlbum_" + index}>{photoAlbum.name}</option>
+
+                                    );
+                                })}
+                            </select>
+                            <div>Or type a new album name:</div>
                             <input className=" ml-2 mb-2 rounded border-2 border-slate-500"
-                                   name="name" type="text" defaultValue={this.state.albumName} onChange={(event) => this.handleName(event)}/>
+                                   name="name" type="text" defaultValue={this.state.albumName} value={this.state.albumName} onChange={(event) => this.handleName(event)}/>
                         </label>
 
                         <div>Album Folder</div>
@@ -89,7 +121,7 @@ class Photos extends React.Component {
                                    name="poster" type="file" accept="image/*" onChange={(event) => this.handleAddress(event)} webkitdirectory="true" mozdirectory="true" directory="true"/>
                         </label>
                         <div></div>
-                        <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Upload Album</button>
+                        <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600"  disabled={this.state.albumName === ""} onClick={this.submitButton}>Upload Album</button>
                     </>
             }
 

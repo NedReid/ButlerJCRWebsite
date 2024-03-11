@@ -25,8 +25,7 @@ class AdminPerms extends React.Component {
     }
 
     onUpdated = async () => {
-        this.currentPerm = undefined;
-        this.setState({adminPerms: []})
+        this.setState({adminPerms: [], currentPerm: undefined})
         const adminPerms = await getAdminPerms()
         this.setState({adminPerms: adminPerms});
     }
