@@ -30,7 +30,7 @@ class PhotoAlbums extends React.Component {
     }
 
     getYearsFromDates = (photoAlbums) => {
-        const years = photoAlbums.map((photoAlbum) => new Date(photoAlbum.date)).sort((a, b) => a - b).map((albumDate) => {
+        const years = photoAlbums.map((photoAlbum) => new Date(photoAlbum.date)).sort((a, b) => b - a).map((albumDate) => {
             const albumYear = albumDate.getFullYear()
             if (albumDate.getMonth() < 8) {
                 return {name: `${albumYear - 1}/${albumYear}`, startDate: new Date(albumYear - 1, 8), endDate: new Date(albumYear, 8)}

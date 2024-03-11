@@ -54,7 +54,7 @@ class Photos extends React.Component {
     }
 
     getYearsFromDates = () => {
-        const years = this.state.albumPreviews.map((albumPreview) => new Date(albumPreview.date)).sort((a, b) => a - b).map((albumDate) => {
+        const years = this.state.albumPreviews.map((albumPreview) => new Date(albumPreview.date)).sort((a, b) => b - a).map((albumDate) => {
             const albumYear = albumDate.getFullYear()
             if (albumDate.getMonth() < 8) {
                 return {name: `${albumYear - 1}/${albumYear}`, startDate: new Date(albumYear - 1, 8), endDate: new Date(albumYear, 8)}
@@ -84,10 +84,10 @@ class Photos extends React.Component {
 
         switch(sortOrder) {
             case SortByEnum.BY_DATE_NEWEST_FIRST:
-                this.setState({sortedAlbumPreviews: filteredAlbumPreviews.sort((a, b) => new Date(a.date) - new Date(b.date))})
+                this.setState({sortedAlbumPreviews: filteredAlbumPreviews.sort((a, b) => new Date(b.date) - new Date(a.date))})
                 return
             case SortByEnum.BY_DATE_OLDEST_FIRST:
-                this.setState({sortedAlbumPreviews: filteredAlbumPreviews.sort((a, b) => new Date(b.date) - new Date(a.date))})
+                this.setState({sortedAlbumPreviews: filteredAlbumPreviews.sort((a, b) => new Date(a.date) - new Date(b.date))})
                 return
             case SortByEnum.BY_NAME_Z_A:
                 this.setState({sortedAlbumPreviews: filteredAlbumPreviews.sort((a, b) => b.name < a.name? - 1 : 1)})
