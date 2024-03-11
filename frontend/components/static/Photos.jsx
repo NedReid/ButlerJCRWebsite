@@ -16,7 +16,7 @@ class Photos extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {albumPreviews: [], sortedAlbumPreviews: [], currentAlbum: "", albumPhotos: [], sortOrder: SortByEnum.BY_DATE_NEWEST_FIRST, photo: undefined}
+        this.state = {dateRanges: [], selectedDateFilter: null, albumPreviews: [], sortedAlbumPreviews: [], currentAlbum: "", albumPhotos: [], sortOrder: SortByEnum.BY_DATE_NEWEST_FIRST, photo: undefined}
 
     }
 
@@ -53,27 +53,47 @@ class Photos extends React.Component {
         await this.pickAlbum(name)
     }
 
+    getYearsFromDates = () => {
+        const years = this.state.albumPreviews.map((albumPreview) => new Date(albumPreview.date)).sort((a, b) => a - b).map((albumDate) => {
+            const albumYear = albumDate.getFullYear()
+            if (albumDate.getMonth() < 8) {
+                return {name: `${albumYear - 1}/${albumYear}`, startDate: new Date(albumYear - 1, 8), endDate: new Date(albumYear, 8)}
+            }
+            return {name: `${albumYear}/${albumYear + 1}`, startDate: new Date(albumYear, 8), endDate: new Date(albumYear + 1, 8)}
+        })
+        return years.filter((year, index) => index === years.findIndex(otherYear => otherYear.name === year.name))
+    }
+
     componentDidUpdate (prevProps, prevState) {
         console.log(this.state.sortedAlbumPreviews)
-        if (prevState.albumPreviews === this.state.albumPreviews && prevState.sortOrder === this.state.sortOrder) {
+        if (prevState.albumPreviews === this.state.albumPreviews && prevState.sortOrder === this.state.sortOrder && prevState.selectedDateFilter === this.state.selectedDateFilter) {
             return
         }
 
         const sortOrder = this.state.sortOrder
         const albumPreviews = this.state.albumPreviews
+        const dateRanges = this.getYearsFromDates()
+        this.setState({dateRanges})
+
+        const selectedDateFilter = this.state.selectedDateFilter
+        const filteredAlbumPreviews = this.state.selectedDateFilter? this.state.albumPreviews.filter((albumPreview) =>{
+            const albumDate = new Date (albumPreview.date)
+            return albumDate < selectedDateFilter.endDate && albumDate >= selectedDateFilter.startDate
+        }) : albumPreviews
+
 
         switch(sortOrder) {
             case SortByEnum.BY_DATE_NEWEST_FIRST:
-                this.setState({sortedAlbumPreviews: albumPreviews.sort((a, b) => new Date(a.date) - new Date(b.date))})
+                this.setState({sortedAlbumPreviews: filteredAlbumPreviews.sort((a, b) => new Date(a.date) - new Date(b.date))})
                 return
             case SortByEnum.BY_DATE_OLDEST_FIRST:
-                this.setState({sortedAlbumPreviews: albumPreviews.sort((a, b) => new Date(b.date) - new Date(a.date))})
+                this.setState({sortedAlbumPreviews: filteredAlbumPreviews.sort((a, b) => new Date(b.date) - new Date(a.date))})
                 return
             case SortByEnum.BY_NAME_Z_A:
-                this.setState({sortedAlbumPreviews: albumPreviews.sort((a, b) => b.name < a.name? - 1 : 1)})
+                this.setState({sortedAlbumPreviews: filteredAlbumPreviews.sort((a, b) => b.name < a.name? - 1 : 1)})
                 return
             default:
-                this.setState({sortedAlbumPreviews: albumPreviews.sort((a, b) => a.name < b.name? - 1 : 1)})
+                this.setState({sortedAlbumPreviews: filteredAlbumPreviews.sort((a, b) => a.name < b.name? - 1 : 1)})
         }
     }
 
@@ -85,7 +105,7 @@ class Photos extends React.Component {
                 {this.state.currentAlbum.length === 0?
                     <>
                         <div className="flex flex-col sm:flex-row">
-                            <Dropdown className="w-56" horizontal="center">
+                            <Dropdown className="mx-2 w-56" horizontal="center">
                                 <Dropdown.Toggle className="w-56"><div className="w-48">{this.state.sortOrder}</div></Dropdown.Toggle>
                                 <Dropdown.Menu className="w-56">
                                     <Dropdown.Item className="bg-gray-100" onClick={() => this.setState({sortOrder: SortByEnum.BY_DATE_NEWEST_FIRST})}>{SortByEnum.BY_DATE_NEWEST_FIRST}</Dropdown.Item>
@@ -94,8 +114,21 @@ class Photos extends React.Component {
                                     <Dropdown.Item className="bg-gray-100" onClick={() => this.setState({sortOrder: SortByEnum.BY_NAME_Z_A})}>{SortByEnum.BY_NAME_Z_A}</Dropdown.Item>
 
                                 </Dropdown.Menu>
-
                             </Dropdown>
+                            {this.state.dateRanges &&
+                                <Dropdown className="mx-2 w-56" horizontal="center">
+                                    <Dropdown.Toggle className="w-56"><div className="w-48">Filtering {this.state.selectedDateFilter? this.state.selectedDateFilter.name : ""}</div></Dropdown.Toggle>
+                                    <Dropdown.Menu className="w-56">
+                                        <Dropdown.Item className="bg-gray-100" onClick={() => this.setState({selectedDateFilter: null})}>All</Dropdown.Item>
+                                        {
+                                            this.state.dateRanges.map((dateRange) =>
+                                                <Dropdown.Item className="bg-gray-100" onClick={() => this.setState({selectedDateFilter: dateRange})}>{dateRange.name}</Dropdown.Item>
+                                            )
+                                        }
+                                    </Dropdown.Menu>
+
+                                </Dropdown>
+                            }
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                             {(this.state.sortedAlbumPreviews.length > 0 && this.state.sortedAlbumPreviews.map(album => {
