@@ -1,15 +1,9 @@
-import argon2 from "argon2";
-import express from "express";
-import { sendVerificationMail } from '../helpers/emailer.js';
-import {parseRichText, retrieveImageFile, retrieveRichText} from "../helpers/mediaHelper.js";
-
 export const paymentRoutes = async (app, auth, db, stripe) => {
 
 
     app.use("/api/payments", async function(req, res, next) {
         const webToken = auth.checkToken(req.cookies['loginToken']);
         const foundUser = await db.users.findOneAsync({username: webToken.username});
-        // console.log(foundUser);
         if (foundUser !== null && foundUser.registered) {
             res.locals.user = foundUser;
             console.log("hhhh");
@@ -22,7 +16,6 @@ export const paymentRoutes = async (app, auth, db, stripe) => {
     });
 
     app.post("/api/payments/payLevy", async (req, res) => {
-        // const { product } = req.body;
         console.log("Making Peement")
         const url = process.env.WEB_ADDRESS;
         const levy = await db.products.findOneAsync({name:"JCR Levy"});

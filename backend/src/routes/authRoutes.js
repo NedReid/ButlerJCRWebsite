@@ -1,5 +1,4 @@
 import argon2 from "argon2";
-import express from "express";
 import { sendVerificationMail, sendPasswordResetEmail } from '../helpers/emailer.js';
 
 const cookieLen = 1000 * 60 * 60 * 24 * 28

@@ -1,10 +1,6 @@
-import imageConversion from 'image-conversion';
 import {PNG} from 'pngjs';
 import * as fs from 'fs';
-import {Blob} from 'node:buffer';
-import b64toBlob from 'b64-to-blob';
 import Jimp from "jimp";
-import {Readable} from 'stream';
 import {pdfToPng} from "pdf-to-png-converter";
 import sharp from 'sharp';
 
@@ -95,7 +91,6 @@ export const retrieveRichText =  async (text, db) => {
 export const exportImageFile = async (im_data, hq, name, id, db) => {
     if ((typeof im_data === 'string' || im_data instanceof String) && im_data.startsWith("data:")) {
         if (im_data.startsWith("data:application/pdf")) {
-            let im_dat = im_data.replace(/^data:application\/pdf;base64,/, "");
             let buffer = Buffer.from(im_data, "base64");
             buffer = (await pdfToPng(buffer))[0].content;
             im_data = buffer.toString('base64')

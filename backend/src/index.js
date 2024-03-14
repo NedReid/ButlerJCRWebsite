@@ -6,9 +6,7 @@ import exceptionHandler from 'express-exception-handler';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import Datastore from '@seald-io/nedb';
-import multer from 'multer';
 import cors from 'cors';
-import argon2 from 'argon2';
 import shrinkRay from "@nitedani/shrink-ray-current";
 import { AuthService } from './helpers/authHelper.js';
 import cookieParser from 'cookie-parser';
@@ -18,12 +16,11 @@ import { studentRoutes } from "./routes/studentRoutes.js";
 import { getInvolvedRoutes } from "./routes/getInvolvedRoutes.js";
 import { staticRoutes } from "./routes/staticRoutes.js";
 import { democracyRoutes } from "./routes/democracyRoutes.js";
-import {paymentRoutes} from "./routes/paymentRoutes.js";
+// import {paymentRoutes} from "./routes/paymentRoutes.js";
+// import {userRoutes} from "./routes/paymentRoutes.js";
 import fs from "fs";
-// import spdy from "spdy";
 import https from "https";
 const db = {}
-const upload = multer({dest:'files/'});
 const auth = new AuthService();
 db.users = new Datastore({ filename: 'database/users.db', autoload: true });
 db.members = new Datastore({ filename: 'database/members.db', autoload: true });
@@ -70,80 +67,19 @@ await getInvolvedRoutes(app, auth, db);
 await staticRoutes(app, auth, db);
 await democracyRoutes(app, auth, db);
 // await paymentRoutes(app, auth, db, stripe);
+// await userRoutes(app, auth, db);
 
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
 });
 
-function errorHandler (err, req, res, next) {
+function errorHandler (err, req, res) {
     res.status(500)
     res.redirect("/oh-no")
     console.log("error:", err)
 }
 
 app.use(errorHandler);
-
-// app.get('/', (req, res) => {
-//     res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-// });
-
-// const isNed = (req) => {return req.oidc.isAuthenticated() && req.oidc.user.email ==="ned-reid@sky.com" && req.oidc.user.email_verified}
-//
-// app.all('/api/admin', function(req, res, next) {
-//     if (isNed(req)) {
-//         next();
-//     }
-//     else {
-//         res.status(401);
-//         res.send();
-//     }
-// });
-
-// app.post("/api/admin/saveSongDetails", function(req, res) {
-//     console.log("saving song details");
-//     if(isNed(req))
-//     {
-//         try {
-//             db.update({_id:req.body._id}, req.body, {}, function(err, numReplaced) {
-//                 console.log("updated", numReplaced)
-//                 res.status(201);
-//                 res.send();
-//             });
-//
-//         }
-//         catch {
-//             res.status(204);
-//             res.send();
-//         }
-//     }
-//     else {
-//         res.status(400)
-//         res.send();
-//     }
-//
-// });
-
-// app.get("/api/admin/newSong", function(req, res) {
-//     db.insert( {name:"new song"}, function(err, newDoc)
-//     {
-//         res.send(newDoc);
-//     });
-// });
-//
-// app.post("/api/admin/deleteSong" , function(req, res) {
-//     db.remove( {_id:req.body._id}, function(err, numRemoved)
-//     {
-//         res.status(201);
-//         res.send();
-//     });
-// });
-//
-// app.post("/api/admin/uploadSong",requiresAuth(), upload.single('file') , function(req, res) {
-//     res.status(201);
-//     res.send(req.file.filename);
-// });
-
-
 
 if (process.env.CERT_ADDRESS !== undefined) {
     const httpApp = express()
@@ -169,17 +105,3 @@ else {
         console.log(`Example app listening at http://localhost:${port}`)
     })
 }
-
-// app.get("/api/getMusicData" , function(req, res) {
-//     try {
-//         db.find( {}, function(err, docs)
-//         {
-//             res.status(200);
-//             res.send(docs);
-//         });
-//     }
-//     catch {
-//         res.status(204);
-//         res.send({ message: "Access Dennied"});
-//     }
-// });
