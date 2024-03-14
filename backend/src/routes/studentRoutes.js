@@ -1,7 +1,4 @@
-import argon2 from "argon2";
-import express from "express";
-import { sendVerificationMail } from '../helpers/emailer.js';
-import {deleteDatabaseImages, parseRichText, retrieveImageFile, retrieveRichText} from "../helpers/mediaHelper.js";
+import {deleteDatabaseImages, parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
 
 export const studentRoutes = async (app, auth, db) => {
 
@@ -9,7 +6,6 @@ export const studentRoutes = async (app, auth, db) => {
     app.use("/api/students", async function(req, res, next) {
         const webToken = auth.checkToken(req.cookies['loginToken']);
         const foundUser = await db.users.findOneAsync({username: webToken.username});
-        // console.log(foundUser);
         if (foundUser !== null && foundUser.registered) {
             res.locals.user = foundUser;
             console.log("notNull");

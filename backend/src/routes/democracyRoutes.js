@@ -1,11 +1,4 @@
-import argon2 from "argon2";
-import express from "express";
-import * as fs from 'fs';
-import * as path from 'path';
-import { dirname } from "path";
-import { fileURLToPath } from "url";
 import {parseRichText, retrieveRichText} from "../helpers/mediaHelper.js";
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const democracyRoutes = async (app, auth, db) => {
     const meetingEnum = {
@@ -386,7 +379,6 @@ export const democracyRoutes = async (app, auth, db) => {
     app.get("/api/democracy/getCandidate", async function(req, res) {
         const webToken = getToken(req);
         let candidate = await db.candidates.findOneAsync({_id: req.query._id});
-        let meeting = await db.meetings.findOneAsync({_id: candidate.meeting})
         let admin = await checkAdmin(req, webToken)
         if (candidate.visible || admin) {
             candidate.manifesto = await retrieveRichText(candidate.manifesto, "candidates_notes");

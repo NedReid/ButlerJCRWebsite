@@ -1,7 +1,9 @@
 {
   "scripts": {
     "build": "cd frontend && npm install && npm run build && cd ../backend && npm install",
-    "watch": "nodemon --exec \"cd backend && npm run watch\" --ext ."
+    "watch": "nodemon --exec \"cd backend && npm run watch\" --ext .",
+    "lint": "eslint --ext .js,.jsx .",
+    "lint:fix": "eslint --fix --ext .js,.jsx ."
   },
   "dependencies": {
     "nodemon": "^2.0.19"
@@ -12,5 +14,9 @@
       "backend/files"
     ],
     "delay": 2500
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0"
   }
 }

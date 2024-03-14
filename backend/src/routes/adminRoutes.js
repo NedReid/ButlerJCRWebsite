@@ -1,6 +1,3 @@
-import argon2 from "argon2";
-import express from "express";
-import { sendVerificationMail } from '../helpers/emailer.js';
 import {
     parseRichText,
     retrieveRichText,
@@ -47,7 +44,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
         res.send("TEAPOT DETECTED");
     });
 
-    app.get("/api/admin/break", async function(req, res) {
+    app.get("/api/admin/break", async function() {
         throw "We live in a society"
     });
 
@@ -433,7 +430,7 @@ export const adminRoutes = async (app, auth, db, __dirname) => {
             const believes =req.body.believes;
             const resolves =req.body.resolves
             const newDb = await db.motions.insertAsync(req.body);
-            newDb.notes = await parseRichText(notes, newDb._id, "motion_notes");;
+            newDb.notes = await parseRichText(notes, newDb._id, "motion_notes");
             newDb.believes = await parseRichText(believes, newDb._id, "motion_believes");
             newDb.resolves = await parseRichText(resolves, newDb._id, "motion_resolves");
             await db.motions.updateAsync({_id: newDb}, newDb);

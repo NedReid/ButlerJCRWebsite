@@ -1,5 +1,3 @@
-import argon2 from "argon2";
-import express from "express";
 import * as fs from 'fs';
 import * as path from 'path';
 import { dirname } from "path";
@@ -98,7 +96,7 @@ export const staticRoutes = async (app, auth, db) => {
                     console.log("gettibng prevs")
                     await makePreviewImage(inputPath, outputPath)
                 }
-            };
+            }
             let previews = fs.readdirSync(path.join(__dirname, "../../files/albumsPreview/" + album))
             const random = Math.floor(Math.random() * previews.length);
             returnedPreview.push({...photoAlbum,  path:previews[random]})
@@ -123,7 +121,7 @@ export const staticRoutes = async (app, auth, db) => {
                     console.log("making preview for " + outputPath)
                     await makePreviewImage(inputPath, outputPath)
                 }
-            };
+            }
             res.status(200);
             res.send(photos);
         }

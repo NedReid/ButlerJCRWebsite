@@ -34,7 +34,7 @@ export const sendVerificationMail = async (username, verificationToken) => {
         html: htmlContent
     };
 
-    await transporter.verify(function (error, success) {
+    await transporter.verify(function (error) {
         if (error) {
             console.log(error);
         } else {
@@ -68,7 +68,7 @@ export const sendPasswordResetEmail = async (username, resetToken) => {
         html: htmlContent
     };
 
-    await transporter.verify(function (error, success) {
+    await transporter.verify(function (error) {
         if (error) {
             console.log(error);
         } else {
@@ -94,7 +94,7 @@ export const sendFeedback = async (feedback) => {
         html: htmlContent
     };
 
-    await transporter.verify(function (error, success) {
+    await transporter.verify(function (error) {
         if (error) {
             console.log(error);
         } else {

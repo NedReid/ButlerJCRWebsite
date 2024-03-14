@@ -1,6 +1,3 @@
-import argon2 from "argon2";
-import express from "express";
-import { sendVerificationMail } from '../helpers/emailer.js';
 export const userRoutes = async (app, auth, db) => {
 
 
