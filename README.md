@@ -1,4 +1,4 @@
-# Butler JCR Website
+# Butler JCR Website ❤️💛
 
 This is the official website repository used by Butler JCR. This project is built using Express, React, and Tailwind. I personally use Webstorm for development, and Gitkraken for version control!
 
@@ -8,7 +8,8 @@ To access the webpage, follow these instructions:
 
 **Step 1: Install Node.js**
 
-This can be done from the [Node.js](https://nodejs.org/en/) Website.
+This can be done from the [Node.js](https://nodejs.org/en/) Website. I use node 18.12.1 but any recent version 
+should work! You should also install [Git](https://git-scm.com/). (obviously!)
 
 **Step 2: Install frontend and backend scripts:**
 
@@ -50,7 +51,7 @@ PORT=80                                             // Port the server should ru
 ```
 To make a `SIGNATURE` and `ESIGNATURE` I tend to use this [key generator](https://www.grc.com/passwords.htm).
 
-For the emailer address I use my personal address for development (you may need to set up an API key to use it).
+For the emailer address I use my personal address for development. If using Gmail, you will likely need an [App Password](https://support.google.com/accounts/answer/185833?hl=en).
 
 **Step 4: Run and develop code:**
 
