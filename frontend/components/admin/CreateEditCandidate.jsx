@@ -81,7 +81,7 @@ class CreateEditCandidate extends React.Component {
         this.state.candidate.resolves = page;
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.candidate !== undefined) {
             console.log(this.state.candidate)
             await updateCandidate(this.state.candidate);
@@ -94,7 +94,7 @@ class CreateEditCandidate extends React.Component {
         console.log("closedTab")
     }
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deleteCandidate(this.state.candidate);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -154,7 +154,7 @@ class CreateEditCandidate extends React.Component {
             <br/>
             {this.state.currentYear !== "" && <select
                 defaultValue={this.state.candidate.meeting} onChange={(event) => this.handleChange(event, "meeting")} key={this.state.currentYear} className="select select-bordered w-full max-w-xs">
-                <option value="">Select Meeting}</option>
+                <option value="">Select Meeting</option>
                 {this.props.meetings.filter((meeting) => {return meeting.date.getFullYear() === this.state.currentYear}).map((meeting, index) => {
                     return (
                         <option value={meeting._id} key={this.typeSelect + "_" + index}>{meetingToName(meeting.m_type) + " " + meeting.date.getFullYear()}</option>
@@ -212,7 +212,7 @@ class CreateEditCandidate extends React.Component {
 
         </div>
         <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Submit Candidate</button>
-        {this.props.candidate !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Candidate</label>}
+        {this.props.candidate !== undefined && <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Candidate</label>}
 
         </>
     }

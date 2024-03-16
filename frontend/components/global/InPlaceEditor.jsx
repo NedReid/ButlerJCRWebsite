@@ -1,7 +1,7 @@
 import '@bangle.dev/core/style.css';
 import '@bangle.dev/tooltip/style.css';
 import '@bangle.dev/react-menu/style.css';
-import React, { useState } from 'react';
+import React from 'react';
 import { BangleEditor, useEditorState } from '@bangle.dev/react';
 import { PluginKey, Plugin } from '@bangle.dev/core';
 import { toHTMLString } from '@bangle.dev/utils';
@@ -22,19 +22,6 @@ import {
 import {
     floatingMenu,
     FloatingMenu,
-    StaticMenu,
-    Menu,
-    HeadingButton,
-    ParagraphButton,
-    BlockquoteButton,
-    BulletListButton,
-    OrderedListButton,
-    TodoListButton,
-    BoldButton,
-    ItalicButton,
-    MenuGroup,
-    UndoButton,
-    RedoButton,
 } from '@bangle.dev/react-menu';
 
 const menuKey = new PluginKey('menuKey');
@@ -43,7 +30,6 @@ export default function TextEditor(props) {
     function onEditorDocChange(state) {
         props.onUpdate(toHTMLString(state));
     }
-    const [editor, setEditor] = useState();
 
     const editorState = useEditorState({
         specs: [
@@ -89,7 +75,7 @@ export default function TextEditor(props) {
 
     return (
         <div className="prose w-full w-full max-w-none">
-            <BangleEditor state={editorState} onReady={setEditor}  className="max-w-none w-full w-full">
+            <BangleEditor state={editorState}  className="max-w-none w-full w-full">
                 <FloatingMenu menuKey={menuKey}/>
             </BangleEditor>
         </div>

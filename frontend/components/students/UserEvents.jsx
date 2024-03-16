@@ -1,10 +1,10 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {getEvents} from '../../helpers/studentHelper';
 import {useNavigate} from 'react-router-dom';
 import parse from 'html-react-parser';
 import {tailwindParse} from "../../helpers/tailwindParse";
 
-class UserEvents extends React.Component {
+class UserEventsComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {events: []};
@@ -29,10 +29,10 @@ class UserEvents extends React.Component {
         return <div className="my-2 p-8">
             <div className="text-4xl font-bold">Events:</div>
             {this.state.events.length > 0 && <>
-            {this.state.events.map((event, index) =>{
+            {this.state.events.map((event) =>{
                     console.log(event.desc);
                     console.log(tailwindParse(event.desc))
-                    return <div className="my-2 p-2 rounded border-2 border-amber-500 collapse collapse-arrow">
+                    return <div key={event._id} className="my-2 p-2 rounded border-2 border-amber-500 collapse collapse-arrow">
                         <input type="checkbox" className="peer"/>
                         <div className=" collapse-title text-3xl font-semibold">{event.name}</div>
                         <div className="collapse-content text-black">
@@ -59,8 +59,11 @@ class UserEvents extends React.Component {
     }
 
 }
-export default function(props) {
+
+const UserEvents = (props) => {
     const navigate = useNavigate();
 
-    return <UserEvents {...props} navigate={navigate} />;
+    return <UserEventsComponent {...props} navigate={navigate} />;
 }
+
+export default UserEvents

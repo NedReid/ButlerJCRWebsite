@@ -5,7 +5,7 @@ import Loading from "../global/Loading";
 import CreateEditCalendarEvent from "./CreateEditCalendarEvent";
 import {monthName} from "../../models/calendarEventEnum";
 
-class CalendarEdit extends React.Component {
+class CalendarEditComponent extends React.Component {
     constructor(props) {
 
         super(props);
@@ -102,7 +102,7 @@ class CalendarEdit extends React.Component {
                 <br/>
                 Month:
                 <select defaultValue={this.state.targetMonth} onChange={this.changeTargetMonth} className="ml-2 select select-bordered w-full max-w-xs">
-                    {[0,1,2,3,4,5,6,7,8,9,10,11].map((month, index) => {
+                    {[0,1,2,3,4,5,6,7,8,9,10,11].map((month) => {
                         return (
                             <option value={month} key={month}>{monthName(month) + " " + this.state.targetYear}</option>
                         );})}
@@ -118,7 +118,7 @@ class CalendarEdit extends React.Component {
                     console.log(start, current, end)
                     console.log(current >= start && current < end)
                     return (current >= start && current < end)
-                    }).map((event, index) => {
+                    }).map((event) => {
                     return (
                         <option value={event._id} key={event._id}>{event.title}</option>
 
@@ -126,7 +126,7 @@ class CalendarEdit extends React.Component {
                 })}
             </select>
             <br/>
-        {this.state.currentEvent !== undefined && this.state.events.map((event, index) =>{
+        {this.state.currentEvent !== undefined && this.state.events.map((event) =>{
                 if(event === this.state.currentEvent) {
                     return <CreateEditCalendarEvent closeTab={this.onUpdated} key={event._id} event={this.state.currentEvent}/>
                 }
@@ -141,9 +141,11 @@ class CalendarEdit extends React.Component {
 }
 
 
-export default function(props) {
+const CalendarEdit = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <CalendarEdit {...props} params={params} navigate={navigate} />;
+    return <CalendarEditComponent {...props} params={params} navigate={navigate} />;
 }
+
+export default CalendarEdit

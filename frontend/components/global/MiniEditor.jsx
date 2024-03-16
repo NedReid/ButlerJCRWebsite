@@ -1,6 +1,5 @@
 import { AiOutlineEdit, AiOutlineSave } from 'react-icons/ai';
 import React from "react";
-import {useNavigate, useParams} from "react-router-dom";
 
 class MiniEditor extends React.Component {
 

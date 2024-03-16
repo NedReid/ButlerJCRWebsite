@@ -18,7 +18,7 @@ class CreateEditPagePerm extends React.Component {
     }
 
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.pagePerm !== undefined) {
             console.log(this.state.pagePerm)
             await updatePagePerms(this.state.pagePerm);
@@ -66,7 +66,7 @@ class CreateEditPagePerm extends React.Component {
                        }}
                 /></label>
             {this.state.pagePerm.editors.map((opt, index) => {
-                return  <label className="flex"> Editor {index + 1} CIS Code:
+                return  <label className="flex" key={index}> Editor {index + 1} CIS Code:
                     <input className=" mx-2 mb-2 rounded border-2 border-slate-500 flex-grow"
                            name="questionText" type="text" defaultValue={this.state.pagePerm.editors[index]} key={this.state.pagePerm._id + "editor" + index} onChange={(event) => this.updateEditor(event, index)}/>
                 </label>

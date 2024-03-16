@@ -1,12 +1,10 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {getSSCHeaders} from "../../helpers/getInvolvedHelper";
 import {useNavigate} from 'react-router-dom';
-import parse from 'html-react-parser';
-import {tailwindParse} from "../../helpers/tailwindParse";
 import {SSCEnum} from "../../models/SSCEnum";
 import SSCHeader from "./SSCHeader";
 
-class Sports extends React.Component {
+class SportsComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {SSCs: []};
@@ -33,9 +31,9 @@ class Sports extends React.Component {
             <div className="text-4xl font-bold">Sports</div>
             Sports are good. Please join one if you want.
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {this.state.SSCs.filter((ssc) => {return ssc.type === SSCEnum.sport}).map((ssc, index) => {
+                {this.state.SSCs.filter((ssc) => {return ssc.type === SSCEnum.sport}).map((ssc) => {
                     return (
-                        <SSCHeader editPage={this.editPage} goToPage={this.goToPage} ssc={ssc} username={this.props.username}></SSCHeader>
+                        <SSCHeader key={ssc._id} editPage={this.editPage} goToPage={this.goToPage} ssc={ssc} username={this.props.username}></SSCHeader>
                     );
                 })}
             </div>
@@ -45,8 +43,10 @@ class Sports extends React.Component {
     }
 
 }
-export default function(props) {
+const Sports = (props) => {
     const navigate = useNavigate();
 
-    return <Sports {...props} navigate={navigate} />;
+    return <SportsComponent {...props} navigate={navigate} />;
 }
+
+export default Sports

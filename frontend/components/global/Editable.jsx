@@ -1,6 +1,5 @@
 import React from 'react';
 import InPlaceEditor from "./InPlaceEditor";
-import TextEditor from "./TextEditor";
 import { editableModel } from "../../models/editableModel";
 import parse from "html-react-parser";
 import {tailwindParse} from "../../helpers/tailwindParse";

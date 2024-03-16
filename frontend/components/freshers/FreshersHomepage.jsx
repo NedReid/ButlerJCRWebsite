@@ -1,7 +1,6 @@
 import React from 'react';
-import {Carousel, Divider} from "react-daisyui";
+import {Carousel} from "react-daisyui";
 import {getFolderAddresses, getPageEditables, updatePageEditables} from "../../helpers/staticHelper";
-import LatestPosts from "../static/LatestPosts";
 import Editable from "../global/Editable";
 import {AiFillEdit, AiFillSave} from "react-icons/ai";
 import {Link} from "react-router-dom";
@@ -59,8 +58,8 @@ class FreshersHomepage extends React.Component {
 
         return <div>
             {this.state.carouselPaths.length >= 2 && <div className="w-full h-52 relative flex justify-center"><Carousel buttonStyle={buttonStyle} className="w-full h-52 absolute " display="sequential">
-                {this.state.carouselPaths.map( (addr) => {
-                    return <Carousel.Item>
+                {this.state.carouselPaths.map( (addr, index) => {
+                    return <Carousel.Item key={index}>
                         <img className="w-full object-cover" src={addr}/>
                     </Carousel.Item>
                     })}

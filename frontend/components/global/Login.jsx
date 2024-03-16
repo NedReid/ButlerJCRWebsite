@@ -2,8 +2,6 @@ import React from 'react';
 import {login, register, isLoggedIn, logout, resendVerificationEmail, passwordResetEmail} from '../../helpers/loginHelper';
 import Loading from "./Loading";
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
-import {menuItems} from "./menuItems";
-import {Link} from "react-router-dom";
 
 const loginStateEnum = {
     notLoggedIn: 0,
@@ -26,7 +24,7 @@ class Login extends React.Component {
 
     }
 
-    async componentDidUpdate(prevProps, prevState) {
+    async componentDidUpdate(prevProps) {
         if (prevProps.loggedIn === "waiting") {
             if (this.props.loggedIn !== false && this.props.loggedIn !== "waiting") {
                 if (this.props.verified !== false) {
@@ -42,16 +40,7 @@ class Login extends React.Component {
         }
     }
 
-    // async updateLoginState(newState=undefined) {
-    //     if(newState !== undefined) {
-    //
-    //     }
-    //     else {
-    //         if this.props.
-    //     }
-    // }
-
-    async handleLogin(event) {
+    async handleLogin() {
         const resp = await login(this.state.username, this.state.password);
         if (resp.status === 201) {
             window.location.reload(false);
@@ -63,7 +52,7 @@ class Login extends React.Component {
         }
     }
 
-    async handleRegister(event) {
+    async handleRegister() {
         if (!(/^[A-Z]{4}[0-9]{2}$/i).test(this.state.username)) {
             this.setState({tagText: "Your username should be your CIS code (eg: abcd12)"});
         }
@@ -89,7 +78,7 @@ class Login extends React.Component {
 
     }
 
-    handleForgot = async (event) =>  {
+    handleForgot = async () =>  {
         if (!(/^[A-Z]{4}[0-9]{2}$/i).test(this.state.username)) {
             this.setState({tagText: "Type in CIS Code into the 'Username' box to reset password"});
         }
@@ -100,7 +89,7 @@ class Login extends React.Component {
     }
 
 
-    async checkLogin(event) {
+    async checkLogin() {
         const resp = await isLoggedIn();
         console.log('Welcome ');
         console.log(resp)
@@ -114,19 +103,15 @@ class Login extends React.Component {
     }
 
 
-    async logOut(event) {
-        const resp = await logout();
-
+    async logOut() {
+        await logout();
     }
 
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
-        // this.setState({username: event.target.value});
     }
 
     render() {
-        let open = (this.state.loginState === loginStateEnum.register ||
-            this.state.loginState === loginStateEnum.login || this.state.loginState === loginStateEnum.logout)
         let tag = false
         if (this.state.tagText !== "") {
             tag = <span className="pl-2 flex flex-grow items-center font-normal"><i>{this.state.tagText}</i></span>
@@ -335,6 +320,3 @@ class Login extends React.Component {
 }
 
 export default Login;
-// <button className="bg-amber-400 rounded my-1 mx-2 px-2 transition hover:bg-amber-600"
-//         onClick={this.handleRegister}>Register
-// </button>

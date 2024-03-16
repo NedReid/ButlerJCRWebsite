@@ -6,7 +6,7 @@ import eventBookingModel from "../../models/eventBookingModel";
 import {createEventBooking, getEvents} from "../../helpers/studentHelper";
 import Loading from "../global/Loading";
 
-class BookEvent extends React.Component {
+class BookEventComponent extends React.Component {
     constructor(props) {
 
         super(props);
@@ -14,7 +14,6 @@ class BookEvent extends React.Component {
         this.state = {eventBooking: new eventBookingModel(), eventId: eventId, completed: false, loading:false};
         console.log(this.props.params)
         console.log(this.state.eventId);
-        // console.log(this.state.event.name)
     }
 
     async componentDidMount(){
@@ -67,25 +66,8 @@ class BookEvent extends React.Component {
     handleQuestion = (event, index, index2) => {
         this.state.eventBooking.individualAnswers[index].questions[index2] = event.target.value;
     }
-    //
-    // addQuestion = (event) => {
-    //     console.log("adding q")
-    //     this.state.event.questions.push(new questionModel());
-    //     let maxId = Math.max(...this.state.event.questions.map(r => r.id));
-    //     this.state.event.questions[this.state.event.questions.length - 1].id = maxId + 1;
-    //     // this.setState({event: new eventModel(this.state.event)});
-    //     this.forceUpdate()
-    // }
-    //
-    // removeQuestion = (id, event) => {
-    //     console.log("removing q")
-    //     this.state.event.questions.splice(id, 1);
-    //     // this.setState({event: new eventModel(this.state.event)});
-    //     this.forceUpdate()
-    //
-    // }
-    //
-    submitEventBooking = async (event) => {
+
+    submitEventBooking = async () => {
         this.setState({loading:true})
         await createEventBooking(this.state.eventBooking);
         this.setState({completed:true})
@@ -148,7 +130,7 @@ class BookEvent extends React.Component {
                     </span>
 
                         {this.state.eventBooking.individualAnswers.map((individualAnswer, index) =>{
-                                return <div className="flex flex-col">
+                                return <div key={index} className="flex flex-col">
                                     <div className="font-bold">Person {index + 1}</div>
                                         <label> Person Name:
                                             <input className=" ml-2 mb-2 rounded border-2 border-slate-500"
@@ -159,11 +141,11 @@ class BookEvent extends React.Component {
                                                name="name" type="text" defaultValue={individualAnswer.cis} onChange={(event) => this.handleChange(event, "cis", index)}/>
                                         </label>
                                     {this.state.event.questions.map((question, index2) =>{
-                                        return <div className="flex flex-col">
+                                        return <div key={index2} className="flex flex-col">
                                             <div>{question.questionText}</div>
                                             {(question.questionType === questionTypeEnum.multipleChoice) && <div>
                                                 {question.data.map((option, index3) =>{
-                                                    return <div className="">
+                                                    return <div key={index3} className="">
                                                         <label><input name={"mt_" + index2 + "_" + index} onChange={(event => this.handleQuestion(event, index, index2))}
                                                                       type="radio"
                                                                       defaultChecked={this.state.eventBooking.groupSize === 1}
@@ -211,8 +193,10 @@ class BookEvent extends React.Component {
 
 }
 
-export default function(props) {
+const BookEvent = (props) => {
     const params = useParams();
 
-    return <BookEvent {...props} params={params} />;
+    return <BookEventComponent {...props} params={params} />;
 }
+
+export default BookEvent

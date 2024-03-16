@@ -1,7 +1,7 @@
 import React from 'react';
 import {getOfficers, getRoleHeaders} from '../../helpers/adminHelper';
 import CreateEditOfficer from './CreateEditOfficer';
-import {roleCategoryEnum, roleCategoryNames, meetingEnum, methodEnum} from "../../models/roles/roleEnums";
+import {roleCategoryEnum, roleCategoryNames} from "../../models/roles/roleEnums";
 
 class Officers extends React.Component {
     constructor(props) {

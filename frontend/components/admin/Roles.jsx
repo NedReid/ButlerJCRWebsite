@@ -1,7 +1,7 @@
 import React from 'react';
 import {getRoles} from '../../helpers/adminHelper';
 import CreateEditRole from './CreateEditRole';
-import {roleCategoryEnum, roleCategoryNames, meetingEnum, methodEnum} from "../../models/roles/roleEnums";
+import {roleCategoryEnum, roleCategoryNames} from "../../models/roles/roleEnums";
 
 class Events extends React.Component {
     constructor(props) {

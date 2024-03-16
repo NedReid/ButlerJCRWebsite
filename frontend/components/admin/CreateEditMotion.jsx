@@ -58,7 +58,7 @@ class CreateEditMotion extends React.Component {
         this.state.motion.resolves = page;
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.motion !== undefined) {
             console.log(this.state.motion)
             await updateMotion(this.state.motion);
@@ -71,7 +71,7 @@ class CreateEditMotion extends React.Component {
         console.log("closedTab")
     }
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deleteMotion(this.state.motion);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -165,7 +165,7 @@ class CreateEditMotion extends React.Component {
 
         </div>
         <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Submit Motion</button>
-        {this.props.motion !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Motion</label>}
+        {this.props.motion !== undefined && <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Motion</label>}
 
         </>
     }

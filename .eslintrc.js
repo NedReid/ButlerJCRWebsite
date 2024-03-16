@@ -12,4 +12,8 @@ module.exports = {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
+    rules: {
+        "react/prop-types": 0,
+        "react/no-direct-mutation-state": 0
+    }
 }

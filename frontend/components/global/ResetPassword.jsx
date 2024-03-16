@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../global/Loading";
 import {getUserByResetToken, submitNewPassword} from "../../helpers/loginHelper";
 
-class ResetPassword extends React.Component {
+class ResetPasswordComponent extends React.Component {
     constructor(props) {
 
         super(props);
@@ -38,7 +38,7 @@ class ResetPassword extends React.Component {
     }
 
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.state.password.length < 8) {
             this.setState({errorText: "Password should be at least 8 characters"});
             return
@@ -86,9 +86,10 @@ class ResetPassword extends React.Component {
 }
 
 
-export default function(props) {
+const ResetPassword = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <ResetPassword {...props} params={params} navigate={navigate} />;
+    return <ResetPasswordComponent {...props} params={params} navigate={navigate} />;
 }
+export default ResetPassword

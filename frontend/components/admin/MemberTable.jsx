@@ -1,6 +1,5 @@
 import React from "react";
 import {deleteMember, updateMember, getMembers} from '../../helpers/adminHelper';
-import productModel from "../../models/productModel";
 import { Table, Pagination, Button } from "react-daisyui";
 import date from "date-and-time";
 import two_digit_year from "date-and-time/plugin/two-digit-year";
@@ -92,7 +91,7 @@ class MemberTable extends React.Component {
                             <span><MiniEditor text={member.username} saveText={(text) => this.saveText(text, index, "username")}></MiniEditor></span>
                             <span><MiniEditor text={member.transaction} saveText={(text) => this.saveText(text, index, "transaction")}></MiniEditor></span>
                             <span><MiniEditor text={date.format(new Date(member.expiry), "DD/MM/YY")} saveText={(text) => this.saveDate(text, index, "expiry")}></MiniEditor></span>
-                            <label for="my-modal" className="text-blue-700 hover:text-blue-800 hover:cursor-pointer underline model-button" onClick={async () => this.setState({toDelete: member})}>Delete</label>
+                            <label htmlFor="my-modal" className="text-blue-700 hover:text-blue-800 hover:cursor-pointer underline model-button" onClick={async () => this.setState({toDelete: member})}>Delete</label>
                         </Table.Row>
 
                     })}
@@ -103,10 +102,10 @@ class MemberTable extends React.Component {
             <Pagination className=" flex justify-center">
                 {(Array.from(Array(pages).keys())).map(i => {
                     if (pages <= 10 || i < 1 || i > (pages - 2) || Math.abs(this.state.page - 1 - i) < 4 || (this.state.page - 1 - i === 4 && this.state.page === 6) || (this.state.page - 1 - i === -4 && this.state.page === pages - 5)){
-                        return <Button active={this.state.page === i + 1} onClick={async () => this.setState({page: i+1})}>{i + 1}</Button>
+                        return <Button key={i} active={this.state.page === i + 1} onClick={async () => this.setState({page: i+1})}>{i + 1}</Button>
                     }
                     else if (Math.abs(this.state.page - 1 - i) === 4){
-                        return <Button disabled>...</Button>
+                        return <Button key={i} disabled>...</Button>
                     }
                 })}
             </Pagination>

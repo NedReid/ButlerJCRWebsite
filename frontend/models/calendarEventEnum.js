@@ -1,5 +1,3 @@
-import {SSCEnum} from "./SSCEnum";
-
 export const calendarEventEnum = {
     other: 0,
     largeEvent: 1,

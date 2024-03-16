@@ -1,8 +1,7 @@
 import React from "react";
 import {createOfficer, updateOfficer, deleteOfficer} from '../../helpers/adminHelper';
 import officerModel from '../../models/roles/officerModel';
-import {meetingToName, methodEnum, methodName, roleCategoryEnum, roleCategoryNames, meetingEnum} from "../../models/roles/roleEnums";
-import TextEditor from "../global/TextEditor";
+import {meetingToName, roleCategoryEnum, roleCategoryNames, meetingEnum} from "../../models/roles/roleEnums";
 
 class CreateEditOfficer extends React.Component {
     constructor(props) {
@@ -58,7 +57,7 @@ class CreateEditOfficer extends React.Component {
         this.state.officer.so = so;
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.officer !== undefined) {
             console.log(this.state.officer)
             await updateOfficer(this.state.officer);
@@ -71,7 +70,7 @@ class CreateEditOfficer extends React.Component {
         console.log("closedTab")
     }
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deleteOfficer(this.state.officer);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -151,7 +150,7 @@ class CreateEditOfficer extends React.Component {
 
         </div>
         <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Submit Officer</button>
-        {this.props.officer !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Officer</label>}
+        {this.props.officer !== undefined && <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Officer</label>}
 
         </>
     }

@@ -1,6 +1,5 @@
 import axios from "axios";
 import download from "js-file-download";
-import * as fs from 'fs';
 
 export const getEvents =  async () => {
     const response = await axios.get("/api/admin/getEvents");

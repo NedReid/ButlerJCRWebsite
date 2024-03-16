@@ -1,6 +1,5 @@
 import React from 'react';
 import {getKeyValue, setKeyValue} from "../../helpers/adminHelper";
-import CreateEditAdminPerms from "./CreateEditAdminPerms";
 import Loading from "../global/Loading";
 
 
@@ -22,7 +21,7 @@ class FreshersVisibility extends React.Component {
         this.setState({visibility: event.target.value, complete: false})
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         await setKeyValue("freshersVisibility", this.state.visibility)
         this.setState({complete: true})
 

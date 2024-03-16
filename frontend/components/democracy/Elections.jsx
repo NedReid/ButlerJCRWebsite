@@ -11,7 +11,7 @@ import ElectionMethodModal from "./ElectionMethodModal";
 import axios from "axios";
 import CandidateMaterialsModal from "./CandidateMaterialsModal";
 
-class Elections extends React.Component {
+class ElectionsComponent extends React.Component {
 
     checkImage = async (path) => {
         try {
@@ -62,7 +62,7 @@ class Elections extends React.Component {
         this.state.role.page = page;
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         await updateRole(this.state.role);
     }
     navigateToSlug = (slug) => {
@@ -85,8 +85,8 @@ class Elections extends React.Component {
         if (this.state.meetingHeaders !== undefined) {
             const sideBar = <div className="relative w-full h-full bg-red-800 text-white p-4">
                 <div className="sticky top-36 grid grid-cols-1 sm:grid-cols-2 justify-items-center md:block text-center md:text-left">
-                    {this.state.meetingHeaders.map(meetingHeader => {
-                        return  <div>
+                    {this.state.meetingHeaders.map((meetingHeader, index) => {
+                        return  <div key={index}>
                                     <button className="p-1 hover:bg-red-900" onClick={() => this.navigateToSlug(meetingHeader.getSlug())}>{meetingToName(meetingHeader.m_type)} {meetingHeader.date.getFullYear()}</button>
                                 </div>
                     })}
@@ -113,7 +113,7 @@ class Elections extends React.Component {
                                     <div className="md:max-w-lg w-full justify-self-center text-left border">
                                     {this.state.currentRoles.map( (role, index) => {
                                         console.log(role);
-                                        return <Collapse className={"group " + (index % 2 === 0? "bg-slate-200" : "bg-slate-100")} checkbox={true} icon="arrow">
+                                        return <Collapse key={role._id} className={"group " + (index % 2 === 0? "bg-slate-200" : "bg-slate-100")} checkbox={true} icon="arrow">
                                             <Collapse.Title className="group-hover:bg-slate-300 text-xl font-semibold">{role.name}</Collapse.Title>
                                             <Collapse.Content className="bg-slate-50">
                                                 <div><b>Description: </b><i>{role.desc}</i></div>
@@ -131,7 +131,7 @@ class Elections extends React.Component {
                             <div className="text-lg font-semibold">Elected Officers:</div>
                                 <div className="md:max-w-lg w-full justify-self-center text-left border">
                                 {this.state.currentRoles.map( (officer, index) => {
-                                    return <Collapse className={"group " + (index % 2 === 0? "bg-slate-200" : "bg-slate-100")} checkbox={true} icon="arrow">
+                                    return <Collapse key={officer._id} className={"group " + (index % 2 === 0? "bg-slate-200" : "bg-slate-100")} checkbox={true} icon="arrow">
                                         <Collapse.Title className="group-hover:bg-slate-300 text-xl font-semibold">{officer.name}: {officer.role.name}</Collapse.Title>
                                         <Collapse.Content className="bg-slate-50">
                                             <div><b>Description: </b><i>{officer.role.desc}</i></div>
@@ -147,10 +147,10 @@ class Elections extends React.Component {
                                 <Divider/>
                                 <div className="text-lg font-semibold">Election Material:</div>
                                 <div className={"grid grid-cols-1 justify-evenly place-items-center" + (this.state.currentCandidates.length > 1? (" md:grid-cols-2" + this.state.currentCandidates.length > 2? " lg:grid-cols-3" : "") : "")}>
-                                    {this.state.currentCandidates.map( (candidate, index) => {
+                                    {this.state.currentCandidates.map( (candidate) => {
                                         console.log(candidate);
                                         let rName = candidate.role.name;
-                                        return <CandidateMaterialsModal candidate={candidate} rName={rName}></CandidateMaterialsModal>
+                                        return <CandidateMaterialsModal key={candidate._id} candidate={candidate} rName={rName}></CandidateMaterialsModal>
                                     })}
                                 </div>
                             </>}
@@ -160,7 +160,7 @@ class Elections extends React.Component {
                                 <div className="text-lg font-semibold">Motions:</div>
                                 <div className="md:max-w-lg w-full justify-self-center text-left border">
                                 {this.state.currentMotions.map( (motion, index) => {
-                                    return <Collapse className={"group " + (index % 2 === 0? "bg-slate-200" : "bg-slate-100")} checkbox={true} icon="arrow">
+                                    return <Collapse key={motion._id} className={"group " + (index % 2 === 0? "bg-slate-200" : "bg-slate-100")} checkbox={true} icon="arrow">
                                         <Collapse.Title className="group-hover:bg-slate-300 text-xl font-semibold">{motion.name}</Collapse.Title>
                                         <Collapse.Content className="bg-slate-50 text-left">
                                             <div className="text-lg font-semibold">This JCR Notes:</div>
@@ -201,9 +201,11 @@ class Elections extends React.Component {
 }
 
 
-export default function(props) {
+const Elections = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <Elections {...props} params={params} navigate={navigate} key={params["id"]} />;
+    return <ElectionsComponent {...props} params={params} navigate={navigate} key={params["id"]} />;
 }
+
+export default Elections

@@ -1,9 +1,8 @@
 import React from 'react';
-import {getAlbumFiles, getAlbums, getFolderAddresses} from "../../helpers/staticHelper";
+import {getAlbumFiles, getAlbums} from "../../helpers/staticHelper";
 import Loading from "../global/Loading";
 import {useNavigate, useParams} from "react-router-dom";
-import {Collapse, Dropdown, Modal} from "react-daisyui";
-import {methodName} from "../../models/roles/roleEnums";
+import {Dropdown, Modal} from "react-daisyui";
 
 const SortByEnum = {
     BY_DATE_OLDEST_FIRST: "By date (oldest-newest)",
@@ -12,7 +11,7 @@ const SortByEnum = {
     BY_NAME_Z_A: "By name (Z-A)"
 }
 
-class Photos extends React.Component {
+class PhotosComponent extends React.Component {
     constructor(props) {
         super(props);
 
@@ -24,12 +23,6 @@ class Photos extends React.Component {
         await this.setState({albumPreviews: await getAlbums()})
         let album = this.props.params["id"]
         if (album !== undefined) {
-            // const albumQuery = this.state.albumPreviews.filter(prev => prev.name === this.props.params["id"])
-            // console.log(albumQuery)
-            // if (albumQuery.length === 0) {
-            //     this.props.navigate("/oh-no")
-            // }
-            // album = album.replaceAll("%20", " ")
             await this.pickAlbum(album)
         }
 
@@ -121,8 +114,8 @@ class Photos extends React.Component {
                                     <Dropdown.Menu className="w-56">
                                         <Dropdown.Item className="bg-gray-100" onClick={() => this.setState({selectedDateFilter: null})}>All</Dropdown.Item>
                                         {
-                                            this.state.dateRanges.map((dateRange) =>
-                                                <Dropdown.Item className="bg-gray-100" onClick={() => this.setState({selectedDateFilter: dateRange})}>{dateRange.name}</Dropdown.Item>
+                                            this.state.dateRanges.map((dateRange, index) =>
+                                                <Dropdown.Item key={index} className="bg-gray-100" onClick={() => this.setState({selectedDateFilter: dateRange})}>{dateRange.name}</Dropdown.Item>
                                             )
                                         }
                                     </Dropdown.Menu>
@@ -133,6 +126,7 @@ class Photos extends React.Component {
                         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                             {(this.state.sortedAlbumPreviews.length > 0 && this.state.sortedAlbumPreviews.map(album => {
                                 return <div
+                                    key={album._id}
                                     className="hover:cursor-pointer hover:bg-slate-50 active:bg-slate-200 hover:shadow hover:animate-pingOnce w-64 h-80 m-4 border-2 rounded text-center"
                                     onClick={async () => await this.navigateToAlbum(album.name)}>
                                     <img className="object-cover w-64 h-64"
@@ -153,7 +147,7 @@ class Photos extends React.Component {
                                 <div
                                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                                     {(this.state.albumPhotos.map((photo, index) => {
-                                        return <div className="group relative w-64 h-64 hover:cursor-pointer" onClick={() => this.setState({photo: index})}>
+                                        return <div key={index} className="group relative w-64 h-64 hover:cursor-pointer" onClick={() => this.setState({photo: index})}>
                                     <img className="object-cover w-64 h-64" src={"/files/albumsPreview/" + this.state.currentAlbum + "/" + photo + ".webp"}/>
                                     <div className="z-10 hidden group-hover:block absolute -left-8 -top-8 w-80 h-80">
                                         <img className="object-cover w-80 h-80" src={"/files/albumsPreview/" + this.state.currentAlbum + "/" + photo + ".webp"}/>
@@ -192,9 +186,11 @@ class Photos extends React.Component {
 
 }
 
-export default function(props) {
+const Photos = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <Photos {...props} params={params} navigate={navigate} />;
+    return <PhotosComponent {...props} params={params} navigate={navigate} />;
 }
+
+export default Photos

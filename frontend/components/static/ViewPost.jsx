@@ -5,7 +5,7 @@ import Loading from "../global/Loading";
 import parse from "html-react-parser";
 import {tailwindParse} from "../../helpers/tailwindParse";
 
-class ViewPost extends React.Component {
+class ViewPostComponent extends React.Component {
     constructor(props) {
 
         super(props);
@@ -30,20 +30,9 @@ class ViewPost extends React.Component {
         console.log(this.state.post)
     }
 
-
-
     handlePage = (page) => {
         this.state.post.page = page;
     }
-
-
-    submitButton = async (event) => {
-        await updatePost(this.state.post);
-
-        this.props.navigate("get-involved/" + this.state.post.slug, {replace: false})
-
-    }
-
 
     render() {
         console.log("RENDERING", this.state.post)
@@ -63,9 +52,11 @@ class ViewPost extends React.Component {
 }
 
 
-export default function(props) {
+const ViewPost = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <ViewPost {...props} params={params} navigate={navigate} />;
+    return <ViewPostComponent {...props} params={params} navigate={navigate} />;
 }
+
+export default ViewPost

@@ -48,7 +48,7 @@ class CreateEditEvent extends React.Component {
         this.state.event.groupSizes[event.target.value] = !this.state.event.groupSizes[event.target.value];
     }
 
-    addQuestion = (event) => {
+    addQuestion = () => {
         console.log("adding q")
         this.state.event.questions.push(new questionModel());
         let maxId = Math.max(...this.state.event.questions.map(r => r.id));
@@ -57,7 +57,7 @@ class CreateEditEvent extends React.Component {
         this.forceUpdate()
     }
 
-    removeQuestion = (id, event) => {
+    removeQuestion = (id) => {
         console.log("removing q")
         this.state.event.questions.splice(id, 1);
         // this.setState({event: new eventModel(this.state.event)});
@@ -65,7 +65,7 @@ class CreateEditEvent extends React.Component {
 
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.event !== undefined) {
             await updateEvent(this.state.event);
         }
@@ -161,7 +161,7 @@ class CreateEditEvent extends React.Component {
             </div>
 
             {this.state.event.questions.map((question, index) =>{
-                    return <div>
+                    return <div key={index}>
                         <CreateEditQuestion key={question.id} qu={question} _id={this.state.event._id}/>
                         <button className="bg-amber-300 rounded p-1 transition hover:bg-amber-600" onClick={(event) => this.removeQuestion(index, event)}>Remove Question</button>
                     </div>

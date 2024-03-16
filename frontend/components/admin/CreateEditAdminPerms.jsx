@@ -22,7 +22,7 @@ class CreateEditAdminPerm extends React.Component {
         console.log(this.state.adminPerm)
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.adminPerm !== undefined) {
             console.log(this.state.adminPerm)
             await updateAdminPerms(this.state.adminPerm);
@@ -36,7 +36,7 @@ class CreateEditAdminPerm extends React.Component {
     }
 
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deleteAdminPerms(this.state.adminPerm);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -132,7 +132,7 @@ class CreateEditAdminPerm extends React.Component {
 
         </div>
         <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Save Perms</button>
-        {this.props.adminPerm !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Admin</label>}
+        {this.props.adminPerm !== undefined && <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Admin</label>}
 
         </>
     }

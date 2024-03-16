@@ -31,7 +31,7 @@ class CreateEditRole extends React.Component {
         this.state.role.so = so;
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.role !== undefined) {
             console.log(this.state.role)
             await updateRole(this.state.role);
@@ -44,7 +44,7 @@ class CreateEditRole extends React.Component {
         console.log("closedTab")
     }
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deleteRole(this.state.role);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -64,7 +64,7 @@ class CreateEditRole extends React.Component {
                 <input className=" ml-2 mb-2 rounded border-2 border-slate-500"
                        name="slug" type="text" defaultValue={this.state.role.slug} onChange={(event) => this.handleChange(event, "slug")}
                        onKeyPress={(event) => {
-                           if (!/[[a-z0-9\-]/.test(event.key)) {
+                           if (!/[[a-z0-9-]/.test(event.key)) {
                                event.preventDefault();
                            }
                        }}/>
@@ -125,7 +125,7 @@ class CreateEditRole extends React.Component {
 
         </div>
         <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Submit Role</button>
-        {this.props.role !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Role</label>}
+        {this.props.role !== undefined && <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Role</label>}
 
         </>
     }

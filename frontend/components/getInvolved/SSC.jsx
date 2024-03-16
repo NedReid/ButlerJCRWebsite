@@ -5,7 +5,7 @@ import Loading from "../global/Loading";
 import parse from "html-react-parser";
 import {tailwindParse} from "../../helpers/tailwindParse";
 
-class SSC extends React.Component {
+class SSCComponent extends React.Component {
     constructor(props) {
 
         super(props);
@@ -37,7 +37,7 @@ class SSC extends React.Component {
     }
 
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         await updateSSC(this.state.SSC);
 
         this.props.navigate("get-involved/" + this.state.SSC.slug, {replace: false})
@@ -63,9 +63,10 @@ class SSC extends React.Component {
 }
 
 
-export default function(props) {
+const SSC = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <SSC {...props} params={params} navigate={navigate} />;
+    return <SSCComponent {...props} params={params} navigate={navigate} />;
 }
+export default SSC

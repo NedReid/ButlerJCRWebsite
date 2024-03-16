@@ -1,4 +1,4 @@
-import React, {useEffect, Suspense} from 'react';
+import React, {Suspense} from 'react';
 
 import Header from './components/global/Header';
 import Login from './components/global/Login';
@@ -11,8 +11,6 @@ import {
     BrowserRouter as Router,
     Routes,
     Route,
-    Switch,
-    Link, useLocation, useParams, useNavigate
 } from "react-router-dom";
 import Societies from "./components/getInvolved/Societies";
 import Sports from "./components/getInvolved/Sports";
@@ -66,8 +64,8 @@ class App extends React.Component {
         console.log(ns)
     }
 
-    MainRoutes = () => {
-        return (                         <Routes>
+    MainRoutes = () => (
+        <Routes>
             <Route path="/admin" element={<Admin admin={this.state.admin} />}/>
             <Route path="/students/" element={<Students verified={this.state.verified}/>}>
                 {/*<Route path="events" element={<UserEvents/>}/>*/}
@@ -115,10 +113,8 @@ class App extends React.Component {
             <Route path="/freshers/faq" element={<FreshersFAQ admin={this.state.admin}/>}/>
             <Route path="/freshers/schedule" element={<FreshersSchedule/>}/>
             <Route path="/verify/:id" element={<VerifyLogin/>}/>
-
-
-        </Routes>)
-    }
+        </Routes>
+        )
 
     render() {
          return <Router>
@@ -145,11 +141,3 @@ class App extends React.Component {
 }
 
 export default App;
-// export default function(props) {
-//     let location = useLocation;
-//     // let mcr = window.location.pathname.startsWith("/mcr")
-//     // useEffect(() => {
-//     //     mcr = window.location.pathname.startsWith("/mcr")
-//     // }, [location]);
-//     return <App {...props} loc={location} mcr={false}/>;
-// }

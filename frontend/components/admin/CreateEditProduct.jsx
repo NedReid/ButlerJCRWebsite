@@ -15,6 +15,9 @@ class CreateEditProduct extends React.Component {
 
     handleNumChange= (event, type) => {
         console.log(event.target.value.length)
+
+        // TODO: Check whether these escapes are actually unneccessary
+        // eslint-disable-next-line no-useless-escape
         const re = /"^\£?\-?([0-9]{1}[0-9]{0,2}(\,\d{3})*(\.\d{0,2})?|[0-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\-?\£?([0-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[0-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\(\£?([0-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[0-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))\)$"/gm
         if (re.test(event.target.value) || event.target.value.length === 0) {
             this.state.product[type] = parseFloat(event.target.value);
@@ -34,7 +37,7 @@ class CreateEditProduct extends React.Component {
     }
 
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.product !== undefined) {
             console.log(this.state.product)
             await updateProduct(this.state.product);
@@ -62,7 +65,7 @@ class CreateEditProduct extends React.Component {
         this.state.product.editors[ind] = event.target.value;
     }
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deleteProduct(this.state.product);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -103,7 +106,7 @@ class CreateEditProduct extends React.Component {
         </div>
             <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Save Product</button>
 
-            {this.props.product !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Product</label>}
+            {this.props.product !== undefined && <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Product</label>}
 
 
         </>

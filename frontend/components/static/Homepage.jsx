@@ -33,7 +33,7 @@ class Homepage extends React.Component {
         return <div>
             {this.state.carouselPaths.length >= 2 && <div className="w-full h-52 relative flex justify-center"><Carousel id="carousel" buttonStyle={buttonStyle} className="w-full h-52 absolute " display="sequential">
                 {this.state.carouselPaths.map( (addr, index) => {
-                    return <Carousel.Item role="option"  aria-label={"Photos of Butler College"}>
+                    return <Carousel.Item key={index} role="option"  aria-label={"Photos of Butler College"}>
                         <img aria-label={"Photo of Butler College"} className="w-full object-cover" src={addr}/>
                     </Carousel.Item>
                     })}
@@ -52,7 +52,7 @@ class Homepage extends React.Component {
                 </div>
                 <div className="text-sm text-grey-900 w-full sm:w-2/3">
                                     Hello everyone! <br/><br/>
-                    I'm Daniel Stuart and I’m delighted to be the current JCR President of Josephine Butler College. <br/><br/>
+                    {`I'm`} Daniel Stuart and I’m delighted to be the current JCR President of Josephine Butler College. <br/><br/>
                     Named after Josephine Butler, an incredible social reformer and advocate for women’s rights,
                     we are a thriving and bustling community with a strong college spirit and our students at the heart of everything that we do.
                     We’re incredibly proud to have such a diverse and welcoming group of students, staff, and alumni who are all integral in making Butler such a great college and JCR. <br/><br/>
@@ -94,9 +94,9 @@ class Homepage extends React.Component {
                 <div className="text-sm text-grey-900 w-full sm:w-2/3">
                     Hello everyone! <br/><br/>
                     My name is Butler Mole and I am the Mascot of Josephine Butler College. I am a friendly, lovable mole who loves to have fun and make new friends. <br/><br/>
-                    As the College Mascot, my job is to represent the students of Josephine Butler College and to promote college spirit. I attend all of the college's social events and help out with any college fundraisers. I also make appearances at Durham University's sporting events to support the team.<br/><br/>
-                    I absolutely love my job and I feel very lucky to be a part of such a great college community. I would encourage all students, whether they are in Josephine Butler College or not, to get involved with their college's JCR. It's a great way to meet new people and have a lot of fun.<br/><br/>
-                    There are many different types of animals that can be found around Durham University's campus. Some of these include: squirrels, rabbits, ducks, hedgehogs, and of course, moles! I encourage everyone to take the time to appreciate all of the different types of wildlife that can be found around Durham.<br/><br/>
+                    As the College Mascot, my job is to represent the students of Josephine Butler College and to promote college spirit. I attend all of the college{`'s`} social events and help out with any college fundraisers. I also make appearances at Durham University{`'s`} sporting events to support the team.<br/><br/>
+                    I absolutely love my job and I feel very lucky to be a part of such a great college community. I would encourage all students, whether they are in Josephine Butler College or not, to get involved with their college{`'s`} JCR. It{`'s`} a great way to meet new people and have a lot of fun.<br/><br/>
+                    There are many different types of animals that can be found around Durham University{`'s`} campus. Some of these include: squirrels, rabbits, ducks, hedgehogs, and of course, moles! I encourage everyone to take the time to appreciate all of the different types of wildlife that can be found around Durham.<br/><br/>
                     Thank you all for your time and I hope to see you around campus soon!
                 </div>
 

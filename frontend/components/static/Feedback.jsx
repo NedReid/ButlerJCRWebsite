@@ -1,9 +1,6 @@
 import React from 'react';
-import {getFolderAddresses, sendFeedback} from "../../helpers/staticHelper";
-import {Checkbox, Table} from "react-daisyui";
-import {getCalendarEventTypeName} from "../../models/calendarEventEnum";
+import { sendFeedback} from "../../helpers/staticHelper";
 import TextEditor from "../global/TextEditor";
-import {createCalendarEvent, updateCalendarEvent} from "../../helpers/adminHelper";
 import Loading from "../global/Loading";
 
 class Error extends React.Component {
@@ -23,7 +20,7 @@ class Error extends React.Component {
         this.state.feedback.details = desc;
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         this.setState({sent: undefined})
         await sendFeedback(this.state.feedback);
         this.setState({sent: true})

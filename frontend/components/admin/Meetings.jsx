@@ -1,7 +1,7 @@
 import React from 'react';
 import {getMeetings} from '../../helpers/adminHelper';
 import CreateEditMeeting from './CreateEditMeeting';
-import {meetingToName, methodEnum} from "../../models/roles/roleEnums";
+import {meetingToName} from "../../models/roles/roleEnums";
 
 class Meetings extends React.Component {
     constructor(props) {
