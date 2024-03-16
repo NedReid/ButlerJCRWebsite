@@ -1,5 +1,4 @@
 import React from 'react';
-import { getFolderAddresses } from "../../helpers/staticHelper";
 import {Table} from "react-daisyui";
 
 class Error extends React.Component {

@@ -1,8 +1,6 @@
 import React from 'react';
 import {getEvents} from '../../helpers/adminHelper';
 import CreateEditEvent from './CreateEditEvent';
-import {menuItems} from "../global/menuItems";
-import {Link} from "react-router-dom";
 
 class Events extends React.Component {
     constructor(props) {

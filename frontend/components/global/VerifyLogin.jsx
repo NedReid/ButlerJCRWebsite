@@ -1,9 +1,8 @@
 import React from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import Loading from "../global/Loading";
 import {verifyLogin} from "../../helpers/loginHelper";
 
-class VerifyLogin extends React.Component {
+class VerifyLoginComponent extends React.Component {
     constructor(props) {
 
         super(props);
@@ -15,11 +14,7 @@ class VerifyLogin extends React.Component {
         this.state = {token: token, errorText: ""};
     }
 
-    async componentDidMount() {
-
-    }
-
-    submitButton = async (event) => {
+    submitButton = async () => {
         console.log("verifying")
         const resp = await verifyLogin(this.state.token);
         if (resp.status === 204) {
@@ -44,9 +39,11 @@ class VerifyLogin extends React.Component {
 }
 
 
-export default function(props) {
+const VerifyLogin = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <VerifyLogin {...props} params={params} navigate={navigate} />;
+    return <VerifyLoginComponent {...props} params={params} navigate={navigate} />;
 }
+
+export default VerifyLogin

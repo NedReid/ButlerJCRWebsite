@@ -1,5 +1,3 @@
-import fs from "fs";
-
 export const tailwindParse =  (html) => {
     // console.log("aaaaa", html);
     // html = html.replaceAll("<h2>", "<h2 className='text-2xl text-semibold pb-2'>");

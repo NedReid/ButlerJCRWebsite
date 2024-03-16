@@ -67,7 +67,7 @@ class CreateEditQuestion extends React.Component {
                             }}
                         /></label>
                     {this.state.qu.data.map((opt, index) => {
-                        return  <label className="flex"> Option {index + 1}:
+                        return  <label className="flex" key={index}> Option {index + 1}:
                             <input className=" mx-2 mb-2 rounded border-2 border-slate-500 flex-grow"
                                    name="questionText" type="text" defaultValue={this.state.qu.data[index]} key={this.props._id + this.state.qu.id + "o" + index} onChange={(event) => this.updateOptionText(event, index)}/>
                         </label>

@@ -1,8 +1,5 @@
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import React from "react";
-import {Modal, Button, Collapse} from "react-daisyui"
-import {methodEnum, methodName} from "../../models/roles/roleEnums";
-import ElectionMethodModal from "./ElectionMethodModal";
+import {Modal, Collapse} from "react-daisyui"
 import parse from "html-react-parser";
 import {tailwindParse} from "../../helpers/tailwindParse";
 
@@ -53,7 +50,7 @@ class CandidateMaterialsModal extends React.Component {
                         <Collapse.Title className="group-hover:bg-slate-200 text-xl font-semibold">Video</Collapse.Title>
                         <Collapse.Content className="bg-slate-50">
                             <div className="bangle-editor prose max-w-none">
-                                <iframe className="w-full max-w-lg aspect-video" src={candidate.video.replace("watch?v=", "embed/")} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen/>
+                                <iframe className="w-full max-w-lg aspect-video" src={candidate.video.replace("watch?v=", "embed/")} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen/>
                             </div>
                         </Collapse.Content>
                     </Collapse>}

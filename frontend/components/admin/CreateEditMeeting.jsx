@@ -1,7 +1,7 @@
 import React from "react";
 import {createMeeting, updateMeeting, deleteMeeting} from '../../helpers/adminHelper';
 import meetingModel from '../../models/roles/meetingModel';
-import {meetingToName, methodEnum, methodName, roleCategoryEnum, roleCategoryNames, meetingEnum} from "../../models/roles/roleEnums";
+import {meetingToName, meetingEnum} from "../../models/roles/roleEnums";
 import TextEditor from "../global/TextEditor";
 import DateTimePicker from 'react-datetime-picker/dist/entry.nostyle';
 import "react-datetime-picker/dist/DateTimePicker.css"
@@ -42,7 +42,7 @@ class CreateEditMeeting extends React.Component {
         this.state.meeting.page = page;
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.meeting !== undefined) {
             console.log(this.state.meeting)
             await updateMeeting(this.state.meeting);
@@ -55,7 +55,7 @@ class CreateEditMeeting extends React.Component {
         console.log("closedTab")
     }
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deleteMeeting(this.state.meeting);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -107,7 +107,7 @@ class CreateEditMeeting extends React.Component {
 
         </div>
         <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Submit Meeting</button>
-        {this.props.meeting !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Meeting</label>}
+        {this.props.meeting !== undefined && <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Meeting</label>}
 
         </>
     }

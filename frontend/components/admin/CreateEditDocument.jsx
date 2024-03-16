@@ -43,7 +43,7 @@ class CreateEditDocument extends React.Component {
         reader.readAsDataURL(file);
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.document !== undefined) {
             console.log(this.state.document)
             await updateDocument(this.state.document, this.state.file);
@@ -56,7 +56,7 @@ class CreateEditDocument extends React.Component {
         console.log("closedTab")
     }
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deleteDocument(this.state.document);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -73,10 +73,6 @@ class CreateEditDocument extends React.Component {
             this.state.document.editors.pop();
         }
         this.forceUpdate();
-    }
-
-    updateEditor = (event, ind) => {
-        this.state.document.editors[ind] = event.target.value;
     }
 
     render() {
@@ -127,7 +123,7 @@ class CreateEditDocument extends React.Component {
 
         </div>
             <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Submit Document</button>
-            {this.props.document !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Document</label>}
+            {this.props.document !== undefined && <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Document</label>}
 
         </>
     }

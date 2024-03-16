@@ -1,13 +1,8 @@
 import React from 'react';
 import {menuItems} from "./menuItems";
 import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
     Link
 } from "react-router-dom";
-import { Swap } from "react-daisyui";
-import { MdOutlineClear, MdOutlineMenu } from "react-icons/md"
 class Footer extends React.Component {
     constructor(props) {
         super(props);

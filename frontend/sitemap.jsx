@@ -1,5 +1,3 @@
-import React from 'react';
-
 import GenerateSitemap from "react-router-sitemap-maker";
 import App from "./App";
 import fs from "fs";

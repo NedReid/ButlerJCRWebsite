@@ -1,10 +1,6 @@
 import React from 'react';
-import {Carousel, Divider} from "react-daisyui";
-import {getFAQofCategory, getFolderAddresses, getPageEditables, updatePageEditables} from "../../helpers/staticHelper";
-import LatestPosts from "../static/LatestPosts";
-import Editable from "../global/Editable";
+import {getFAQofCategory} from "../../helpers/staticHelper";
 import {AiFillEdit, AiFillSave} from "react-icons/ai";
-import {Link} from "react-router-dom";
 import FAQModel from "../../models/FAQModel";
 import {createFAQ, updateFAQ, deleteFAQ} from "../../helpers/adminHelper";
 import Loading from "../global/Loading";

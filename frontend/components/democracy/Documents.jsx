@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {getDocuments} from "../../helpers/democracyHelper";
 import {useNavigate} from 'react-router-dom';
 import Loading from "../global/Loading";
@@ -8,7 +8,7 @@ import {Collapse} from "react-daisyui";
 import date from 'date-and-time'
 
 
-class Documents extends React.Component {
+class DocumentsComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {documents: []};
@@ -46,13 +46,13 @@ class Documents extends React.Component {
         console.log(documentsByCategory)
         return <div className="my-2 p-8">
             <div className="text-4xl font-bold">JCR Documents</div>
-            Here you'll find JCR standing orders, minutes, and other documents.
+            Here {`you'll`} find JCR standing orders, minutes, and other documents.
             {this.state.documents.length > 0?
                 <>
                     {Object.values(documentEnum).map((documentCategory, index) => {
                         if (documentsByCategory[index].length > 0) {
                             return (
-                                <Collapse className="my-2 hover:bg-gray-100 active:bg-gray-200" icon="arrow" >
+                                <Collapse key={index} className="my-2 hover:bg-gray-100 active:bg-gray-200" icon="arrow" >
                                     <input id={"toggle" + this.props.index} type="checkbox" className="peer"/>
 
                                     <Collapse.Title className="border-l-4 border-gray-400 text-xl font-semibold">
@@ -60,12 +60,12 @@ class Documents extends React.Component {
                                     </Collapse.Title>
                                     <Collapse.Content className="bg-white border-l-4 border-gray-200">
                                         <div>
-                                            {documentsByCategory[index].map((yearDocument) => {
-                                                return (<div className="my-1">
+                                            {documentsByCategory[index].map((yearDocument, yearDocumentIndex) => {
+                                                return (<div key={`${index}_${yearDocumentIndex}`} className="my-1">
                                                     <div className="font-semibold text-lg my-1">{yearDocument[0].date.getFullYear()}</div>
-                                                    {yearDocument.map((document) => {
+                                                    {yearDocument.map((document, documentIndex) => {
                                                         return (
-                                                            <div>
+                                                            <div key={`${index}_${yearDocumentIndex}_${documentIndex}`} >
 
                                                                 <button className="text-blue-700 hover:underline"
                                                                         onClick={()=> this.goToPage(document.address, document._id)}>{document.name}</button>
@@ -98,8 +98,10 @@ class Documents extends React.Component {
     }
 
 }
-export default function(props) {
+ const Documents = (props) => {
     const navigate = useNavigate();
 
-    return <Documents {...props} navigate={navigate} />;
+    return <DocumentsComponent {...props} navigate={navigate} />;
 }
+
+export default Documents

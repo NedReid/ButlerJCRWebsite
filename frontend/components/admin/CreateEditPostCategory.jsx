@@ -19,7 +19,7 @@ class CreateEditPostCategory extends React.Component {
     }
 
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.postCategory !== undefined) {
             console.log(this.state.postCategory)
             await updatePostCategory(this.state.postCategory);
@@ -47,7 +47,7 @@ class CreateEditPostCategory extends React.Component {
         this.state.postCategory.editors[ind] = event.target.value;
     }
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deletePostCategory(this.state.postCategory);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -74,7 +74,7 @@ class CreateEditPostCategory extends React.Component {
                        }}
                 /></label>
             {this.state.postCategory.editors.map((opt, index) => {
-                return  <label className="flex"> Editor {index + 1} CIS Code:
+                return  <label className="flex" key={index}> Editor {index + 1} CIS Code:
                     <input className=" mx-2 mb-2 rounded border-2 border-slate-500 flex-grow"
                            name="questionText" type="text" defaultValue={this.state.postCategory.editors[index]} key={this.state.postCategory._id + "editor" + index} onChange={(event) => this.updateEditor(event, index)}/>
                 </label>
@@ -97,7 +97,7 @@ class CreateEditPostCategory extends React.Component {
         </div>
             <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Save Category</button>
 
-            {this.props.postCategory !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Category</label>}
+            {this.props.postCategory !== undefined && <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Category</label>}
 
 
         </>

@@ -5,7 +5,7 @@ import {createPost, deletePost, updatePost} from "../../helpers/studentHelper";
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../global/Loading";
 
-class EditPost extends React.Component {
+class EditPostComponent extends React.Component {
     constructor(props) {
 
         super(props);
@@ -40,7 +40,7 @@ class EditPost extends React.Component {
     }
 
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.post !== undefined) {
             console.log(this.state.post)
             console.log("OOPDating")
@@ -55,7 +55,7 @@ class EditPost extends React.Component {
         console.log("closedTab")
     }
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deletePost(this.state.post);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -120,7 +120,7 @@ class EditPost extends React.Component {
                 </div>
                 <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Submit Post</button>
 
-                {this.props.post !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Post
+                {this.props.post !== undefined && <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete Post
                 </label>}
 
             </>
@@ -131,9 +131,12 @@ class EditPost extends React.Component {
 
 }
 
-export default function(props) {
+
+const EditPost = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <EditPost {...props} params={params} navigate={navigate} />;
+    return <EditPostComponent {...props} params={params} navigate={navigate} />;
 }
+
+export default EditPost

@@ -1,17 +1,8 @@
 import React from 'react';
 import {
-    getRoles,
-    getMembersExcel,
-    addMemberList,
     uploadAlbumPhoto,
-    getPagePerms,
     getPhotoAlbums, createPhotoAlbum
 } from '../../helpers/adminHelper';
-import CreateEditRole from './CreateEditRole';
-import {roleCategoryEnum, roleCategoryNames, meetingEnum, methodEnum} from "../../models/roles/roleEnums";
-import { Textarea, Checkbox } from "react-daisyui";
-import MemberTable from "./MemberTable";
-import TextEditor from "../global/TextEditor";
 import Loading from "../global/Loading";
 
 class Photos extends React.Component {
@@ -38,11 +29,11 @@ class Photos extends React.Component {
         await this.setState({albumAddress: event.target.value, album: event.target.files})
     }
 
-    reset = async (event) => {
+    reset = async () => {
         await this.setState({uploading: false, progress: 0, albumAddress: "", albumName: "", album: undefined, skipped: ""})
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         await this.setState({uploading: true})
         console.log(this.state.selectedPhotoAlbum)
         if (this.state.selectedPhotoAlbum === "") {
@@ -55,7 +46,7 @@ class Photos extends React.Component {
                 await this.setState({skipped: this.state.skipped + "Skipped " + image.name + "\n"});
             }
             else {
-                const filePromise = new Promise((resolve, reject) => {
+                const filePromise = new Promise((resolve) => {
                     const reader = new FileReader();
                     reader.onload = async () => {
                         console.log(this.state.album[i].name)
@@ -117,8 +108,8 @@ class Photos extends React.Component {
                         <div>Album Folder</div>
                         <div className="italic text-sm">Select an unzipped folder of images. Images in subfolders will also be uploaded</div>
                         <label>
-                            <input className="mb-2 rounded border-2 border-slate-500"
-                                   name="poster" type="file" accept="image/*" onChange={(event) => this.handleAddress(event)} webkitdirectory="true" mozdirectory="true" directory="true"/>
+                            {/* eslint-disable-next-line react/no-unknown-property */}
+                            <input className="mb-2 rounded border-2 border-slate-500" name="poster" type="file" accept="image/*" onChange={(event) => this.handleAddress(event)} webkitdirectory="true" mozdirectory="true" directory="true"/>
                         </label>
                         <div></div>
                         <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600"  disabled={this.state.albumName === ""} onClick={this.submitButton}>Upload Album</button>

@@ -45,7 +45,7 @@ class JBs extends React.Component {
                     <AiFillSave className="swap-on text-white text-3xl"></AiFillSave>
                     <AiFillEdit className="swap-off text-white text-3xl"></AiFillEdit>
                 </button>}
-                <div className="text-5xl font-bold">JB's</div>
+                <div className="text-5xl font-bold">{`JB's`}</div>
                 <div className="max-w-xl">
                     <Editable updateEditable={this.updateEditable} page={this.state.page} editables={this.state.editables} name="desc" editing={this.state.editing}/>
                 </div>

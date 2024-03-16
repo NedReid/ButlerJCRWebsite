@@ -1,7 +1,5 @@
 import React from 'react';
-import {Carousel, Divider} from "react-daisyui";
-import {getFolderAddresses, getPageEditables, updatePageEditables} from "../../helpers/staticHelper";
-import LatestPosts from "../static/LatestPosts";
+import {getPageEditables, updatePageEditables} from "../../helpers/staticHelper";
 import Editable from "../global/Editable";
 import {AiFillEdit, AiFillSave} from "react-icons/ai";
 import {Link} from "react-router-dom";
@@ -48,7 +46,7 @@ class FreshersSchedule extends React.Component {
                 <div className="relative">
                     <div className="mt-4 text-4xl font-semibold">Freshers Week Schedule</div>
                     <div className="text-lg mt-1">Follow this page for up-to-date information on all our Freshers Week activities!
-                        For a full list of all our events from Freshers' Week and beyond, you can also visit our <Link className="link text-blue-700 hover:text-blue-800" to="/calendar">JCR Calendar!</Link>
+                        For a full list of all our events from {`Freshers'`} Week and beyond, you can also visit our <Link className="link text-blue-700 hover:text-blue-800" to="/calendar">JCR Calendar!</Link>
                     </div>
                     {this.state.editor && <button className={"z-30 btn btn-circle absolute top-0 right-0 m-2 swap swap-rotate " + (this.state.editing? "swap-active": "")} onClick={this.onChange}>
                         <AiFillSave className="swap-on text-white text-3xl"></AiFillSave>

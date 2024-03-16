@@ -1,5 +1,4 @@
-import React, {useEffect, Suspense} from 'react';
-import {Button, Modal} from "react-daisyui";
+import React from 'react';
 import Cookies from "js-cookie";
 import {Link} from "react-router-dom";
 import {AiOutlineCheck} from "react-icons/ai";

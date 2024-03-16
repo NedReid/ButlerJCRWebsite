@@ -47,6 +47,7 @@ class WhosWho extends React.Component {
     }
 
     getTempId = () => {
+        // eslint-disable-next-line no-constant-condition
         while (true) {
             const tempId = Math.floor((Math.random() * 1000000))
             if (!this.state.whosWho.some((person) => person._id === tempId.toString())) {
@@ -95,7 +96,7 @@ class WhosWho extends React.Component {
         newPerson.subcategory = subcategory;
         newPerson.photo = "media/whoswho/jb.jpg"
         newPerson._id = this.getTempId();
-        this.setState({whosWho: [...this.state.whosWho, newPerson]})
+        this.setState({whosWho: [...this.state.whosWho.filter((person) => person.subcategory <= subcategory), newPerson, ...this.state.whosWho.filter((person) => person.subcategory > subcategory)]})
         this.forceUpdate();
     }
 
@@ -117,6 +118,7 @@ class WhosWho extends React.Component {
     }
 
     reorder = (index, up) => {
+        console.log(this.state.whosWho)
         let newWhosWho = this.state.whosWho
         if (up) {
             let temp = newWhosWho[index - 1]
@@ -155,11 +157,11 @@ class WhosWho extends React.Component {
                         <AiFillEdit className="swap-off text-white text-3xl"></AiFillEdit>
                     </button>}
 
-                    <div className="text-4xl font-semibold">Who's Who</div>
+                    <div className="text-4xl font-semibold">{`Who's`} Who</div>
 
-                    {subcategories.map((subcategory) => {
+                    {subcategories.map((subcategory, index) => {
                         const peopleOfSubcategory = this.state.whosWho.filter((person) => person.subcategory === subcategory)
-                        return <div className="mb-8">
+                        return <div key={index} className="mb-8">
                             <div className="my-4 text-3xl font-semibold">{subcategory}</div>
                             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
                             {

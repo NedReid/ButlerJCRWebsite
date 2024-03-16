@@ -25,7 +25,7 @@ class CreateEditSSC extends React.Component {
         console.log(this.state.SSC)
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.SSC !== undefined) {
             console.log(this.state.SSC)
             await updateSSC(this.state.SSC);
@@ -38,7 +38,7 @@ class CreateEditSSC extends React.Component {
         console.log("closedTab")
     }
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deleteSSC(this.state.SSC);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -80,7 +80,7 @@ class CreateEditSSC extends React.Component {
                        }}
                 /></label>
             {this.state.SSC.editors.map((opt, index) => {
-                return  <label className="flex"> Editor {index + 1} CIS Code:
+                return  <label key={index} className="flex"> Editor {index + 1} CIS Code:
                     <input className=" mx-2 mb-2 rounded border-2 border-slate-500 flex-grow"
                            name="questionText" type="text" defaultValue={this.state.SSC.editors[index]} key={this.state.SSC._id + "editor" + index} onChange={(event) => this.updateEditor(event, index)}/>
                 </label>
@@ -112,7 +112,7 @@ class CreateEditSSC extends React.Component {
 
         </div>
         <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Submit SSC</button>
-        {this.props.SSC !== undefined && <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete SSC</label>}
+        {this.props.SSC !== undefined && <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete SSC</label>}
 
         </>
     }

@@ -1,9 +1,4 @@
-import React, {useCallback} from 'react';
-import {getSSCHeaders} from "../../helpers/getInvolvedHelper";
-import {useNavigate} from 'react-router-dom';
-import parse from 'html-react-parser';
-import {tailwindParse} from "../../helpers/tailwindParse";
-import {SSCEnum} from "../../models/SSCEnum";
+import React from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 import axios from "axios";
 

@@ -10,7 +10,7 @@ import {meetingToName, methodName} from "../../models/roles/roleEnums";
 import InPlaceEditor from "../global/InPlaceEditor";
 import ElectionMethodModal from "./ElectionMethodModal";
 
-class Role extends React.Component {
+class RoleComponent extends React.Component {
     constructor(props) {
 
         super(props);
@@ -36,7 +36,7 @@ class Role extends React.Component {
         this.state.role.page = page;
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         await updateRole(this.state.role);
     }
 
@@ -69,7 +69,7 @@ class Role extends React.Component {
                     </div>
                     {this.state.officers.length > 0?
                         this.state.officers.map((officer) =>
-                            <div>
+                            <div key={officer._id}>
                                 <p><i>Contact Current Officer:</i></p>
                                 <p className="font-semibold">{officer.name}</p>
                                 <p className="font-semibold">{officer.username}@durham.ac.uk</p>
@@ -155,9 +155,11 @@ class Role extends React.Component {
 }
 
 
-export default function(props) {
+const Role = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <Role {...props} params={params} navigate={navigate} />;
+    return <RoleComponent {...props} params={params} navigate={navigate} />;
 }
+
+export default Role

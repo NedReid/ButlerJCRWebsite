@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
-import {getCalendarEventSelection, getPageEditables, updatePageEditables} from "../../helpers/staticHelper";
+import React from 'react';
+import {getCalendarEventSelection} from "../../helpers/staticHelper";
 import Loading from "../global/Loading";
-import Editable from "../global/Editable";
 import {AiFillEnvironment, AiOutlineLink} from "react-icons/ai";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
@@ -15,15 +14,11 @@ import {Collapse} from "react-daisyui";
 import parse from "html-react-parser";
 import {tailwindParse} from "../../helpers/tailwindParse";
 
-class Calendar extends React.Component {
+class CalendarComponent extends React.Component {
     constructor(props) {
         super(props);
         const tooltip = {x: 0, y: 0, visible: false, hovered: false, title: "", event: undefined}
         this.state = {tooltip: tooltip , events: undefined, loadedEventsInRange: undefined, loadedEvents: [], rangeStart:0, rangeEnd:0}
-        // useEffect(() => {
-        //     console.log(this.state.rangeStart, this.state.rangeEnd)
-        //
-        // })
     }
 
 
@@ -31,7 +26,6 @@ class Calendar extends React.Component {
     async componentDidMount() {
         const events = await getCalendarEventPreviews()
         const eventsModels = events.map((event) => {return new calendarEventModel(event)})
-        // console.log(eventsModels)
         this.setState({events: eventsModels});
     }
 
@@ -60,7 +54,6 @@ class Calendar extends React.Component {
             const loadedEventsInRange = allLoadedEvents.filter((event) => {
               return idsInRange.includes(event._id)
             })
-            // console.log(this.state.events)
             await this.setState({loadedEventsInRange: loadedEventsInRange})
         }
     }
@@ -86,24 +79,17 @@ class Calendar extends React.Component {
         this.forceUpdate();
     }
 
-    mouseLeave = (mouseEnterInfo) => {
-
-        // console.log("MLEAVE");
+    mouseLeave = () => {
         this.state.tooltip.visible = false;
         this.forceUpdate();
     }
 
-    tooltipMouseEnter = (mouseEnterInfo) => {
-        // console.log("TENT")
-        // this.state.tooltip.x = Math.min(mouseEnterInfo.jsEvent.x, window.innerWidth - 128);
-        // this.state.tooltip.y = mouseEnterInfo.jsEvent.y;
+    tooltipMouseEnter = () => {
         this.state.tooltip.visible = true;
-        // this.state.tooltip.title = mouseEnterInfo.event.title;
         this.forceUpdate();
     }
 
-    tooltipMouseLeave = (mouseEnterInfo) => {
-        // console.log("TEAVE");
+    tooltipMouseLeave = () => {
         this.state.tooltip.visible = false;
         this.forceUpdate();
     }
@@ -119,17 +105,10 @@ class Calendar extends React.Component {
         this.props.navigate("/calendar/edit", {replace: false})
     }
 
-    getEventRange =  (fetchInfo, successCallback, failureCallback) => {
+    getEventRange =  (fetchInfo, successCallback) => {
         // console.log(fetchInfo)
         this.setState({rangeStart: fetchInfo.start.valueOf(), rangeEnd: fetchInfo.end.valueOf()})
 
-        // setTimeout(function(){
-        //     successCallback( [
-        //         { title: 'event 1', date: '2023-06-29', id: "gdf", backgroundColor: "#7008e2" },
-        //
-        //     ])
-        // }, 1000);
-        // console.log(fetchInfo)
         const calendarEventSelection = this.state.events.map((ev) => {
             return { title: ev.title, allDay: ev.allDay, start: ev.startDate, end:ev.endDate, borderColor:calendarEventTypeColor(ev.category) , backgroundColor:calendarEventTypeColor(ev.category), id: ev._id}
         })
@@ -138,10 +117,7 @@ class Calendar extends React.Component {
     }
 
     dateText = (start, end, allDay) => {
-        // start = new Date()
-        // end = new Date()
         if (allDay) {
-            // console.log(end)
             if ((end.valueOf() - start.valueOf()) < 1000 * 60 * 60 * 47) {
                 return start.toLocaleDateString("en-GB", {weekday: "long", day: "numeric", month:"long", year:"numeric"})
             }
@@ -217,7 +193,7 @@ class Calendar extends React.Component {
                 {this.state.loadedEventsInRange !== undefined?
                     <>
                         {this.state.loadedEventsInRange.map((event) => {
-                            return <Collapse className="my-2 hover:bg-gray-100 active:bg-gray-200" icon="arrow" id={"desc" + event._id}>
+                            return <Collapse key={event._id} className="my-2 hover:bg-gray-100 active:bg-gray-200" icon="arrow" id={"desc" + event._id}>
                                 <input id={"toggle" + event._id} type="checkbox" className="peer"/>
 
                                 <Collapse.Title className="border-l-4" style={{borderColor: calendarEventTypeColor(event.category)}}>
@@ -256,9 +232,11 @@ class Calendar extends React.Component {
 
 }
 
-export default function(props) {
+const Calendar = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <Calendar {...props} params={params} navigate={navigate} />;
+    return <CalendarComponent {...props} params={params} navigate={navigate} />;
 }
+
+export default Calendar

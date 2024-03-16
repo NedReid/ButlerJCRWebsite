@@ -1,12 +1,10 @@
 import React from 'react';
 import InPlaceEditor from "./InPlaceEditor";
-import TextEditor from "./TextEditor";
 import parse from "html-react-parser";
 import {tailwindParse} from "../../helpers/tailwindParse";
 import FAQModel from "../../models/FAQModel";
 import {Collapse, Modal} from "react-daisyui";
-import {calendarEventTypeColor} from "../../models/calendarEventEnum";
-import {AiFillEnvironment, AiOutlineArrowDown, AiOutlineArrowUp, AiOutlineLink} from "react-icons/ai";
+import {AiOutlineArrowDown, AiOutlineArrowUp} from "react-icons/ai";
 
 class FAQBlock extends React.Component {
     constructor(props) {

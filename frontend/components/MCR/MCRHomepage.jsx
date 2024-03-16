@@ -32,8 +32,8 @@ class MCRHomepage extends React.Component {
 
         return <div>
             {this.state.carouselPaths.length >= 2 && <div className="w-full h-52 relative flex justify-center"><Carousel buttonStyle={buttonStyle} className="w-full h-52 absolute " display="sequential">
-                {this.state.carouselPaths.map( (addr) => {
-                    return <Carousel.Item>
+                {this.state.carouselPaths.map( (addr, index) => {
+                    return <Carousel.Item key={index}>
                         <img className="w-full object-cover" src={addr}/>
                     </Carousel.Item>
                     })}

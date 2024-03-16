@@ -4,7 +4,7 @@ import {getSSC, updateSSC, uploadSSCLogo} from "../../helpers/getInvolvedHelper"
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../global/Loading";
 
-class EditSSC extends React.Component {
+class EditSSCComponent extends React.Component {
     constructor(props) {
 
         super(props);
@@ -29,7 +29,7 @@ class EditSSC extends React.Component {
         console.log(this.state.SSC)
     }
 
-    handleImageChange = async (event, type) => {
+    handleImageChange = async (event) => {
         let im = event.target.files[0];
         const reader = new FileReader();
         reader.onload = () => {
@@ -44,7 +44,7 @@ class EditSSC extends React.Component {
     }
 
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         await uploadSSCLogo({logo: this.state.logo, id: this.state.SSC._id})
         await updateSSC(this.state.SSC);
 
@@ -78,7 +78,7 @@ class EditSSC extends React.Component {
                                name="name" type="text" defaultValue={this.state.SSC.slug}
                                onChange={(event) => this.handleChange(event, "slug")}
                                 onKeyPress={(event) => {
-                                    if (!/[[a-z0-9\-]/.test(event.key)) {
+                                    if (!/[[a-z0-9-]/.test(event.key)) {
                                         event.preventDefault();
                                     }
                                 }}/>
@@ -98,7 +98,7 @@ class EditSSC extends React.Component {
 
                     <label>Logo:
                         <input className=" ml-2 mb-2 rounded border-2 border-slate-500"
-                               name="promotionalImage" type="file" accept="image/png, image/jpeg, iamge/tiff, image/webp, image/gif" onChange={(event) => this.handleImageChange(event, "promotionalImage")}/>
+                               name="logo" type="file" accept="image/png, image/jpeg, iamge/tiff, image/webp, image/gif" onChange={(event) => this.handleImageChange(event)}/>
                         {this.state.logo !== "" && (
                                 <img className="h-24 object-contain" src={this.state.logo}/>
                         )}
@@ -122,9 +122,10 @@ class EditSSC extends React.Component {
 
 }
 
-export default function(props) {
+const EditSSC = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <EditSSC {...props} params={params} navigate={navigate} />;
+    return <EditSSCComponent {...props} params={params} navigate={navigate} />;
 }
+export default EditSSC

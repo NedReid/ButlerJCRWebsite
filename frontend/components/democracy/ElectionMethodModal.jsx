@@ -1,4 +1,3 @@
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import React from "react";
 import {Modal, Button} from "react-daisyui"
 import {methodEnum, methodName} from "../../models/roles/roleEnums";
@@ -27,7 +26,7 @@ class ElectionMethodModal extends React.Component {
                     </div>
                     }
                     {this.props.method === methodEnum.m2 && <div>
-                        <b>Method 2</b> is what we use for most roles within the JCR! You can run for these roles on the spot, but it's recommended talking
+                        <b>Method 2</b> is what we use for most roles within the JCR! You can run for these roles on the spot, but {`it's`} recommended talking
                         to Democracy Committee and/or the previous officers before running! Also check the SOs for role to find out any specific requirements for running!
                         <br/>
                         All you need to prepare (with some exceptions!) is an up-to 3-minute hust to read in the JCR Meeting! People will then allowed to ask questions to you.
@@ -35,7 +34,7 @@ class ElectionMethodModal extends React.Component {
                     </div>
                     }
                     {this.props.method === methodEnum.m2a && <div>
-                        <b>Method 2a</b> is what we use for some of the reps within the JCR! You can run for these roles on the spot, but it's recommended talking
+                        <b>Method 2a</b> is what we use for some of the reps within the JCR! You can run for these roles on the spot, but {`it's`} recommended talking
                         to Democracy Committee and/or the previous officers before running!
                         <br/>
                         In order to run for a 2a role, you must identify as a member of the group you are representing. All you need to prepare is an up-to 3-minute hust to read in the JCR Meeting! People will then allowed to ask questions to you.

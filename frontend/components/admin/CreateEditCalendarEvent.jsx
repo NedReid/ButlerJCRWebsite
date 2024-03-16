@@ -56,7 +56,7 @@ class CreateEditCalendarEvent extends React.Component {
         this.state.event.groupSizes[event.target.value] = !this.state.event.groupSizes[event.target.value];
     }
 
-    addQuestion = (event) => {
+    addQuestion = () => {
         console.log("adding q")
         this.state.event.questions.push(new questionModel());
         let maxId = Math.max(...this.state.event.questions.map(r => r.id));
@@ -65,15 +65,14 @@ class CreateEditCalendarEvent extends React.Component {
         this.forceUpdate()
     }
 
-    removeQuestion = (id, event) => {
+    removeQuestion = (id) => {
         console.log("removing q")
         this.state.event.questions.splice(id, 1);
-        // this.setState({event: new eventModel(this.state.event)});
         this.forceUpdate()
 
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         if (this.props.event !== undefined) {
             await updateCalendarEvent(this.state.event);
         }
@@ -154,7 +153,7 @@ class CreateEditCalendarEvent extends React.Component {
                 <input className="rounded border-2 border-slate-500 w-full max-w-2xl" maxLength="128"
                        name="location" type="text" defaultValue={this.state.event.location} onChange={(event) => this.handleChange(event, "location")}/>
             </label>
-            <div className="text-sm italic mb-2">Write "TBC" or leave blank if unknown</div>
+            <div className="text-sm italic mb-2">Write {`"TBC"`} or leave blank if unknown</div>
 
             <label> Link to event:
                 <br/>

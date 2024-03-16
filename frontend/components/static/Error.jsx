@@ -1,5 +1,4 @@
 import React from 'react';
-import { getFolderAddresses } from "../../helpers/staticHelper";
 
 class Error extends React.Component {
     constructor(props) {

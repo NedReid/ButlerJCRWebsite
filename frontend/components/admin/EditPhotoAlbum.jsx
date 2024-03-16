@@ -18,7 +18,7 @@ class EditPhotoAlbum extends React.Component {
         console.log(this.state.photoAlbum)
     }
 
-    submitButton = async (event) => {
+    submitButton = async () => {
         console.log(this.state.photoAlbum)
         await updatePhotoAlbum(this.state.photoAlbum);
         console.log(this.props.closeTab);
@@ -27,7 +27,7 @@ class EditPhotoAlbum extends React.Component {
     }
 
 
-    deleteButton = async (event) => {
+    deleteButton = async () => {
         await deletePhotoAlbum(this.props.photoAlbum);
         console.log(this.props.closeTab);
         this.props.closeTab();
@@ -69,7 +69,7 @@ class EditPhotoAlbum extends React.Component {
 
         </div>
         <button className="bg-amber-400 rounded p-2 transition hover:bg-amber-600" onClick={this.submitButton}>Save photo album</button>
-        <label for="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete photo album</label>
+        <label htmlFor="my-modal" className="bg-amber-400 rounded px-2 py-3 hover:cursor-pointer transition hover:bg-amber-600 ml-4 modal-button">Delete photo album</label>
 
         </>
     }

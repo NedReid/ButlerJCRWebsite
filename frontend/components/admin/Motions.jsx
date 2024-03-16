@@ -1,7 +1,7 @@
 import React from 'react';
 import {getMotions, getMeetingHeaders} from '../../helpers/adminHelper';
 import CreateEditMotion from './CreateEditMotion';
-import {meetingToName, methodEnum, roleCategoryEnum, roleCategoryNames} from "../../models/roles/roleEnums";
+import {meetingToName} from "../../models/roles/roleEnums";
 
 class Motions extends React.Component {
     constructor(props) {
@@ -76,7 +76,7 @@ class Motions extends React.Component {
             <br/>
             {this.state.typeSelect !== "" && <select
                 defaultValue="" onChange={this.changeTargetMeeting} key={this.state.typeSelect} className="select select-bordered w-full max-w-xs">
-                <option value="">Select Meeting}</option>
+                <option value="">Select Meeting</option>
                 {this.state.meetings.filter((meeting) => {return meeting.date.getFullYear() === this.state.typeSelect}).map((meeting, index) => {
                     return (
                         <option value={meeting._id} key={this.typeSelect + "_" + index}>{meetingToName(meeting.m_type) + " " + meeting.date.getFullYear()}</option>

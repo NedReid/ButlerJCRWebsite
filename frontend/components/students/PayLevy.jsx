@@ -7,7 +7,7 @@ import Loading from "../global/Loading";
 import date from 'date-and-time';
 import {getMembershipStatus} from "../../helpers/studentHelper";
 
-class PayLevy extends React.Component {
+class PayLevyComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {membershipStatus: undefined}
@@ -22,7 +22,7 @@ class PayLevy extends React.Component {
         const stripe = await loadStripe("pk_test_51MldJRG0Zj3t7sfX8NTaDtew4jOW7OZVbyz9CA1jhDMqqeyp2JB0UXCaart3bKxW60UPERbxKcrZE7HQPl9rUcSA00zbSuEUQV")
         const session = await payLevy()
         console.log(session)
-        const result = await stripe.redirectToCheckout({sessionId: session.id})
+        await stripe.redirectToCheckout({sessionId: session.id})
     }
 
 
@@ -60,9 +60,12 @@ class PayLevy extends React.Component {
 
 }
 
-export default function(props) {
+
+const PayLevy = (props) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    return <PayLevy {...props} params={params} navigate={navigate} />;
+    return <PayLevyComponent {...props} params={params} navigate={navigate} />;
 }
+
+export default PayLevy

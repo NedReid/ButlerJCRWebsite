@@ -1,12 +1,8 @@
 import React from 'react';
 import {menuItems} from "./menuItems";
 import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
     Link
 } from "react-router-dom";
-import { Swap } from "react-daisyui";
 import { MdOutlineClear, MdOutlineMenu } from "react-icons/md"
 class Header extends React.Component {
     constructor(props) {
