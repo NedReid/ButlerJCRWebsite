@@ -1,22 +1,24 @@
 {
-  "scripts": {
-    "build": "cd frontend && npm install && npm run build && cd ../backend && npm install",
-    "watch": "nodemon --exec \"cd backend && npm run watch\" --ext .",
-    "lint": "eslint --ext .js,.jsx .",
-    "lint:fix": "eslint --fix --ext .js,.jsx ."
-  },
-  "dependencies": {
-    "nodemon": "^2.0.19"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "backend/database",
-      "backend/files"
-    ],
-    "delay": 2500
-  },
-  "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.0"
-  }
+    "scripts": {
+        "build": "cd frontend && npm install && npm run build && cd ../backend && npm install",
+        "watch": "nodemon --exec \"cd backend && npm run watch\" --ext .",
+        "lint": "eslint --ext .js,.jsx . && npx prettier --check .",
+        "lint:fix": "eslint --fix --ext .js,.jsx . && npx prettier --write ."
+    },
+    "dependencies": {
+        "nodemon": "^2.0.19"
+    },
+    "nodemonConfig": {
+        "ignore": [
+            "backend/database",
+            "backend/files"
+        ],
+        "delay": 2500
+    },
+    "devDependencies": {
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-react": "^7.34.0",
+        "prettier": "3.2.5"
+    }
 }
