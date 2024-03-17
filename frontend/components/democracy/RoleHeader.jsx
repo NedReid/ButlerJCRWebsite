@@ -16,8 +16,7 @@ class RoleHeader extends React.Component {
     checkImage = async (path) => {
         try {
             const res = await axios.get(path);
-            console.log(res.data.slice(0, 15));
-            if (res.data.slice(0, 15) !== "<!DOCTYPE html>") {
+            if (res.data.slice(0, 15).toLowerCase() !== "<!doctype html>") {
                 return true;
             } else {
                 return false;
