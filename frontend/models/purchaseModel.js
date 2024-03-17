@@ -6,14 +6,12 @@ export default class productModel {
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.product = init.product;
-            this.user = init.user
-            this.purchaseTime = init.purchaseTime
+            this.user = init.user;
+            this.purchaseTime = init.purchaseTime;
             this.purchaseRef = init.purchaseRef;
             this._id = init._id;
         }
-
     }
-
 }

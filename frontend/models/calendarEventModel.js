@@ -1,4 +1,4 @@
-import {calendarEventEnum} from "./calendarEventEnum";
+import { calendarEventEnum } from "./calendarEventEnum";
 
 export class calendarEventModel {
     title = "";
@@ -14,7 +14,7 @@ export class calendarEventModel {
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.title = init.title;
             this.category = init.category;
             this.startDate = new Date(init.startDate);
@@ -27,7 +27,5 @@ export class calendarEventModel {
             this.description = init.description;
             this._id = init._id;
         }
-
     }
-
 }

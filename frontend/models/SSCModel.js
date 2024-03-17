@@ -1,8 +1,8 @@
-import {SSCEnum} from "./SSCEnum";
+import { SSCEnum } from "./SSCEnum";
 
 export default class SSCModel {
     name = "";
-    editors = []
+    editors = [];
     desc = "";
     slug = "";
     type = SSCEnum.society;
@@ -11,7 +11,7 @@ export default class SSCModel {
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.name = init.name;
             this.editors = init.editors;
             this.desc = init.desc;
@@ -21,7 +21,5 @@ export default class SSCModel {
             this.visible = init.visible;
             this._id = init._id;
         }
-
     }
-
 }

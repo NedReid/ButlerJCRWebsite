@@ -8,7 +8,7 @@ export default class postModel {
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.title = init.title;
             this.editor = init.editor;
             this.category = init.category;
@@ -18,5 +18,4 @@ export default class postModel {
             this._id = init._id;
         }
     }
-
 }

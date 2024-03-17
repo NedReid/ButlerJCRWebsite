@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 
 let transporter = nodemailer.createTransport({
     pool: true,
@@ -20,10 +20,9 @@ export const sendVerificationMail = async (username, verificationToken) => {
                     <br>
                     <p>Many Thanks,</p>
                     <p>Butler JCR</p>`;
-    let addr = username + "@durham.ac.uk"
-    if (process.env.TEST_EMAIL !== undefined && process.env.TEST_EMAIL.length > 0)
-    {
-        addr = process.env.TEST_EMAIL
+    let addr = username + "@durham.ac.uk";
+    if (process.env.TEST_EMAIL !== undefined && process.env.TEST_EMAIL.length > 0) {
+        addr = process.env.TEST_EMAIL;
     }
     var message = {
         from: process.env.EMAILER_ADDRESS,
@@ -31,7 +30,7 @@ export const sendVerificationMail = async (username, verificationToken) => {
         // to: username + "@durham.ac.uk",
         subject: "❤💛 Verify your Butler JCR Account 💛❤",
         text: "You need to be able to view HTML to view this message.",
-        html: htmlContent
+        html: htmlContent,
     };
 
     await transporter.verify(function (error) {
@@ -42,7 +41,7 @@ export const sendVerificationMail = async (username, verificationToken) => {
         }
     });
     transporter.sendMail(message);
-}
+};
 
 export const sendPasswordResetEmail = async (username, resetToken) => {
     const htmlContent = `<h1>Josephine Butler College JCR</h1>
@@ -54,10 +53,9 @@ export const sendPasswordResetEmail = async (username, resetToken) => {
                     <br>
                     <p>Many Thanks,</p>
                     <p>Butler JCR</p>`;
-    let addr = username + "@durham.ac.uk"
-    if (process.env.TEST_EMAIL !== undefined && process.env.TEST_EMAIL.length > 0)
-    {
-        addr = process.env.TEST_EMAIL
+    let addr = username + "@durham.ac.uk";
+    if (process.env.TEST_EMAIL !== undefined && process.env.TEST_EMAIL.length > 0) {
+        addr = process.env.TEST_EMAIL;
     }
     var message = {
         from: process.env.EMAILER_ADDRESS,
@@ -65,7 +63,7 @@ export const sendPasswordResetEmail = async (username, resetToken) => {
         // to: username + "@durham.ac.uk",
         subject: "❤💛 Butler JCR: Password reset request 💛❤",
         text: "You need to be able to view HTML to view this message.",
-        html: htmlContent
+        html: htmlContent,
     };
 
     await transporter.verify(function (error) {
@@ -76,7 +74,7 @@ export const sendPasswordResetEmail = async (username, resetToken) => {
         }
     });
     transporter.sendMail(message);
-}
+};
 
 export const sendFeedback = async (feedback) => {
     const htmlContent = `<h1>Josephine Butler College JCR</h1>
@@ -85,13 +83,13 @@ export const sendFeedback = async (feedback) => {
                     <p><b>Email: ${feedback.email}</b></p>
                     <p><b>Type: ${feedback.type}</b></p>
                     ${feedback.details}`;
-    console.log(htmlContent)
+    console.log(htmlContent);
     var message = {
         from: process.env.EMAILER_ADDRESS,
         to: process.env.EMAILER_ADDRESS,
         subject: "WEBSITE FEEDBACK - " + feedback.type,
         text: "You need to be able to view HTML to view this message.",
-        html: htmlContent
+        html: htmlContent,
     };
 
     await transporter.verify(function (error) {
@@ -102,5 +100,4 @@ export const sendFeedback = async (feedback) => {
         }
     });
     transporter.sendMail(message);
-}
-
+};

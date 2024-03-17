@@ -1,10 +1,10 @@
-import '@bangle.dev/core/style.css';
-import '@bangle.dev/tooltip/style.css';
-import '@bangle.dev/react-menu/style.css';
-import React, { useState } from 'react';
-import { BangleEditor, useEditorState } from '@bangle.dev/react';
-import { PluginKey, Plugin } from '@bangle.dev/core';
-import { toHTMLString } from '@bangle.dev/utils';
+import "@bangle.dev/core/style.css";
+import "@bangle.dev/tooltip/style.css";
+import "@bangle.dev/react-menu/style.css";
+import React, { useState } from "react";
+import { BangleEditor, useEditorState } from "@bangle.dev/react";
+import { PluginKey, Plugin } from "@bangle.dev/core";
+import { toHTMLString } from "@bangle.dev/utils";
 
 import {
     bold,
@@ -17,7 +17,7 @@ import {
     blockquote,
     paragraph,
     image,
-} from '@bangle.dev/base-components';
+} from "@bangle.dev/base-components";
 import {
     floatingMenu,
     StaticMenu,
@@ -33,9 +33,9 @@ import {
     MenuGroup,
     UndoButton,
     RedoButton,
-} from '@bangle.dev/react-menu';
+} from "@bangle.dev/react-menu";
 
-const menuKey = new PluginKey('menuKey');
+const menuKey = new PluginKey("menuKey");
 
 export default function TextEditor(props) {
     function onEditorDocChange(state) {
@@ -91,11 +91,11 @@ export default function TextEditor(props) {
                 renderMenu={() => (
                     <Menu
                         style={{
-                            backgroundColor: 'transparent',
+                            backgroundColor: "transparent",
                             color:
-                                document.documentElement.getAttribute('data-theme') === 'dark'
-                                    ? 'white'
-                                    : 'black',
+                                document.documentElement.getAttribute("data-theme") === "dark"
+                                    ? "white"
+                                    : "black",
                         }}
                     >
                         <MenuGroup>
@@ -115,7 +115,6 @@ export default function TextEditor(props) {
                         <BulletListButton />
                         <OrderedListButton />
                         <TodoListButton />
-
                     </Menu>
                 )}
             />

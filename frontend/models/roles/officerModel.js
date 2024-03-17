@@ -1,4 +1,4 @@
-import {meetingEnum} from './roleEnums'
+import { meetingEnum } from "./roleEnums";
 
 export default class officerModel {
     username = "";
@@ -12,7 +12,7 @@ export default class officerModel {
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.username = init.username;
             this.name = init.name;
             this.role = init.role;
@@ -23,7 +23,5 @@ export default class officerModel {
             this.current = init.current;
             this._id = init._id;
         }
-
     }
-
 }

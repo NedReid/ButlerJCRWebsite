@@ -1,5 +1,5 @@
 export default class FAQModel {
-    category = ""
+    category = "";
     question = "";
     answer = "<p></p>";
 
@@ -8,7 +8,7 @@ export default class FAQModel {
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.category = init.category;
             this.question = init.question;
             this.answer = init.answer;
@@ -16,5 +16,4 @@ export default class FAQModel {
             this.order = init.order;
         }
     }
-
 }

@@ -1,5 +1,5 @@
 export default class adminPermModel {
-    username = ""
+    username = "";
     events = false;
     finance = false;
     SSCs = false;
@@ -11,7 +11,7 @@ export default class adminPermModel {
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.username = init.username;
             this.events = init.events;
             this.finance = init.finance;
@@ -23,8 +23,6 @@ export default class adminPermModel {
             this.photos = init.photos;
             this.freshers = init.freshers;
             this._id = init._id;
-
         }
     }
-
 }
