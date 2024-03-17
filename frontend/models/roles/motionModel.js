@@ -11,7 +11,7 @@ export default class motionModel {
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.name = init.name;
             this.notes = init.notes;
             this.believes = init.believes;
@@ -23,7 +23,5 @@ export default class motionModel {
             this.passed = init.passed;
             this._id = init._id;
         }
-
     }
-
 }

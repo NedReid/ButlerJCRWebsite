@@ -1,4 +1,3 @@
-
 export class editableModel {
     name = "";
     content = "<p></p>";
@@ -6,13 +5,11 @@ export class editableModel {
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.name = init.name;
             this.content = init.content;
             this.page = init.page;
             this._id = init._id;
         }
-
     }
-
 }

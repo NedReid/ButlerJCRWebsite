@@ -1,20 +1,17 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 export class AuthService {
     constructor() {
-    this.signature = process.env.SIGNATURE;
-    this.esignature = process.env.ESIGNATURE;
+        this.signature = process.env.SIGNATURE;
+        this.esignature = process.env.ESIGNATURE;
     }
 
-
-
     generateToken(user) {
-
-        const data =  {
+        const data = {
             _id: user._id,
             username: user.username,
         };
-        const expiration = '28d';
+        const expiration = "28d";
 
         return jwt.sign(data, this.signature, { expiresIn: expiration });
     }
@@ -23,10 +20,8 @@ export class AuthService {
         try {
             const check = jwt.verify(token, this.signature);
             return check;
-
-        }
-        catch {
-            console.log("FAILED JWT")
+        } catch {
+            console.log("FAILED JWT");
             return undefined;
         }
     }
@@ -35,33 +30,27 @@ export class AuthService {
         try {
             const check = jwt.verify(token, this.esignature);
             return check;
-
-        }
-        catch {
-            console.log("FAILED JWT")
+        } catch {
+            console.log("FAILED JWT");
             return undefined;
         }
     }
 
-
     vToken(user) {
-
-        const data =  {
+        const data = {
             username: user.username,
         };
-        const expiration = '200h';
+        const expiration = "200h";
 
         return jwt.sign(data, this.esignature, { expiresIn: expiration });
     }
 
     rToken(user) {
-
-        const data =  {
+        const data = {
             username: user.username,
         };
-        const expiration = '24h';
+        const expiration = "24h";
 
         return jwt.sign(data, this.esignature, { expiresIn: expiration });
     }
 }
-

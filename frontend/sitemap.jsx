@@ -4,18 +4,21 @@ import fs from "fs";
 import "dotenv/config";
 
 const buildSitemap = async () => {
-    const sitemapData = await GenerateSitemap((new App({})).MainRoutes(), {
+    const sitemapData = await GenerateSitemap(new App({}).MainRoutes(), {
         baseUrl: process.env.WEB_ADDRESS,
         hashrouting: false,
-        changeFrequency: "monthly"
+        changeFrequency: "monthly",
     });
 
     await sitemapData.toFile("./dist/sitemap.xml");
-    const robots =  "User-agent: *\n" +
-                    "Disallow:\n\n" +
-                    "Sitemap: " + process.env.WEB_ADDRESS + "/sitemap.xml"
+    const robots =
+        "User-agent: *\n" +
+        "Disallow:\n\n" +
+        "Sitemap: " +
+        process.env.WEB_ADDRESS +
+        "/sitemap.xml";
 
-    fs.writeFileSync('./dist/robots.txt', robots);
-}
+    fs.writeFileSync("./dist/robots.txt", robots);
+};
 
-await buildSitemap()
+await buildSitemap();

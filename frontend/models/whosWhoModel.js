@@ -1,6 +1,6 @@
 export default class whosWhoModel {
-    category = ""
-    subcategory = ""
+    category = "";
+    subcategory = "";
     name = "";
     role = "";
     pronouns = "";
@@ -11,7 +11,7 @@ export default class whosWhoModel {
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.category = init.category;
             this.subcategory = init.subcategory;
             this.name = init.name;
@@ -23,5 +23,4 @@ export default class whosWhoModel {
             this.order = init.order;
         }
     }
-
 }

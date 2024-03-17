@@ -6,7 +6,7 @@ export const calendarEventEnum = {
     campaignWeekEvent: 4,
     chillEvent: 5,
     formal: 6,
-}
+};
 
 export const getCalendarEventTypeName = (type) => {
     switch (type) {
@@ -15,17 +15,17 @@ export const getCalendarEventTypeName = (type) => {
         case calendarEventEnum.barEvent:
             return "Bar Event";
         case calendarEventEnum.campaignWeek:
-            return "Campaign Week"
+            return "Campaign Week";
         case calendarEventEnum.campaignWeekEvent:
-            return "Campaign Week Event"
+            return "Campaign Week Event";
         case calendarEventEnum.chillEvent:
-            return "Chill Event"
+            return "Chill Event";
         case calendarEventEnum.other:
-            return "Other"
+            return "Other";
         case calendarEventEnum.formal:
-            return "Formal"
+            return "Formal";
     }
-}
+};
 
 export const calendarEventTypeColor = (type) => {
     switch (type) {
@@ -34,17 +34,17 @@ export const calendarEventTypeColor = (type) => {
         case calendarEventEnum.barEvent:
             return "#258c33";
         case calendarEventEnum.campaignWeek:
-            return "#a14b03"
+            return "#a14b03";
         case calendarEventEnum.campaignWeekEvent:
-            return "#a40303"
+            return "#a40303";
         case calendarEventEnum.chillEvent:
-            return "#146b93"
+            return "#146b93";
         case calendarEventEnum.other:
-            return "#3a3a3a"
+            return "#3a3a3a";
         case calendarEventEnum.formal:
-            return "#9d18bb"
+            return "#9d18bb";
     }
-}
+};
 
 export const monthName = (month) => {
     switch (month) {
@@ -73,4 +73,4 @@ export const monthName = (month) => {
         case 11:
             return "December";
     }
-}
+};

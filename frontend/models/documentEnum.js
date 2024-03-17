@@ -1,4 +1,3 @@
-
 export const documentEnum = {
     other: 0,
     standingOrders: 1,
@@ -6,7 +5,7 @@ export const documentEnum = {
     execMinutes: 3,
     financeMinutes: 4,
     otherMinutes: 5,
-}
+};
 
 export const getDocumentTypeName = (type) => {
     switch (type) {
@@ -15,12 +14,12 @@ export const getDocumentTypeName = (type) => {
         case documentEnum.jcrMinutes:
             return "JCR Meeting Minutes";
         case documentEnum.execMinutes:
-            return "Exec Meeting Minutes"
+            return "Exec Meeting Minutes";
         case documentEnum.financeMinutes:
-            return "Finance Comm Minutes"
+            return "Finance Comm Minutes";
         case documentEnum.otherMinutes:
-            return "Other Minutes"
+            return "Other Minutes";
         case documentEnum.other:
-            return "Other Documents"
+            return "Other Documents";
     }
-}
+};

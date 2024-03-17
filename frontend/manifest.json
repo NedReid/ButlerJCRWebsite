@@ -1,121 +1,121 @@
 {
-  "short_name": "Butler JCR",
-  "name": "Butler JCR",
-  "icons": [
-    {
-      "src": "https://butlerjcr.com/media/global/JCRLogo.svg",
-      "type": "image/svg+xml",
-      "sizes": "512x512"
-    },
-    {
-      "src": "https://butlerjcr.com/media/global/JCRLogo_192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "https://butlerjcr.com/media/global/JCRLogo_512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "id": "https://butlerjcr.com/",
-  "start_url": "https://butlerjcr.com/",
-  "background_color": "#B91C1C",
-  "display": "standalone",
-  "scope": "https://butlerjcr.com/",
-  "shortcuts": [
-    {
-      "name": "Open Butler JCR Calendar",
-      "short_name": "Calendar",
-      "description": "Views the JCR planning calendar",
-      "url": "https://butlerjcr.com/calendar",
-      "icons": [
+    "short_name": "Butler JCR",
+    "name": "Butler JCR",
+    "icons": [
         {
-          "src": "https://butlerjcr.com/media/global/JCRLogo_192.png",
-          "type": "image/png",
-          "sizes": "192x192"
+            "src": "https://butlerjcr.com/media/global/JCRLogo.svg",
+            "type": "image/svg+xml",
+            "sizes": "512x512"
         },
         {
-          "src": "https://butlerjcr.com/media/global/JCRLogo_512.png",
-          "type": "image/png",
-          "sizes": "512x512"
-        }
-      ]
-    },
-    {
-      "name": "Open Butler JCR Photos",
-      "short_name": "Photos",
-      "description": "Opens photos for Butler JCR",
-      "url": "https://butlerjcr.com/photos",
-      "icons": [
-        {
-          "src": "https://butlerjcr.com/media/global/JCRLogo_192.png",
-          "type": "image/png",
-          "sizes": "192x192"
+            "src": "https://butlerjcr.com/media/global/JCRLogo_192.png",
+            "type": "image/png",
+            "sizes": "192x192"
         },
         {
-          "src": "https://butlerjcr.com/media/global/JCRLogo_512.png",
-          "type": "image/png",
-          "sizes": "512x512"
+            "src": "https://butlerjcr.com/media/global/JCRLogo_512.png",
+            "type": "image/png",
+            "sizes": "512x512"
         }
-      ]
-    },
-    {
-      "name": "Butler MCR",
-      "short_name": "Butler MCR",
-      "description": "Views the Butler MCR homepage",
-      "url": "https://butlerjcr.com/mcr",
-      "icons": [
+    ],
+    "id": "https://butlerjcr.com/",
+    "start_url": "https://butlerjcr.com/",
+    "background_color": "#B91C1C",
+    "display": "standalone",
+    "scope": "https://butlerjcr.com/",
+    "shortcuts": [
         {
-          "src": "https://butlerjcr.com/media/global/JCRLogo_192.png",
-          "type": "image/png",
-          "sizes": "192x192"
+            "name": "Open Butler JCR Calendar",
+            "short_name": "Calendar",
+            "description": "Views the JCR planning calendar",
+            "url": "https://butlerjcr.com/calendar",
+            "icons": [
+                {
+                    "src": "https://butlerjcr.com/media/global/JCRLogo_192.png",
+                    "type": "image/png",
+                    "sizes": "192x192"
+                },
+                {
+                    "src": "https://butlerjcr.com/media/global/JCRLogo_512.png",
+                    "type": "image/png",
+                    "sizes": "512x512"
+                }
+            ]
         },
         {
-          "src": "https://butlerjcr.com/media/global/JCRLogo_512.png",
-          "type": "image/png",
-          "sizes": "512x512"
+            "name": "Open Butler JCR Photos",
+            "short_name": "Photos",
+            "description": "Opens photos for Butler JCR",
+            "url": "https://butlerjcr.com/photos",
+            "icons": [
+                {
+                    "src": "https://butlerjcr.com/media/global/JCRLogo_192.png",
+                    "type": "image/png",
+                    "sizes": "192x192"
+                },
+                {
+                    "src": "https://butlerjcr.com/media/global/JCRLogo_512.png",
+                    "type": "image/png",
+                    "sizes": "512x512"
+                }
+            ]
+        },
+        {
+            "name": "Butler MCR",
+            "short_name": "Butler MCR",
+            "description": "Views the Butler MCR homepage",
+            "url": "https://butlerjcr.com/mcr",
+            "icons": [
+                {
+                    "src": "https://butlerjcr.com/media/global/JCRLogo_192.png",
+                    "type": "image/png",
+                    "sizes": "192x192"
+                },
+                {
+                    "src": "https://butlerjcr.com/media/global/JCRLogo_512.png",
+                    "type": "image/png",
+                    "sizes": "512x512"
+                }
+            ]
         }
-      ]
-    }
-  ],
-  "description": "Welcome to Butler JCR! Here you'll find everything you need to know about the JCR of Josephine Butler College, Durham University.",
-  "screenshots": [
-    {
-      "src": "https://butlerjcr.com/media/global/narrowscreenshot1.jpg",
-      "type": "image/jpg",
-      "sizes": "1080x1851",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "https://butlerjcr.com/media/global/narrowscreenshot2.jpg",
-      "type": "image/jpg",
-      "sizes": "1080x1851",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "https://butlerjcr.com/media/global/narrowscreenshot3.jpg",
-      "type": "image/jpg",
-      "sizes": "1080x1851",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "https://butlerjcr.com/media/global/widescreenshot1.jpg",
-      "type": "image/jpg",
-      "sizes": "1536x1320",
-      "form_factor": "wide"
-    },
-    {
-      "src": "https://butlerjcr.com/media/global/widescreenshot2.jpg",
-      "type": "image/jpg",
-      "sizes": "1536x1320",
-      "form_factor": "wide"
-    },
-    {
-      "src": "https://butlerjcr.com/media/global/widescreenshot3.jpg",
-      "type": "image/jpg",
-      "sizes": "1536x1320",
-      "form_factor": "wide"
-    }
-  ]
+    ],
+    "description": "Welcome to Butler JCR! Here you'll find everything you need to know about the JCR of Josephine Butler College, Durham University.",
+    "screenshots": [
+        {
+            "src": "https://butlerjcr.com/media/global/narrowscreenshot1.jpg",
+            "type": "image/jpg",
+            "sizes": "1080x1851",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "https://butlerjcr.com/media/global/narrowscreenshot2.jpg",
+            "type": "image/jpg",
+            "sizes": "1080x1851",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "https://butlerjcr.com/media/global/narrowscreenshot3.jpg",
+            "type": "image/jpg",
+            "sizes": "1080x1851",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "https://butlerjcr.com/media/global/widescreenshot1.jpg",
+            "type": "image/jpg",
+            "sizes": "1536x1320",
+            "form_factor": "wide"
+        },
+        {
+            "src": "https://butlerjcr.com/media/global/widescreenshot2.jpg",
+            "type": "image/jpg",
+            "sizes": "1536x1320",
+            "form_factor": "wide"
+        },
+        {
+            "src": "https://butlerjcr.com/media/global/widescreenshot3.jpg",
+            "type": "image/jpg",
+            "sizes": "1536x1320",
+            "form_factor": "wide"
+        }
+    ]
 }

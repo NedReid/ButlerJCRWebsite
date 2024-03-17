@@ -1,4 +1,4 @@
-import {methodEnum, meetingEnum, roleCategoryEnum} from './roleEnums'
+import { methodEnum, meetingEnum, roleCategoryEnum } from "./roleEnums";
 
 export default class roleModel {
     name = "";
@@ -16,7 +16,7 @@ export default class roleModel {
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.name = init.name;
             this.slug = init.slug;
             this.desc = init.desc;
@@ -27,11 +27,9 @@ export default class roleModel {
             this.e_method = init.e_method;
             this.e_reqs = init.e_reqs;
             this.page = init.page;
-            this.category = init.category
+            this.category = init.category;
             this.visible = init.visible;
             this._id = init._id;
         }
-
     }
-
 }

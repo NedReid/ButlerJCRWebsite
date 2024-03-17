@@ -1,4 +1,4 @@
-import {selectionModeEnum} from "./selectionModeEnum";
+import { selectionModeEnum } from "./selectionModeEnum";
 
 export default class eventModel {
     name = "";
@@ -6,14 +6,24 @@ export default class eventModel {
     ticketReleaseDeadline = new Date();
     noTickets = 0;
     selectionMode = selectionModeEnum.firstComeFirstServe;
-    groupSizes = {1:false,2:false,3:false,4:false,5:false,6:false,8:false,10:false,12:false};
+    groupSizes = {
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        5: false,
+        6: false,
+        8: false,
+        10: false,
+        12: false,
+    };
     desc = "<p></p>";
     visible = false;
     questions = [];
     _id = undefined;
 
     constructor(init = undefined) {
-        if(init !== undefined) {
+        if (init !== undefined) {
             this.name = init.name;
             this.ticketReleaseDate = init.ticketReleaseDate;
             this.ticketReleaseDeadline = init.ticketReleaseDeadline;
@@ -25,7 +35,5 @@ export default class eventModel {
             this.visible = init.visible;
             this._id = init._id;
         }
-
     }
-
 }
