@@ -20,6 +20,8 @@ import {
     hardBreak,
 } from "@bangle.dev/base-components";
 import { floatingMenu, FloatingMenu } from "@bangle.dev/react-menu";
+import { calculateType } from "./textEditor/calculateType";
+import { ImageEditorReactComponent, imageSpec } from "./textEditor/ImageEditorResizeMenu";
 
 const menuKey = new PluginKey("menuKey");
 
@@ -39,8 +41,8 @@ export default function TextEditor(props) {
             listItem.spec(),
             paragraph.spec(),
             heading.spec(),
-            image.spec(),
             hardBreak.spec(),
+            imageSpec(),
         ],
         plugins: () => [
             image.plugins(),
@@ -56,6 +58,7 @@ export default function TextEditor(props) {
             hardBreak.plugins(),
             floatingMenu.plugins({
                 key: menuKey,
+                calculateType: calculateType,
             }),
             new Plugin({
                 view: () => ({
@@ -74,43 +77,8 @@ export default function TextEditor(props) {
         <div className="prose w-full w-full max-w-none">
             <BangleEditor state={editorState} className="max-w-none w-full w-full">
                 <FloatingMenu menuKey={menuKey} />
+                <ImageEditorReactComponent menuKey={menuKey} />
             </BangleEditor>
         </div>
     );
 }
-
-// <FloatingMenu
-//     editor={editor}
-//     // We have a render prop to allow for updating
-//     // menu whenever editors state changes
-//     renderMenu={() => (
-//         <Menu
-//             style={{
-//                 backgroundColor: 'transparent',
-//                 color:
-//                     document.documentElement.getAttribute('data-theme') === 'dark'
-//                         ? 'white'
-//                         : 'black',
-//             }}
-//         >
-//             <MenuGroup>
-//                 <UndoButton />
-//                 <RedoButton />
-//             </MenuGroup>
-//             <MenuGroup>
-//                 <BoldButton />
-//                 <ItalicButton />
-//             </MenuGroup>
-//             <MenuGroup>
-//                 <ParagraphButton />
-//                 <BlockquoteButton />
-//                 <HeadingButton level={2} />
-//                 <HeadingButton level={3} />
-//             </MenuGroup>
-//             <BulletListButton />
-//             <OrderedListButton />
-//             <TodoListButton />
-//
-//         </Menu>
-//     )}
-// />

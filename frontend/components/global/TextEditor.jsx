@@ -34,6 +34,8 @@ import {
     UndoButton,
     RedoButton,
 } from "@bangle.dev/react-menu";
+import { ImageEditorReactComponent, imageSpec } from "./textEditor/ImageEditorResizeMenu";
+import { calculateType } from "./textEditor/calculateType";
 
 const menuKey = new PluginKey("menuKey");
 
@@ -53,7 +55,7 @@ export default function TextEditor(props) {
             listItem.spec(),
             paragraph.spec(),
             heading.spec(),
-            image.spec(),
+            imageSpec(),
         ],
         plugins: () => [
             image.plugins(),
@@ -68,6 +70,7 @@ export default function TextEditor(props) {
             heading.plugins(),
             floatingMenu.plugins({
                 key: menuKey,
+                calculateType: calculateType,
             }),
             new Plugin({
                 view: () => ({
@@ -118,7 +121,9 @@ export default function TextEditor(props) {
                     </Menu>
                 )}
             />
-            <BangleEditor state={editorState} onReady={setEditor} />
+            <BangleEditor state={editorState} onReady={setEditor}>
+                <ImageEditorReactComponent menuKey={menuKey} />
+            </BangleEditor>
         </div>
     );
 }
