@@ -66,7 +66,6 @@ class Photos extends React.Component {
             const filePromise = new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.onload = async () => {
-                    console.log(this.state.album[index].name);
                     const body = {
                         imageName: this.state.album[index].name,
                         imageData: reader.result,
@@ -90,16 +89,24 @@ class Photos extends React.Component {
 
     submitButton = async () => {
         await this.setState({ uploading: true });
-        console.log(this.state.selectedPhotoAlbum);
         if (this.state.selectedPhotoAlbum === "") {
             await createPhotoAlbum({ name: this.state.albumName, date: new Date() });
         }
-        for (let i = 0; i < this.state.album.length; i += NO_PARALLEL_UPLOADS) {
-            const numberToUpload = Math.min(NO_PARALLEL_UPLOADS, this.state.album.length - i);
-            const indexesToUpload = Array.from({ length: numberToUpload }, (_, index) => i + index);
-            await Promise.all(indexesToUpload.map((index) => this.uploadSingleImage(index)));
-            await this.setState({ progress: i + numberToUpload });
+        let currentPromises = [];
+        for (let i = 0; i < this.state.album.length; i++) {
+            if (currentPromises.length < NO_PARALLEL_UPLOADS) {
+                currentPromises.push(this.uploadSingleImage(i));
+            } else {
+                // Wait for one of the currently uploading images to complete
+                // then remove from currentPromises and start uploading a new image.
+                const [promiseToRemove] = await Promise.race(
+                    currentPromises.map((p) => p.then(() => [p])),
+                );
+                currentPromises.splice(currentPromises.indexOf(promiseToRemove), 1);
+                currentPromises.push(this.uploadSingleImage(i));
+            }
         }
+        await Promise.all(currentPromises);
         await this.setState({ progress: this.state.album.length });
     };
 
