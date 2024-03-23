@@ -2,6 +2,8 @@ import React from "react";
 import { uploadAlbumPhoto, getPhotoAlbums, createPhotoAlbum } from "../../helpers/adminHelper";
 import Loading from "../global/Loading";
 
+const NO_PARALLEL_UPLOADS = 5;
+
 class Photos extends React.Component {
     constructor(props) {
         super(props);
@@ -48,50 +50,57 @@ class Photos extends React.Component {
         });
     };
 
+    uploadSingleImage = async (index) => {
+        const image = this.state.album[index];
+        if (
+            image.type !== "image/jpeg" &&
+            image.type !== "image/png" &&
+            image.type !== "image/gif" &&
+            image.type !== "image/tiff" &&
+            image.type !== "image/webp"
+        ) {
+            await this.setState({
+                skipped: this.state.skipped + "Skipped " + image.name + "\n",
+            });
+        } else {
+            const filePromise = new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = async () => {
+                    console.log(this.state.album[index].name);
+                    const body = {
+                        imageName: this.state.album[index].name,
+                        imageData: reader.result,
+                        albumAddress: this.state.albumName,
+                    };
+                    const res = await uploadAlbumPhoto(body);
+                    if (res === false) {
+                        await this.setState({
+                            skipped: this.state.skipped + "Failed " + image.name + " upload\n",
+                        });
+                    }
+                    resolve();
+                };
+                reader.readAsDataURL(image);
+            });
+
+            await filePromise;
+        }
+        await this.setState({ progress: this.state.progress + 1 });
+    };
+
     submitButton = async () => {
         await this.setState({ uploading: true });
         console.log(this.state.selectedPhotoAlbum);
         if (this.state.selectedPhotoAlbum === "") {
             await createPhotoAlbum({ name: this.state.albumName, date: new Date() });
         }
-        for (let i = 0; i < this.state.album.length; i++) {
-            await this.setState({ progress: i });
-            const image = this.state.album[i];
-            if (
-                image.type !== "image/jpeg" &&
-                image.type !== "image/png" &&
-                image.type !== "image/gif" &&
-                image.type !== "image/tiff" &&
-                image.type !== "image/webp"
-            ) {
-                await this.setState({
-                    skipped: this.state.skipped + "Skipped " + image.name + "\n",
-                });
-            } else {
-                const filePromise = new Promise((resolve) => {
-                    const reader = new FileReader();
-                    reader.onload = async () => {
-                        console.log(this.state.album[i].name);
-                        const body = {
-                            imageName: this.state.album[i].name,
-                            imageData: reader.result,
-                            albumAddress: this.state.albumName,
-                        };
-                        const res = await uploadAlbumPhoto(body);
-                        if (res === false) {
-                            await this.setState({
-                                skipped: this.state.skipped + "Failed " + image.name + " upload\n",
-                            });
-                        }
-                        resolve();
-                    };
-                    reader.readAsDataURL(image);
-                });
-
-                await filePromise;
-            }
-            await this.setState({ progress: this.state.album.length });
+        for (let i = 0; i < this.state.album.length; i += NO_PARALLEL_UPLOADS) {
+            const numberToUpload = Math.min(NO_PARALLEL_UPLOADS, this.state.album.length - i);
+            const indexesToUpload = Array.from({ length: numberToUpload }, (_, index) => i + index);
+            await Promise.all(indexesToUpload.map((index) => this.uploadSingleImage(index)));
+            await this.setState({ progress: i + numberToUpload });
         }
+        await this.setState({ progress: this.state.album.length });
     };
 
     render() {
