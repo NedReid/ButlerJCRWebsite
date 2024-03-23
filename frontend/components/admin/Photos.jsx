@@ -2,6 +2,8 @@ import React from "react";
 import { uploadAlbumPhoto, getPhotoAlbums, createPhotoAlbum } from "../../helpers/adminHelper";
 import Loading from "../global/Loading";
 
+const NO_PARALLEL_UPLOADS = 5;
+
 class Photos extends React.Component {
     constructor(props) {
         super(props);
@@ -48,50 +50,62 @@ class Photos extends React.Component {
         });
     };
 
+    uploadSingleImage = async (index) => {
+        const image = this.state.album[index];
+        if (
+            image.type !== "image/jpeg" &&
+            image.type !== "image/png" &&
+            image.type !== "image/gif" &&
+            image.type !== "image/tiff" &&
+            image.type !== "image/webp"
+        ) {
+            await this.setState({
+                skipped: this.state.skipped + "Skipped " + image.name + "\n",
+            });
+        } else {
+            const filePromise = new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = async () => {
+                    const body = {
+                        imageName: this.state.album[index].name,
+                        imageData: reader.result,
+                        albumAddress: this.state.albumName,
+                    };
+                    const res = await uploadAlbumPhoto(body);
+                    if (res === false) {
+                        await this.setState({
+                            skipped: this.state.skipped + "Failed " + image.name + " upload\n",
+                        });
+                    }
+                    resolve();
+                };
+                reader.readAsDataURL(image);
+            });
+
+            await filePromise;
+        }
+        await this.setState({ progress: this.state.progress + 1 });
+    };
+
     submitButton = async () => {
         await this.setState({ uploading: true });
-        console.log(this.state.selectedPhotoAlbum);
         if (this.state.selectedPhotoAlbum === "") {
             await createPhotoAlbum({ name: this.state.albumName, date: new Date() });
         }
+        let currentPromises = [];
         for (let i = 0; i < this.state.album.length; i++) {
-            await this.setState({ progress: i });
-            const image = this.state.album[i];
-            if (
-                image.type !== "image/jpeg" &&
-                image.type !== "image/png" &&
-                image.type !== "image/gif" &&
-                image.type !== "image/tiff" &&
-                image.type !== "image/webp"
-            ) {
-                await this.setState({
-                    skipped: this.state.skipped + "Skipped " + image.name + "\n",
-                });
+            if (currentPromises.length < NO_PARALLEL_UPLOADS) {
+                currentPromises.push(this.uploadSingleImage(i));
             } else {
-                const filePromise = new Promise((resolve) => {
-                    const reader = new FileReader();
-                    reader.onload = async () => {
-                        console.log(this.state.album[i].name);
-                        const body = {
-                            imageName: this.state.album[i].name,
-                            imageData: reader.result,
-                            albumAddress: this.state.albumName,
-                        };
-                        const res = await uploadAlbumPhoto(body);
-                        if (res === false) {
-                            await this.setState({
-                                skipped: this.state.skipped + "Failed " + image.name + " upload\n",
-                            });
-                        }
-                        resolve();
-                    };
-                    reader.readAsDataURL(image);
-                });
-
-                await filePromise;
+                const [promiseToRemove] = await Promise.race(
+                    currentPromises.map((p) => p.then(() => [p])),
+                );
+                currentPromises.splice(currentPromises.indexOf(promiseToRemove), 1);
+                currentPromises.push(this.uploadSingleImage(i));
             }
-            await this.setState({ progress: this.state.album.length });
         }
+        await Promise.all(currentPromises);
+        await this.setState({ progress: this.state.album.length });
     };
 
     render() {
