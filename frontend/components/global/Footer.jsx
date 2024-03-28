@@ -12,7 +12,7 @@ class Footer extends React.Component {
                 <div className="w-full h-4 align bg-red-800" />
                 <div className="flex text-white z-16 p-4 bg-red-700">
                     <div className="pr-2 grow">
-                        © Josephine Butler JCR, 2023
+                        © Josephine Butler JCR, {new Date().getFullYear()}
                         <br />
                         <div className="mt-2">
                             <a
