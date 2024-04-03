@@ -1,6 +1,7 @@
 import React from "react";
 import { updatePhotoAlbum, deletePhotoAlbum } from "../../helpers/adminHelper";
-import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";
+import DateTimePicker from "react-datetime-picker";
+// import "react-datetime-picker/dist/DateTimePicker.css";
 
 class EditPhotoAlbum extends React.Component {
     constructor(props) {
