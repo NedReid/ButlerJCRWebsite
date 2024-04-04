@@ -6,7 +6,7 @@
         "lint:fix": "eslint --fix --ext .js,.jsx . && npx prettier --write ."
     },
     "dependencies": {
-        "nodemon": "^2.0.19"
+        "nodemon": "2.0.19"
     },
     "nodemonConfig": {
         "ignore": [
