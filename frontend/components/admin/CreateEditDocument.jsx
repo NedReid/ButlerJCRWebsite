@@ -2,7 +2,8 @@ import React from "react";
 import { updateDocument, createDocument, deleteDocument } from "../../helpers/adminHelper";
 import { documentModel } from "../../models/documentModel";
 import { getDocumentTypeName, documentEnum } from "../../models/documentEnum";
-import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";
+import DateTimePicker from "react-datetime-picker";
+import "react-datetime-picker/dist/DateTimePicker.css";
 
 class CreateEditDocument extends React.Component {
     constructor(props) {

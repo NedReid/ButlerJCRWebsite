@@ -1,6 +1,6 @@
 import React from "react";
 import { createCalendarEvent, updateCalendarEvent } from "../../helpers/adminHelper";
-import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";
+import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import TextEditor from "../global/TextEditor";
 import questionModel from "../../models/questionModel";
