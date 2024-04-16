@@ -44,9 +44,7 @@ function SubmitSizeButton({ imageWidth, view, isActive, onUpdate }) {
             hint={"Set image width to " + clampedWidth + "px"}
             onMouseDown={(e) => {
                 e.preventDefault();
-                updateImageNodeAttribute((existingAttrs = {}) => ({
-                    alt: updateImageClassWidth(existingAttrs.class, clampedWidth),
-                }))(view.state, view.dispatch, view);
+                updateImageNodeWidth(view.state, view.dispatch, clampedWidth);
                 onUpdate();
             }}
             isActive={isActive}
@@ -67,30 +65,30 @@ function SubmitSizeButton({ imageWidth, view, isActive, onUpdate }) {
     );
 }
 
-const updateImageNodeAttribute =
-    (attr = {}) =>
-    (state, dispatch) => {
-        if (!(state.selection instanceof NodeSelection) || !state.selection.node) {
-            return false;
-        }
-        const { node } = state.selection;
+const updateImageNodeWidth = (state, dispatch, newWidth) => {
+    if (!(state.selection instanceof NodeSelection) || !state.selection.node) {
+        return false;
+    }
+    const { node } = state.selection;
 
-        if (node.type !== state.schema.nodes.image) {
-            return false;
-        }
+    if (node.type !== state.schema.nodes.image) {
+        return false;
+    }
 
-        if (dispatch) {
-            const newAttrs = typeof attr === "function" ? attr(node.attrs) : attr;
-            dispatch(
-                state.tr.setNodeMarkup(state.selection.$from.pos, undefined, {
-                    ...node.attrs,
-                    ...newAttrs,
-                }),
-            );
-        }
+    if (dispatch) {
+        const newAttrs = {
+            alt: updateImageClassWidth(node.attrs.class, newWidth),
+        };
+        dispatch(
+            state.tr.setNodeMarkup(state.selection.$from.pos, undefined, {
+                ...node.attrs,
+                ...newAttrs,
+            }),
+        );
+    }
 
-        return true;
-    };
+    return true;
+};
 
 function getSelectedImageNodeWidth(state) {
     if (!(state.selection instanceof NodeSelection) || !state.selection.node) {
