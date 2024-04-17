@@ -41,7 +41,10 @@ export const menuItems = [
         title: "Facilities",
         page: "facilities",
         access: "all",
-        items: [{ title: "JB's", page: "/jbs", access: "all", items: [] }],
+        items: [
+            { title: "JB's", page: "/jbs", access: "all", items: [] },
+            { title: "Gym", page: "/gym", access: "all", items: [] },
+        ],
     },
     {
         title: "#GetInvolved",
