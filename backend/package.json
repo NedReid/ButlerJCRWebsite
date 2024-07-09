@@ -30,6 +30,6 @@
     },
     "type": "module",
     "devDependencies": {
-        "pdf-to-png-converter": "^2.7.1"
+        "pdf-to-png-converter": "^3.2.0"
     }
 }
