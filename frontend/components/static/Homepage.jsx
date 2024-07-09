@@ -77,30 +77,24 @@ class Homepage extends React.Component {
                             src="/media/home/president.webp"
                         />
                         <div className="w-full text-center mt-1 font-semibold text-grey-800">
-                            Daniel Stuart
+                            Hazel Cheung
                         </div>
                         <div className="w-full text-center text-grey-800 italic">JCR President</div>
                     </div>
                     <div className="text-sm text-grey-900 w-full sm:w-2/3">
-                        Hello everyone! <br />
+                        {`Hi everyone! I’m Hazel, your JCR pres. for 2024-2025! I recently graduated from studying BA Education Studies with Psychology here at Durham.`}
                         <br />
-                        {`I'm`} Daniel Stuart and I’m delighted to be the current JCR President of
-                        Josephine Butler College. <br />
                         <br />
-                        Named after Josephine Butler, an incredible social reformer and advocate for
-                        women’s rights, we are a thriving and bustling community with a strong
-                        college spirit and our students at the heart of everything that we do. We’re
-                        incredibly proud to have such a diverse and welcoming group of students,
-                        staff, and alumni who are all integral in making Butler such a great college
-                        and JCR. <br />
+                        {`As JCR president, my role is to oversee the common room for all undergraduates, alongside the Finance and Community Support Officer (FACSO) Ben! My aim for the year is to ensure that all students, whether new or returning, benefit as much as possible from the range of student experiences available at college.`}
                         <br />
-                        We aim to offer a range of high-quality extra-curricular activities
-                        including sports, societies, committees, and events such as Winter and
-                        Summer Ball, Josephine Butler Charity Showcase, and Butler Day. We’re also
-                        immensely proud of our students’ continued academic achievements and
-                        contributions to the wider university. <br />
                         <br />
-                        If you have any questions, please don’t hesitate to contact us!
+                        {`We have a range of events, activities, and support systems in place to help you feel integrated and make your college experience memorable. Whether you’re interested in sports, arts, community service, or just making new friends, there is something for everyone.`}
+                        <br />
+                        <br />
+                        {`We promote inclusivity and diversity through cultural events and welfare campaigns to create a welcoming environment. Our activities celebrate various traditions, languages, and histories, fostering mutual respect and understanding in our community for a more inclusive society.`}
+                        <br />
+                        <br />
+                        {`Finally, remember that the JCR is here for you. If you have any ideas, concerns, or just need a chat, don’t hesitate to reach out. We’re excited for the year ahead and look forward to making it an unforgettable experience for all Butler students`}
                     </div>
                 </div>
 
@@ -108,19 +102,21 @@ class Homepage extends React.Component {
 
                 <div className="mt-8 sm:flex p-1">
                     <div className="text-sm text-grey-900 w-full sm:w-2/3">
-                        Hi everyone, <br />
+                        {`Hello! I’m Ben and I am your FACSO for this academic year! I recently graduated from Geography.`}
                         <br />
-                        My name is Arman Huq and I am your Financial and Community Support Officer
-                        (FACSO) for this year. I am one of the two JCR sabbatical officers and I’ll
-                        be working alongside Daniel, the JCR president to deliver an exceptional
-                        experience to all our students and JCR members. <br />
                         <br />
-                        If you have any questions feel free to ask, or just pop by our office!
+                        {`FACSO stands for Finance and Community Support Officer which is exactly what my job is. I handle the financial side of the common room as well as providing support to the many clubs, societies and sports we have, to ensure their individual smooth operation!`}
+                        <br />
+                        <br />
+                        {`My role involves budget management, ensuring that all expenditures are accounted for and that our financial resources are optimally allocated. I also liaise with various club leaders to understand their needs and provide them with the necessary tools and guidance to thrive. Whether it's helping to organise events, securing funding, or offering advice, my goal is to encourage a vibrant and inclusive community where everyone feels supported.`}
+                        <br />
+                        <br />
+                        {`Feel free to reach out to me via email if you have any questions or need assistance with anything related to finance or community support. I'm here to help!`}
                     </div>
                     <div className="w-1/2 sm:w-1/3 translate-x-1/2 sm:translate-x-0 sm:ml-4 mb-2">
                         <img alt="Photo of JCR FACSO" className="" src="/media/home/facso.webp" />
                         <div className="w-full text-center mt-1 font-semibold text-grey-800">
-                            Arman Huq
+                            Ben Prior
                         </div>
                         <div className="w-full text-center text-grey-800 italic">JCR FACSO</div>
                     </div>
