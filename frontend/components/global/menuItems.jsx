@@ -38,12 +38,14 @@ export const menuItems = [
         ],
     },
     {
-        title: "Facilities",
+        title: "\u00A0Facilities\u00A0",
         page: "facilities",
         access: "all",
         items: [
             { title: "JB's", page: "/jbs", access: "all", items: [] },
             { title: "Gym", page: "/gym", access: "all", items: [] },
+            { title: "Bookable<br/>Spaces", page: "/bookable-spaces", access: "all", items: [] },
+            { title: "Study<br/>Spaces", page: "/study-spaces", access: "all", items: [] },
         ],
     },
     {
