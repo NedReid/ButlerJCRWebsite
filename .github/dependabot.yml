@@ -17,9 +17,6 @@ updates:
           fullcalendar:
               patterns:
                   - "@fullcalendar*"
-      ignore:
-          # vite-node 0.34 causes bangle.dev to fail to build due to an ESM error
-          - dependency-name: "vite-node"
     - package-ecosystem: "npm"
       directory: "/backend/"
       schedule:
