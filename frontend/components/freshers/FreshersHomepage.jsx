@@ -1,15 +1,11 @@
 import React from "react";
 import { Carousel } from "react-daisyui";
-import {
-    getFolderAddresses,
-    getPageEditables,
-    updatePageEditables,
-} from "../../helpers/staticHelper";
+import { getFolderAddresses } from "../../helpers/staticHelper";
 import Editable from "../global/Editable";
-import { AiFillEdit, AiFillSave } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import EditablePage from "../global/EditablePage";
 
-class FreshersHomepage extends React.Component {
+class FreshersHomepage extends EditablePage {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,33 +21,11 @@ class FreshersHomepage extends React.Component {
         await this.setState({
             carouselPaths: await getFolderAddresses("/media/freshers/carousel/"),
         });
-        console.log(this.state.carouselPaths);
-        let res = await getPageEditables(this.state.page);
-        console.log("ARHG");
-        console.log(res);
-        await this.setState({ editables: res.editables, editor: res.editor });
+        super.componentDidMount();
     }
-
-    updateEditable = (editable) => {
-        let initEd = this.state.editables.findIndex((ed) => ed.name === editable.name);
-
-        if (initEd >= 0) {
-            this.state.editables[initEd] = editable;
-        } else {
-            this.state.editables.push(editable);
-        }
-    };
-
-    onChange = async () => {
-        if (this.state.editing) {
-            await updatePageEditables(this.state.page, this.state.editables);
-        }
-        this.setState({ editing: !this.state.editing });
-    };
 
     render() {
         <div className=" z-10 drop-shadow-2xl absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"></div>;
-        console.log("beans", this.state);
         const buttonStyle = (value) => {
             console.log(value);
             if (value === "❮") {
@@ -69,7 +43,7 @@ class FreshersHomepage extends React.Component {
             }
         };
 
-        return (
+        return this.renderOnLoad(
             <div>
                 {this.state.carouselPaths.length >= 2 && (
                     <div className="w-full h-52 relative flex justify-center">
@@ -94,64 +68,45 @@ class FreshersHomepage extends React.Component {
                     </div>
                 )}
 
-                {this.state.editables !== "waiting" && (
-                    <div className="relative">
-                        {this.state.editor && (
-                            <button
-                                className={
-                                    "z-30 btn btn-circle absolute top-0 right-0 m-2 swap swap-rotate " +
-                                    (this.state.editing ? "swap-active" : "")
-                                }
-                                onClick={this.onChange}
-                            >
-                                <AiFillSave className="swap-on text-white text-3xl"></AiFillSave>
-                                <AiFillEdit className="swap-off text-white text-3xl"></AiFillEdit>
-                            </button>
-                        )}
-                        <div className="grid grid-cols-1 md:grid-cols-3 mt-4">
-                            <div className="col-span-2 py-2 md:py-0 md:pr-2">
-                                <Editable
-                                    updateEditable={this.updateEditable}
-                                    className="h-8"
-                                    page={this.state.page}
-                                    editables={this.state.editables}
-                                    name="desc"
-                                    editing={this.state.editing}
-                                />
-                            </div>
-                            <div className="flex flex-col justify-center items-center">
-                                <div className="italic text-grey-800 mt-4">
-                                    Any questions about freshers?!? Go to our FAQ!
-                                </div>
-                                <Link
-                                    to="/freshers/faq"
-                                    className="hover:brightness-75 transition-all"
-                                >
-                                    <img
-                                        className="rounded-lg border-2 border-red-900 max-w-[250px] m-4"
-                                        src="/media/freshers/faq.jpg"
-                                    />
-                                </Link>
-
-                                <div className="italic text-grey-800 mt-4">
-                                    Wondering what freshers week entails? Check our our schedule!
-                                </div>
-                                <Link
-                                    to="/freshers/schedule"
-                                    className="hover:brightness-75 transition-all"
-                                >
-                                    <img
-                                        className="rounded-lg border-2 border-red-900 max-w-[250px] m-4"
-                                        src="/media/freshers/schedule.jpg"
-                                    />
-                                </Link>
-
-                                <div className="grow"></div>
-                            </div>
-                        </div>
+                <div className="p-4 grid grid-cols-1 md:grid-cols-3 mt-4">
+                    <div className="col-span-2 py-2 md:py-0 md:pr-2">
+                        <Editable
+                            updateEditable={this.updateEditable}
+                            className="h-8"
+                            page={this.state.page}
+                            editables={this.state.editables}
+                            name="desc"
+                            editing={this.state.editing}
+                        />
                     </div>
-                )}
-            </div>
+                    <div className="flex flex-col justify-center items-center">
+                        <div className="italic text-grey-800 mt-4">
+                            Any questions about freshers?!? Go to our FAQ!
+                        </div>
+                        <Link to="/freshers/faq" className="hover:brightness-75 transition-all">
+                            <img
+                                className="rounded-lg border-2 border-red-900 max-w-[250px] m-4"
+                                src="/media/freshers/faq.jpg"
+                            />
+                        </Link>
+
+                        <div className="italic text-grey-800 mt-4">
+                            Wondering what freshers week entails? Check our our schedule!
+                        </div>
+                        <Link
+                            to="/freshers/schedule"
+                            className="hover:brightness-75 transition-all"
+                        >
+                            <img
+                                className="rounded-lg border-2 border-red-900 max-w-[250px] m-4"
+                                src="/media/freshers/schedule.jpg"
+                            />
+                        </Link>
+
+                        <div className="grow"></div>
+                    </div>
+                </div>
+            </div>,
         );
     }
 }
