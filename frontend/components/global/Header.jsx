@@ -69,10 +69,11 @@ class Header extends React.Component {
                                                                 this.props.freshers === true)) && (
                                                             <Link
                                                                 to={subMenu.page}
-                                                                className="w-full text-center  px-3 py-1 hover:animate-pingOnce bg-red-900 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300"
-                                                            >
-                                                                {subMenu.title}{" "}
-                                                            </Link>
+                                                                className="w-full px-3 py-1 hover:animate-pingOnce bg-red-900 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: subMenu.title,
+                                                                }}
+                                                            ></Link>
                                                         )}
                                                     </li>
                                                 );

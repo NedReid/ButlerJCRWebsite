@@ -45,6 +45,8 @@ import VerifyLogin from "./components/global/VerifyLogin";
 import FAQ from "./components/democracy/FAQ";
 import Documents from "./components/democracy/Documents";
 import Gym from "./components/static/Gym";
+import BookableSpaces from "./components/static/BookableSpaces";
+import StudySpaces from "./components/static/StudySpaces";
 const Calendar = React.lazy(() => import("./components/static/Calendar"));
 
 class App extends React.Component {
@@ -105,6 +107,8 @@ class App extends React.Component {
             <Route path="/whos-who" element={<WhosWho admin={this.state.admin} />} />
             <Route path="/jbs" element={<JBs />} />
             <Route path="/gym" element={<Gym />} />
+            <Route path="/bookable-spaces" element={<BookableSpaces />} />
+            <Route path="/study-spaces" element={<StudySpaces />} />
             <Route path="/contact" element={<Contact />} />
             <Route
                 path="/photos"
