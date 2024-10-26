@@ -181,7 +181,10 @@ class Header extends React.Component {
                                                                     className="w-full text-center  px-3 py-1 hover:animate-pingOnce bg-orange-800 text-white transition ease-out hover:z-50 hover:bg-orange-400 duration-300"
                                                                 >
                                                                     <p className="text-center w-full">
-                                                                        {subMenu.title}
+                                                                        {subMenu.title.replace(
+                                                                            "<br/>",
+                                                                            " ",
+                                                                        )}
                                                                     </p>
                                                                 </Link>
                                                             )}
