@@ -1,0 +1,27 @@
+version: 2
+updates:
+    - package-ecosystem: "npm"
+      directory: "/"
+      schedule:
+          interval: "daily"
+          time: "19:00"
+    - package-ecosystem: "npm"
+      directory: "/frontend/"
+      schedule:
+          interval: "daily"
+          time: "19:00"
+      groups:
+          bangle-dev:
+              patterns:
+                  - "@bangle.dev*"
+          fullcalendar:
+              patterns:
+                  - "@fullcalendar*"
+      ignore:
+          # vite-node 0.34 causes bangle.dev to fail to build due to an ESM error
+          - dependency-name: "vite-node"
+    - package-ecosystem: "npm"
+      directory: "/backend/"
+      schedule:
+          interval: "daily"
+          time: "19:00"

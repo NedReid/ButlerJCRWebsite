@@ -3,8 +3,8 @@ import { createMeeting, updateMeeting, deleteMeeting } from "../../helpers/admin
 import meetingModel from "../../models/roles/meetingModel";
 import { meetingToName, meetingEnum } from "../../models/roles/roleEnums";
 import TextEditor from "../global/TextEditor";
-import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";
-import "react-datetime-picker/dist/DateTimePicker.css";
+import DateTimePicker from "react-datetime-picker";
+// import "react-datetime-picker/dist/DateTimePicker.css";
 
 class CreateEditMeeting extends React.Component {
     constructor(props) {
